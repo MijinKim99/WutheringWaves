@@ -77,7 +77,7 @@ DerivedDataCache/*
 # Custom by KMJ
 # Contents/Assets 폴더 무시
 # JMS: 뒤에 * 추가
-Contents/Assets/*
+Content/Assets/*
 
 # Custom by JMS
 # Rider 파일 제외
