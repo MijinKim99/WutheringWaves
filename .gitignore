@@ -77,3 +77,8 @@ DerivedDataCache/*
 # Custom by KMJ
 # Contents/Assets 폴더 무시
 Contents/Assets/
+
+# Custom by JMS
+# Rider 파일 무시
+.idea/
+Plugins/Developer/RiderLink
