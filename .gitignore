@@ -76,10 +76,10 @@ DerivedDataCache/*
 
 # Custom by KMJ
 # Contents/Assets 폴더 무시
-Contents/Assets/
+# JMS: 뒤에 * 추가
+Contents/Assets/*
 
 # Custom by JMS
+# Rider 파일 제외
 .idea/
 Plugins/Developer/RiderLink/*
-# 에셋이 ignore처리되자 않아서 *추가해봄
-Contents/Assets/*
