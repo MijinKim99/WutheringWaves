@@ -79,6 +79,7 @@ DerivedDataCache/*
 Contents/Assets/
 
 # Custom by JMS
-# Rider 파일 무시
 .idea/
-Plugins/Developer/RiderLink
+Plugins/Developer/RiderLink/*
+# 에셋이 ignore처리되자 않아서 *추가해봄
+Contents/Assets/*
