@@ -11,7 +11,6 @@
 #include "Components/WWEnhancedInputComponent.h"
 #include "DataAssets/DataAsset_InputConfig.h"
 
-
 void AWWPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
