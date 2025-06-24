@@ -39,7 +39,7 @@ void UWWEnhancedInputComponent::BindAbilityInputAction(const UDataAsset_InputCon
 {
 	checkf(InInputConfig, TEXT("Input Config data asset is null, can not proceed with binding"));
 
-	for ( const FBaseInputActionConfig& AbilityInputActionConfig : InInputConfig->AbilityInputActions)
+	for ( const FWWInputActionConfig& AbilityInputActionConfig : InInputConfig->AbilityInputActions)
 	{
 		if (!AbilityInputActionConfig.IsValid()) continue;
 
