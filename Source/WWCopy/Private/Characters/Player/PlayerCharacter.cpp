@@ -12,6 +12,11 @@
 
 APlayerCharacter::APlayerCharacter()
 {
+	//회전 사용 비활성화
+	bUseControllerRotationPitch = false;
+	bUseControllerRotationRoll = false;
+	bUseControllerRotationYaw = false;
+	
 	//스프링암 초기세팅
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	CameraBoom->SetupAttachment(GetRootComponent());

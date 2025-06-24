@@ -31,6 +31,6 @@ public:
 	static bool NativeActorHasTag(AActor* Actor, FGameplayTag Tag);
 	
 	UFUNCTION(BlueprintCallable, Category="FunctionLibrary", meta=(DisplayName="Does Actor Has Tag", ExpandEnumAsExecs = "OutType"))
-	static void BP_HasTag(AActor* Actor, FGameplayTag Tag, EBaseConfirmType& OutType);
+	static void BP_HasTag(AActor* Actor, FGameplayTag Tag, EWWConfirmType& OutType);
 	
 };

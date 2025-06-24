@@ -9,11 +9,6 @@
 AScarCharacter::AScarCharacter()
 {
 	PrimaryActorTick.bCanEverTick = true;
-	static ConstructorHelpers::FObjectFinder<USkeletalMesh> MeshAsset(TEXT("/Game/Assets/Scar/Scar1Phase.Scar1Phase"));
-	if (MeshAsset.Succeeded())
-	{
-		GetMesh()->SetSkeletalMesh(MeshAsset.Object);
-	}
 }
 
 void AScarCharacter::BeginPlay()

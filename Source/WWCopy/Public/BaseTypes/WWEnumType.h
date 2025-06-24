@@ -6,21 +6,21 @@
  * 
  */
 UENUM()
-enum class EBaseConfirmType : uint8
+enum class EWWConfirmType : uint8
 {
 	Yes,
 	No,
 };
 
 UENUM()
-enum class EBaseValidType : uint8
+enum class EWWValidType : uint8
 {
 	Valid,
 	InValid
 };
 
 UENUM()
-enum class EBaseSuccessType : uint8
+enum class EWWSuccessType : uint8
 {
 	Success,
 	Failed,

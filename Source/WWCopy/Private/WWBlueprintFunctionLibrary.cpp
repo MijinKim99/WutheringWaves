@@ -35,7 +35,7 @@ bool UWWBlueprintFunctionLibrary::NativeActorHasTag(AActor* Actor, FGameplayTag 
 	return NativeGetAbilitySystemComponentFromActor(Actor)->HasMatchingGameplayTag(Tag);
 }
 
-void UWWBlueprintFunctionLibrary::BP_HasTag(AActor* Actor, FGameplayTag Tag, EBaseConfirmType& OutType)
+void UWWBlueprintFunctionLibrary::BP_HasTag(AActor* Actor, FGameplayTag Tag, EWWConfirmType& OutType)
 {
-	OutType = NativeActorHasTag(Actor, Tag) ? EBaseConfirmType::Yes : EBaseConfirmType::No;
+	OutType = NativeActorHasTag(Actor, Tag) ? EWWConfirmType::Yes : EWWConfirmType::No;
 }
