@@ -16,7 +16,7 @@ class UInputAction;
 class UInputMappingContext;
 
 USTRUCT(BlueprintType)
-struct FWWInputActionConfig
+struct FBaseInputActionConfig
 {
 	GENERATED_BODY()
 
@@ -42,11 +42,11 @@ public:
 	UInputMappingContext* DefaultMappingContext;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty="InputTag"))
-	TArray<FWWInputActionConfig> NativeInputActions;
+	TArray<FBaseInputActionConfig> NativeInputActions;
 
 	//어빌리티 입력배열 추가
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta=(TitleProperty="InputTag"))
-	TArray<FWWInputActionConfig> AbilityInputActions;
+	TArray<FBaseInputActionConfig> AbilityInputActions;
 	
 	//태그로 입력액션 반환
 	UInputAction* FindNativeInputActionByTag(const FGameplayTag& InInputTag) const;
