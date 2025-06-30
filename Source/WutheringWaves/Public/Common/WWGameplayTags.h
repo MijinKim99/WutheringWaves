@@ -4,7 +4,7 @@
 
 #include "NativeGameplayTags.h"
 
-namespace GameplayTags
+namespace WWGameplayTags
 {
 
 	//Input Tags
