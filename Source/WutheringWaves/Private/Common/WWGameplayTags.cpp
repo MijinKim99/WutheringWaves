@@ -6,6 +6,8 @@
 namespace WWGameplayTags
 {
 	//Input Tags
+  UE_DEFINE_GAMEPLAY_TAG(InputTag_Move, "InputTag.Move")
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_Look, "InputTag.Look")
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Hold, "InputTag.Hold")
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Toggle, "InputTag.Toggle")
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Toggle_Targeting, "InputTag.Toggle.Targeting")
