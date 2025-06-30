@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "WutheringWaves/Public/YHG/DataAssets/DataAsset_InputConfig.h"
+#include "WutheringWaves/Public/YHG/DataAssets/Input/DataAsset_InputConfig.h"
 
 #include "Common/WWDebugHelper.h"
 
