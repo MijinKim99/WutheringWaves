@@ -19,6 +19,10 @@ public:
 	template<class UserObject, typename CallbackFunc>
 	void BindNativeInputAction(const UDataAsset_InputConfig* InInputConfig, const FGameplayTag& InInputTag, ETriggerEvent TriggerEvent, 
 	UserObject* ContextObject, CallbackFunc Func);
+
+	template<class UserObject, typename CallbackFunc>
+	void BindAbilityInputAction(const UDataAsset_InputConfig* InInputConfig, UserObject* ContextObject,
+	CallbackFunc InputPressedFunc, CallbackFunc InputReleasedFunc);
 };
 
 template<class UserObject, typename CallbackFunc>
@@ -27,11 +31,35 @@ inline void UWWEnhancedInputComponent::BindNativeInputAction(const UDataAsset_In
 {
 	if (!InInputConfig)
 	{
-		Debug::Print(TEXT("WWEnhancedInputComponent : Can't find InInputConfig by tag"));
+		Debug::Print(TEXT("WWEnhancedInputComponent : Can't find InInputConfig"));
 		return;
 	}
-	if (UInputAction* FoundAction = InInputConfig->FindInputActionByTag(InInputTag))
+	if (UInputAction* FoundAction = InInputConfig->FindNativeInputActionByTag(InInputTag))
 	{
 		BindAction(FoundAction, TriggerEvent, ContextObject, Func);
+	}
+}
+
+template <class UserObject, typename CallbackFunc>
+inline void UWWEnhancedInputComponent::BindAbilityInputAction(const UDataAsset_InputConfig* InInputConfig,
+	UserObject* ContextObject, CallbackFunc InputPressedFunc, CallbackFunc InputReleasedFunc)
+{
+	if (!InInputConfig)
+	{
+		Debug::Print(TEXT("WWEnhancedInputComponent : Can't find InInputConfig"));
+		return;
+	}
+	for (const TPair<const UInputAction*, FGameplayTag>& Pair : InInputConfig->AbilityInputActions)
+	{
+		const UInputAction* InputAction = Pair.Key;
+		const FGameplayTag& InputTag = Pair.Value;
+
+		if (!InputAction || !InputTag.IsValid())
+		{
+			continue;
+		}
+
+		BindAction(InputAction, ETriggerEvent::Started, ContextObject, InputPressedFunc, InputTag);
+		BindAction(InputAction, ETriggerEvent::Completed, ContextObject, InputReleasedFunc, InputTag);
 	}
 }

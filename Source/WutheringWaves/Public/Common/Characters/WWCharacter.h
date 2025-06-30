@@ -9,6 +9,7 @@
 
 class UWWAbilitySystemComponent;
 class UWWAttributeSet;
+class UDataAsset_Startup;
 
 UCLASS()
 class WUTHERINGWAVES_API AWWCharacter : public ACharacter, public IAbilitySystemInterface
@@ -40,4 +41,8 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem")
 	UWWAttributeSet* WWAttributeSet;
+
+	//동기식으로 데이터를 불러온다
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category = "StartupData")
+	TSoftObjectPtr<UDataAsset_Startup> StartupData;
 };

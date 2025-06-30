@@ -49,6 +49,8 @@ void AWWPlayerController::SetupInputComponent()
 		ETriggerEvent::Triggered,
 		this,
 		&AWWPlayerController::Input_Look);
+
+	//WWEnhancedInputComponent->BindAbilityInputAction(InputConfigDataAsset, this, &AHeroCharacter::Input_AbilityInputPressed, &AHeroCharacter::Input_AbilityInputReleased);
 }
 
 void AWWPlayerController::Input_Move(const FInputActionValue& InputActionValue)
@@ -83,5 +85,13 @@ void AWWPlayerController::Input_Look(const FInputActionValue& InputActionValue)
 	{
 		AddPitchInput(LookAxisVector.Y);
 	}
+}
+
+void AWWPlayerController::Input_AbilityInputPressed(FGameplayTag InputTag)
+{
+}
+
+void AWWPlayerController::Input_AbilityInputReleased(FGameplayTag InputTag)
+{
 }
 
