@@ -13,5 +13,7 @@ UCLASS()
 class WUTHERINGWAVES_API ACelestialLightRoverCharacter : public APlayerCharacter
 {
 	GENERATED_BODY()
-	
+
+public:
+	ACelestialLightRoverCharacter();
 };

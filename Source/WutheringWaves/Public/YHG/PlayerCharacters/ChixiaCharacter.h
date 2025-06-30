@@ -4,16 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "YHG/PlayerCharacters/PlayerCharacter.h"
-#include "VerinaCharacter.generated.h"
+#include "ChixiaCharacter.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class WUTHERINGWAVES_API AVerinaCharacter : public APlayerCharacter
+class WUTHERINGWAVES_API AChixiaCharacter : public APlayerCharacter
 {
 	GENERATED_BODY()
 
 public:
-	AVerinaCharacter();
+	AChixiaCharacter();
 };
