@@ -18,8 +18,6 @@ AWWCharacter::AWWCharacter()
 	//어빌리티 부착
 	WWAbilitySystemComponent = CreateDefaultSubobject<UWWAbilitySystemComponent>(TEXT("WWAbilitySystemComponent"));
 	WWAttributeSet = CreateDefaultSubobject<UWWAttributeSet>(TEXT("WWAttributeSet"));
-
-	WWAbilitySystemComponent->InitAbilityActorInfo()
 }
 
 // Called when the game starts or when spawned
@@ -27,6 +25,21 @@ void AWWCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
+}
+
+void AWWCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	if (WWAbilitySystemComponent)
+	{
+		WWAbilitySystemComponent->InitAbilityActorInfo(this, this);
+	}
+}
+
+UAbilitySystemComponent* AWWCharacter::GetAbilitySystemComponent() const
+{
+	return WWAbilitySystemComponent;
 }
 
 // Called every frame
