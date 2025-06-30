@@ -4,11 +4,11 @@
 
 #include "NativeGameplayTags.h"
 
-namespace GameplayTags
+namespace WWGameplayTags
 {
 
 	//Input Tags
-  //기초 이동 입력 태그들
+    //기초 이동 입력 태그들
 	WUTHERINGWAVES_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Move)
 	WUTHERINGWAVES_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Look)
 	WUTHERINGWAVES_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Hold)
@@ -25,7 +25,7 @@ namespace GameplayTags
 	WUTHERINGWAVES_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_WeaponUnEquip)
 
 	//Ability
-	WUTHERINGWAVES_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Equip_Swords)
-	WUTHERINGWAVES_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Equip_Pistols)
-	WUTHERINGWAVES_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Equip_Rectifiers)
+	//WUTHERINGWAVES_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Equip_Swords)
+	//WUTHERINGWAVES_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Equip_Pistols)
+	//WUTHERINGWAVES_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Equip_Rectifiers)
 };
