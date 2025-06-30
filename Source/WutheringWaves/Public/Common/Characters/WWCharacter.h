@@ -4,13 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "AbilitySystemInterface.h"
 #include "WWCharacter.generated.h"
 
 class UWWAbilitySystemComponent;
 class UWWAttributeSet;
 
 UCLASS()
-class WUTHERINGWAVES_API AWWCharacter : public ACharacter
+class WUTHERINGWAVES_API AWWCharacter : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
@@ -21,6 +22,8 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	virtual void PossessedBy(AController* NewController) override;
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
 public:	
 	// Called every frame
