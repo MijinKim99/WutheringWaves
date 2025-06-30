@@ -12,11 +12,14 @@ AWWCharacter::AWWCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
+	//VFX 지상 데칼 투영 영향을 줌
+	GetMesh()->bReceivesDecals = false;
+
+	//어빌리티 부착
 	WWAbilitySystemComponent = CreateDefaultSubobject<UWWAbilitySystemComponent>(TEXT("WWAbilitySystemComponent"));
 	WWAttributeSet = CreateDefaultSubobject<UWWAttributeSet>(TEXT("WWAttributeSet"));
 
-	//VFX 지상 데칼 투영 영향을 줌
-	GetMesh()->bReceivesDecals = false;
+	WWAbilitySystemComponent->InitAbilityActorInfo()
 }
 
 // Called when the game starts or when spawned
