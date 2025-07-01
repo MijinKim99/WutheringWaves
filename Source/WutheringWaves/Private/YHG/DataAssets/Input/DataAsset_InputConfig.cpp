@@ -4,16 +4,17 @@
 #include "WutheringWaves/Public/YHG/DataAssets/Input/DataAsset_InputConfig.h"
 
 #include "InputAction.h"
+#include "YHGStructType.h"
 #include "Common/WWDebugHelper.h"
 
 UInputAction* UDataAsset_InputConfig::FindNativeInputActionByTag(const FGameplayTag& InInputTag) const
 {
-	UInputAction* const* FindResultAction = NativeInputActions.Find(InInputTag);
-	if (!FindResultAction)
+	for (const FWWInputActionConfig& InputActionConfig : NativeInputActions)
 	{
-		Debug::Print(TEXT("DataAsset_InputConfig : Can't find InputAction by tag"));
-		return nullptr;
+		if (InputActionConfig.InputTag == InInputTag && InputActionConfig.InputAction)
+		{
+			return InputActionConfig.InputAction;
+		}
 	}
-	
-	return *FindResultAction;
+	return nullptr;
 }

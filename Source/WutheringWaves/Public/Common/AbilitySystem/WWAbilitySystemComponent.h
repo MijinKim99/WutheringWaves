@@ -18,4 +18,7 @@ class WUTHERINGWAVES_API UWWAbilitySystemComponent : public UAbilitySystemCompon
 public:
 	void OnAbilityInputPressed(const FGameplayTag& InputTag);
 	void OnAbilityInputReleased(const FGameplayTag& InputTag);
+	
+	UFUNCTION(BlueprintCallable, Category="Ability")
+	bool TryActivateAbilityByTag(FGameplayTag Tag);
 };

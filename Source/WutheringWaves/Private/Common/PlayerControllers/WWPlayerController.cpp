@@ -6,7 +6,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "Common/WWDebugHelper.h"
 #include "Common/WWGameplayTags.h"
-#include "Common/Components/Input/WWEnhancedInputComponent.h"
+#include "YHG/Components/Input/WWEnhancedInputComponent.h"
 #include "GameFramework/Character.h"
 
 void AWWPlayerController::SetupInputComponent()
