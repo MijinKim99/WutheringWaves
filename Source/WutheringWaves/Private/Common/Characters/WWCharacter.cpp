@@ -3,6 +3,7 @@
 
 #include "Common/Characters/WWCharacter.h"
 
+#include "Common/WWDebugHelper.h"
 #include "Common/AbilitySystem/WWAbilitySystemComponent.h"
 #include "Common/AbilitySystem/WWAttributeSet.h"
 
@@ -35,11 +36,12 @@ void AWWCharacter::PossessedBy(AController* NewController)
 	{
 		WWAbilitySystemComponent->InitAbilityActorInfo(this, this);
 	}
-}
 
-UAbilitySystemComponent* AWWCharacter::GetAbilitySystemComponent() const
-{
-	return WWAbilitySystemComponent;
+	if (StartupData.IsNull())
+	{
+		Debug::Print(TEXT("WWCharacter : Can't find StartupData"));
+		return;
+	}
 }
 
 // Called every frame
@@ -48,6 +50,19 @@ void AWWCharacter::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 }
+
+UPawnUIComponent* AWWCharacter::GetPawnUIComponent() const
+{
+	// 자식에서 구현
+	return nullptr;
+}
+
+UPawnCombatComponent* AWWCharacter::GetPawnCombatComponent() const
+{
+	// 자식에서 구현
+	return nullptr;
+}
+
 /*
 // Called to bind functionality to input
 void AWWCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

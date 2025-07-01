@@ -13,5 +13,6 @@ UCLASS()
 class WUTHERINGWAVES_API UPlayerUIComponent : public UPawnUIComponent
 {
 	GENERATED_BODY()
+
 	
 };
