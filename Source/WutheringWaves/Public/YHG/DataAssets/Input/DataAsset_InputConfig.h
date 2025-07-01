@@ -7,6 +7,7 @@
 #include "Engine/DataAsset.h"
 #include "DataAsset_InputConfig.generated.h"
 
+struct FWWInputActionConfig;
 class UInputAction;
 class UInputMappingContext;
 /**
@@ -22,11 +23,12 @@ public:
 	UInputMappingContext* DefaultMappingContext;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
-	TMap<FGameplayTag, UInputAction*> NativeInputActions;
-
+	TArray<FWWInputActionConfig> NativeInputActions;
+	
 	//어빌리티 입력배열 추가
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
-	TMap<UInputAction*, FGameplayTag> AbilityInputActions;
-
+	TArray<FWWInputActionConfig> AbilityInputActions;
+	
+	//태그로 입력액션 반환
 	UInputAction* FindNativeInputActionByTag(const FGameplayTag& InInputTag) const;
 };

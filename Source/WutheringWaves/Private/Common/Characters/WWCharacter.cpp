@@ -44,11 +44,6 @@ void AWWCharacter::PossessedBy(AController* NewController)
 	}
 }
 
-UAbilitySystemComponent* AWWCharacter::GetAbilitySystemComponent() const
-{
-	return WWAbilitySystemComponent;
-}
-
 // Called every frame
 void AWWCharacter::Tick(float DeltaTime)
 {

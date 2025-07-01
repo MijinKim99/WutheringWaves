@@ -33,4 +33,8 @@ namespace WWGameplayTags
 	//Status
 	WUTHERINGWAVES_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_Dashing)
 	WUTHERINGWAVES_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_Jumping)
+
+	//Shared
+	WUTHERINGWAVES_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_SetByCaller_BaseDamage)
+	
 };

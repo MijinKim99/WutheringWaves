@@ -6,6 +6,7 @@
 #include "Common/DataAssets/DataAsset_Startup.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "YHG/Components/Combat/PlayerCombatComponent.h"
 
 APlayerCharacter::APlayerCharacter()
 {
@@ -23,6 +24,9 @@ APlayerCharacter::APlayerCharacter()
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	FollowCamera->bUsePawnControlRotation = false;
+
+	//CombatComponent 세팅
+	PlayerCombatComponent = CreateDefaultSubobject<UPlayerCombatComponent>(TEXT("PlayerCombatComponent"));
 
 	//케릭터움직임 초기세팅
 	GetCharacterMovement()->bOrientRotationToMovement = true;

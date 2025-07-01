@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "AbilitySystemInterface.h"
 #include "WWCharacter.generated.h"
 
 class UWWAbilitySystemComponent;
@@ -12,7 +11,7 @@ class UWWAttributeSet;
 class UDataAsset_Startup;
 
 UCLASS()
-class WUTHERINGWAVES_API AWWCharacter : public ACharacter, public IAbilitySystemInterface
+class WUTHERINGWAVES_API AWWCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
@@ -24,7 +23,6 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	virtual void PossessedBy(AController* NewController) override;
-	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
 public:	
 	// Called every frame
@@ -45,4 +43,8 @@ protected:
 	//동기식으로 데이터를 불러온다
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category = "StartupData")
 	TSoftObjectPtr<UDataAsset_Startup> StartupData;
+
+public:
+	FORCEINLINE UWWAbilitySystemComponent* GetBaseAbilitySystemComponent() const { return WWAbilitySystemComponent; }
+	FORCEINLINE UWWAttributeSet* GetBaseAttributeSet() const { return WWAttributeSet; }
 };
