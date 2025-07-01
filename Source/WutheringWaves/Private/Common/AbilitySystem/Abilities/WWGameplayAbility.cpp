@@ -3,11 +3,11 @@
 #include "Common/AbilitySystem/Abilities/WWGameplayAbility.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "Common/AbilitySystem/WWAbilitySystemComponent.h"
-#include "Common/Components/Combat/WWPawnCombatComponent.h"
+#include "Common/Components/Combat/PawnCombatComponent.h"
 
-UWWPawnCombatComponent* UWWGameplayAbility::GetWWPawnCombatComponentFromActorInfo() const
+UPawnCombatComponent* UWWGameplayAbility::GetWWPawnCombatComponentFromActorInfo() const
 {
-	return GetAvatarActorFromActorInfo()->FindComponentByClass<UWWPawnCombatComponent>();
+	return GetAvatarActorFromActorInfo()->FindComponentByClass<UPawnCombatComponent>();
 }
 
 UWWAbilitySystemComponent* UWWGameplayAbility::GetWWAbilitySystemComponentFromActorInfo() const

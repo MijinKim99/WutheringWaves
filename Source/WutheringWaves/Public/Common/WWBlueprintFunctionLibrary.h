@@ -14,6 +14,7 @@ UCLASS()
 class WUTHERINGWAVES_API UWWBlueprintFunctionLibrary : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
+public:
 	//BlueprintFunctionLibrary는 내부 접근이므로 public과 static으로 접근해야 함. 액터로 접근해 어빌리티 시스템 컴포넌트 가져오기
 	//static UBaseAbilitySystemComponent* NativeGetAbilitySystemComponentFromActor(AActor* Actor);
 

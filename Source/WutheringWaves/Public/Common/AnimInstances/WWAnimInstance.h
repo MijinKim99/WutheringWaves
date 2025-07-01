@@ -13,5 +13,4 @@ UCLASS()
 class WUTHERINGWAVES_API UWWAnimInstance : public UAnimInstance
 {
 	GENERATED_BODY()
-	
 };

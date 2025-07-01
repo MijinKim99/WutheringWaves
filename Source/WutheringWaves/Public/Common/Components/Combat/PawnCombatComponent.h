@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Common/Components/WWPawnExtensionComponent.h"
 #include "GameplayTagContainer.h"
-#include "WWPawnCombatComponent.generated.h"
+#include "PawnCombatComponent.generated.h"
 
 class AWeaponBase;
 
@@ -13,7 +13,7 @@ class AWeaponBase;
  * 
  */
 UCLASS()
-class WUTHERINGWAVES_API UWWPawnCombatComponent : public UWWPawnExtensionComponent
+class WUTHERINGWAVES_API UPawnCombatComponent : public UWWPawnExtensionComponent
 {
 	GENERATED_BODY()
 };

@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Common/Components/Combat/WWPawnCombatComponent.h"
+#include "Common/Components/Combat/PawnCombatComponent.h"
 #include "PlayerCombatComponent.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class WUTHERINGWAVES_API UPlayerCombatComponent : public UWWPawnCombatComponent
+class WUTHERINGWAVES_API UPlayerCombatComponent : public UPawnCombatComponent
 {
 	GENERATED_BODY()
 };
