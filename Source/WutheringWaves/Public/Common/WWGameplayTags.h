@@ -36,5 +36,6 @@ namespace WWGameplayTags
 
 	//Shared
 	WUTHERINGWAVES_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_SetByCaller_BaseDamage)
+	WUTHERINGWAVES_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Status_Dead)
 	
 };

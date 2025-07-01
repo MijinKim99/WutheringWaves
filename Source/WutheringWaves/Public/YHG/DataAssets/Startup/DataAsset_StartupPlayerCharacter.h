@@ -8,7 +8,7 @@
 #include "DataAsset_StartupPlayerCharacter.generated.h"
 
 USTRUCT(BlueprintType)
-struct FHeroAbilitySet
+struct FPlayerAbilitySet
 {
 	GENERATED_BODY()
 
@@ -34,5 +34,5 @@ protected:
 	 
 private:
 	UPROPERTY(EditDefaultsOnly, Category = "StartupData", meta=(TitleProperty="InputTag"))
-	TArray<FHeroAbilitySet> PlayerStartupAbilitySets;
+	TArray<FPlayerAbilitySet> PlayerStartupAbilitySets;
 };
