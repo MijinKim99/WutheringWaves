@@ -3,6 +3,7 @@
 
 #include "Common/Characters/WWCharacter.h"
 
+#include "Common/WWDebugHelper.h"
 #include "Common/AbilitySystem/WWAbilitySystemComponent.h"
 #include "Common/AbilitySystem/WWAttributeSet.h"
 
@@ -34,6 +35,12 @@ void AWWCharacter::PossessedBy(AController* NewController)
 	if (WWAbilitySystemComponent)
 	{
 		WWAbilitySystemComponent->InitAbilityActorInfo(this, this);
+	}
+
+	if (StartupData.IsNull())
+	{
+		Debug::Print(TEXT("WWCharacter : Can't find StartupData"));
+		return;
 	}
 }
 

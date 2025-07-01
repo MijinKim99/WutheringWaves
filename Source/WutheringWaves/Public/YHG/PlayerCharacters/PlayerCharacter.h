@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Common/Characters/WWCharacter.h"
+#include "GameplayTagContainer.h"
 #include "PlayerCharacter.generated.h"
 
 class UCameraComponent;
@@ -25,4 +26,7 @@ private:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FollowCamera;
+
+protected:
+	virtual void PossessedBy(AController* NewController) override;
 };

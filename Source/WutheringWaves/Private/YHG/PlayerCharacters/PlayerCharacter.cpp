@@ -3,6 +3,7 @@
 #include "WutheringWaves/Public/YHG/PlayerCharacters/PlayerCharacter.h"
 
 #include "Camera/CameraComponent.h"
+#include "Common/DataAssets/DataAsset_Startup.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 
@@ -29,4 +30,18 @@ APlayerCharacter::APlayerCharacter()
 
 	//메시 -90도 돌려놓아 정면으로 조정
 	GetMesh()->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
+}
+
+void APlayerCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	if (!StartupData.IsNull())
+	{
+		if (UDataAsset_Startup* LoadedData = StartupData.LoadSynchronous())
+		{
+			//Startup데이터가 Null이 아닌경우 StartupData는 동기화로드를 거쳐서 최종적으로 게임어빌리티시스템이 발동된다. 
+			LoadedData->GiveToAbilitySystemComponent(WWAbilitySystemComponent);
+		}
+	}
 }

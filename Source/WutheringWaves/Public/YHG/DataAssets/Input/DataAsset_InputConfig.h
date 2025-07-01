@@ -22,7 +22,11 @@ public:
 	UInputMappingContext* DefaultMappingContext;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
-	TMap<FGameplayTag, UInputAction*> InputActions;
+	TMap<FGameplayTag, UInputAction*> NativeInputActions;
 
-	UInputAction* FindInputActionByTag(const FGameplayTag& InInputTag) const;
+	//어빌리티 입력배열 추가
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
+	TMap<UInputAction*, FGameplayTag> AbilityInputActions;
+
+	UInputAction* FindNativeInputActionByTag(const FGameplayTag& InInputTag) const;
 };
