@@ -24,7 +24,7 @@ class WUTHERINGWAVES_API UWWGameplayAbility : public UGameplayAbility
 
 public:
 	UFUNCTION(BlueprintPure, Category="Ability")
-	UWWPawnCombatComponent* GetWWPawnCombatComponentFromActorInfo() const;
+	UPawnCombatComponent* GetPawnCombatComponentFromActorInfo() const;
 	
 	UFUNCTION(BlueprintPure, Category="Ability")
 	UWWAbilitySystemComponent* GetWWAbilitySystemComponentFromActorInfo() const;

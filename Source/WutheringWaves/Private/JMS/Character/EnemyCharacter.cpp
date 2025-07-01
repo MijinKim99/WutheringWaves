@@ -5,6 +5,7 @@
 
 #include "Components/BoxComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "JMS/Component/EnemyCombatComponent.h"
 
 AEnemyCharacter::AEnemyCharacter()
 {
@@ -23,4 +24,6 @@ AEnemyCharacter::AEnemyCharacter()
 	AttackCollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("AttackCollisionBox"));
 	AttackCollisionBox->SetupAttachment(GetMesh());
 	AttackCollisionBox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+	EnemyCombatComponent = CreateDefaultSubobject<UEnemyCombatComponent>(TEXT("EnemyCombatComponent"));
 }

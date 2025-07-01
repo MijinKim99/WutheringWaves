@@ -4,13 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "Common/Components/Combat/PawnCombatComponent.h"
-#include "PlayerCombatComponent.generated.h"
+#include "EnemyCombatComponent.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class WUTHERINGWAVES_API UPlayerCombatComponent : public UPawnCombatComponent
+class WUTHERINGWAVES_API UEnemyCombatComponent : public UPawnCombatComponent
 {
 	GENERATED_BODY()
+	
 };
