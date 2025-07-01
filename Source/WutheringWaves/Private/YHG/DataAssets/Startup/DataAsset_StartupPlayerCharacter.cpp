@@ -5,7 +5,7 @@
 #include "Common/AbilitySystem/Abilities/WWGameplayAbility.h"
 #include "Common/AbilitySystem/WWAbilitySystemComponent.h"
 
-bool FHeroAbilitySet::IsValid() const
+bool FPlayerInputAbilitySet::IsValid() const
 {
 	return InputTag.IsValid() && AbilityToGrant;
 }
@@ -14,7 +14,7 @@ void UDataAsset_StartupPlayerCharacter::GiveToAbilitySystemComponent(UWWAbilityS
 {
 	Super::GiveToAbilitySystemComponent(ASC, Level);
 
-	for(const FHeroAbilitySet& AbilitySet : PlayerStartupAbilitySets)
+	for(const FPlayerInputAbilitySet& AbilitySet : PlayerStartupAbilitySets)
 	{
 		if (!AbilitySet.IsValid()) continue;
         

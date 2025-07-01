@@ -7,6 +7,7 @@
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "WWBlueprintFunctionLibrary.generated.h"
 
+class UPawnCombatComponent;
 struct FScalableFloat;
 class UWWAbilitySystemComponent;
 struct FGameplayTag;
@@ -35,13 +36,13 @@ public:
 	static void BP_HasTag(AActor* Actor, FGameplayTag Tag, EWWConfirmType& OutType);
 	
 	
-	//static UPawnCombatComponent* NativeGetPawnCombatComponentFromActor(AActor* Actor);
+	static UPawnCombatComponent* NativeGetPawnCombatComponentFromActor(AActor* Actor);
 	
-	/*
+	
 	UFUNCTION(BlueprintCallable, Category="FunctionLibrary"
 		, meta=(DisplayName = "Get PawnCombatComponent From Actor", ExpandEnumAsExecs = "OutValid"))
-	static UPawnCombatComponent* BP_GetPawnCombatComponentFromActor(AActor* Actor, EBaseValidType& OutValid);
-	*/
+	static UPawnCombatComponent* BP_GetPawnCombatComponentFromActor(AActor* Actor, EWWValidType& OutValid);
+	
 
 	//피아 식별 헬퍼함수
 	UFUNCTION(BlueprintPure, Category="FunctionLibrary")

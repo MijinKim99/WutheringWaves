@@ -9,6 +9,16 @@
 #include "YHG/Components/Input/WWEnhancedInputComponent.h"
 #include "GameFramework/Character.h"
 
+AWWPlayerController::AWWPlayerController()
+{
+	HeroTeamID = FGenericTeamId(0);
+}
+
+FGenericTeamId AWWPlayerController::GetGenericTeamId() const
+{
+	return HeroTeamID;
+}
+
 void AWWPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
@@ -18,15 +28,16 @@ void AWWPlayerController::SetupInputComponent()
 		Debug::Print(TEXT("WWPlayerController : Can't find DataAsset_InputConfig"));
 		return;
 	}
-	
-	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
-	
+
+	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(
+		GetLocalPlayer());
+
 	if (!Subsystem)
 	{
 		Debug::Print(TEXT("WWPlayerController : Can't find Subsystem"));
 		return;
 	}
-	
+
 	Subsystem->AddMappingContext(DataAsset_InputConfig->DefaultMappingContext, 0);
 
 	UWWEnhancedInputComponent* WWEnhancedInputComponent = Cast<UWWEnhancedInputComponent>(InputComponent);
@@ -35,14 +46,14 @@ void AWWPlayerController::SetupInputComponent()
 		Debug::Print(TEXT("WWPlayerController : Cast Failed WWEnhancedInputComponent"));
 		return;
 	}
-	
+
 	WWEnhancedInputComponent->BindNativeInputAction(
 		DataAsset_InputConfig,
 		WWGameplayTags::InputTag_Move,
 		ETriggerEvent::Triggered,
 		this,
 		&AWWPlayerController::Input_Move);
-	
+
 	WWEnhancedInputComponent->BindNativeInputAction(
 		DataAsset_InputConfig,
 		WWGameplayTags::InputTag_Look,
@@ -57,7 +68,7 @@ void AWWPlayerController::Input_Move(const FInputActionValue& InputActionValue)
 {
 	// input is a Vector2D
 	FVector2D MovementVector = InputActionValue.Get<FVector2D>();
-	
+
 	// find out which way is forward
 	const FRotator Rotation = GetControlRotation();
 	const FRotator YawRotation(0, Rotation.Yaw, 0);
@@ -94,4 +105,3 @@ void AWWPlayerController::Input_AbilityInputPressed(FGameplayTag InputTag)
 void AWWPlayerController::Input_AbilityInputReleased(FGameplayTag InputTag)
 {
 }
-

@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Common/Interfaces/PawnUIInterface.h"
+#include "Common/Interfaces/PawnCombatInterface.h"
 #include "WWCharacter.generated.h"
 
 class UWWAbilitySystemComponent;
@@ -11,7 +13,7 @@ class UWWAttributeSet;
 class UDataAsset_Startup;
 
 UCLASS()
-class WUTHERINGWAVES_API AWWCharacter : public ACharacter
+class WUTHERINGWAVES_API AWWCharacter : public ACharacter , public IPawnUIInterface, public IPawnCombatInterface
 {
 	GENERATED_BODY()
 
@@ -44,6 +46,12 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category = "StartupData")
 	TSoftObjectPtr<UDataAsset_Startup> StartupData;
 
+	//IPawnUIInterface
+	virtual UPawnUIComponent* GetPawnUIComponent() const override;
+
+	//IPawnCombatInterface
+	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
+	
 public:
 	FORCEINLINE UWWAbilitySystemComponent* GetBaseAbilitySystemComponent() const { return WWAbilitySystemComponent; }
 	FORCEINLINE UWWAttributeSet* GetBaseAttributeSet() const { return WWAttributeSet; }

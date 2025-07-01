@@ -16,4 +16,12 @@ UCLASS()
 class WUTHERINGWAVES_API UPawnCombatComponent : public UWWPawnExtensionComponent
 {
 	GENERATED_BODY()
+public:
+	// 공격 처리
+	virtual void OnHitTagetActor(AActor* HitActor);
+
+protected:
+	//중복방지를 위한 배열
+	TArray<AActor*> OverlappedActors;
+	
 };

@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GenericTeamAgentInterface.h"
 #include "GameFramework/PlayerController.h"
 #include "WWPlayerController.generated.h"
 
@@ -13,9 +14,12 @@ class UDataAsset_InputConfig;
  * 
  */
 UCLASS()
-class WUTHERINGWAVES_API AWWPlayerController : public APlayerController
+class WUTHERINGWAVES_API AWWPlayerController : public APlayerController, public IGenericTeamAgentInterface
 {
 	GENERATED_BODY()
+public:
+	AWWPlayerController();
+	virtual FGenericTeamId GetGenericTeamId() const override;
 private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	UDataAsset_InputConfig* DataAsset_InputConfig;
@@ -27,4 +31,7 @@ private:
 
 	void Input_AbilityInputPressed(FGameplayTag InputTag);
 	void Input_AbilityInputReleased(FGameplayTag InputTag);
+	
+private:
+	FGenericTeamId HeroTeamID;
 };

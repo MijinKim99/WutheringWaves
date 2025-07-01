@@ -8,6 +8,7 @@
 #include "Common/AbilitySystem/WWAbilitySystemComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Common/WWDebugHelper.h"
+#include "Common/Interfaces/PawnCombatInterface.h"
 
 UWWAbilitySystemComponent* UWWBlueprintFunctionLibrary::NativeGetAbilitySystemComponentFromActor(AActor* Actor)
 {
@@ -48,6 +49,27 @@ bool UWWBlueprintFunctionLibrary::NativeActorHasTag(AActor* Actor, FGameplayTag 
 void UWWBlueprintFunctionLibrary::BP_HasTag(AActor* Actor, FGameplayTag Tag, EWWConfirmType& OutType)
 {
 	OutType = NativeActorHasTag(Actor, Tag) ? EWWConfirmType::Yes : EWWConfirmType::No;
+}
+
+UPawnCombatComponent* UWWBlueprintFunctionLibrary::NativeGetPawnCombatComponentFromActor(AActor* Actor)
+{
+	check(Actor);
+
+	if (IPawnCombatInterface* PawnCombatInterface = Cast<IPawnCombatInterface>(Actor))
+	{
+		return PawnCombatInterface->GetPawnCombatComponent();
+	}
+
+	return nullptr;
+}
+
+UPawnCombatComponent* UWWBlueprintFunctionLibrary::BP_GetPawnCombatComponentFromActor(AActor* Actor,
+	EWWValidType& OutValid)
+{
+	UPawnCombatComponent* CombatComponent = NativeGetPawnCombatComponentFromActor(Actor);
+	OutValid = CombatComponent ? EWWValidType::Valid : EWWValidType::InValid;
+
+	return CombatComponent;
 }
 
 bool UWWBlueprintFunctionLibrary::IsTargetPawnHostile(APawn* OwningPawn, APawn* TagetPawn)
@@ -135,4 +157,5 @@ FGameplayTag UWWBlueprintFunctionLibrary::ComputeHitReactDirectionTag(AActor* At
 	}
 	return BaseGamePlayTags::Shared_Status_HitReact_Front;
 }
+
 */

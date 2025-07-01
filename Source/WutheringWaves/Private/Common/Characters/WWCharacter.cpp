@@ -50,6 +50,19 @@ void AWWCharacter::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 }
+
+UPawnUIComponent* AWWCharacter::GetPawnUIComponent() const
+{
+	// 자식에서 구현
+	return nullptr;
+}
+
+UPawnCombatComponent* AWWCharacter::GetPawnCombatComponent() const
+{
+	// 자식에서 구현
+	return nullptr;
+}
+
 /*
 // Called to bind functionality to input
 void AWWCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
