@@ -41,5 +41,4 @@ protected:
 	{
 		return GetOwningController<AController>();
 	}
-		
 };
