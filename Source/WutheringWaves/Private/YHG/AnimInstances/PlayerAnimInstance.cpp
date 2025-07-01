@@ -3,40 +3,4 @@
 
 #include "YHG/AnimInstances/PlayerAnimInstance.h"
 
-#include "Common/WWDebugHelper.h"
-#include "GameFramework/CharacterMovementComponent.h"
-#include "YHG/PlayerCharacters/PlayerCharacter.h"
 
-void UPlayerAnimInstance::NativeInitializeAnimation()
-{
-	Super::NativeInitializeAnimation();
-	
-	OwningCharacter = Cast<APlayerCharacter>(TryGetPawnOwner());
-	if (!OwningCharacter)
-	{
-		Debug::Print(TEXT("PlayerAnimInstance : Cast Failed OwningCharacter"));
-		return;
-	}
-	
-	OwningMovementComponent = OwningCharacter->GetCharacterMovement();
-	if (!OwningMovementComponent)
-	{
-		Debug::Print(TEXT("PlayerAnimInstance : Can't find CharacterMovement"));
-		return;
-	}
-}
-
-void UPlayerAnimInstance::NativeThreadSafeUpdateAnimation(float DeltaSeconds)
-{
-	Super::NativeThreadSafeUpdateAnimation(DeltaSeconds);
-
-	if (!OwningCharacter || !OwningMovementComponent)
-	{
-		return;
-	}
-	//소유한 캐릭터의 속도(x, y만 고려)
-	GroundSpeed = OwningCharacter->GetVelocity().Size2D();
-
-	//소유한 캐릭터무브먼트의 움직임
-	bHasAcceleration = OwningMovementComponent->GetCurrentAcceleration().SizeSquared2D() > 0.f;
-}

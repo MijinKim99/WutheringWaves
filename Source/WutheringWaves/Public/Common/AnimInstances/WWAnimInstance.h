@@ -13,5 +13,7 @@ UCLASS()
 class WUTHERINGWAVES_API UWWAnimInstance : public UAnimInstance
 {
 	GENERATED_BODY()
-	
+protected:
+	UFUNCTION(BlueprintPure, meta=(BlueprintThreadSafe))
+	bool OwnerHasTag(FGameplayTag Tag) const;
 };

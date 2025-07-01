@@ -2,15 +2,14 @@
 
 
 #include "Common/Widget/WWUserWidget.h"
-
-#include "Common/Interfaces/WWInterface.h"
+#include "Common/Interfaces/PawnUIInterface.h"
 #include "KMJ/UIComponents/PlayerUIComponent.h"
 #include "KMJ/UIComponents/EnemyUIComponent.h"
 
 void UWWUserWidget::NativeOnInitialized()
 {
 	Super::NativeOnInitialized();
-	if (IWWInterface* PawnUIInterface = Cast<IWWInterface>(GetOwningPlayerPawn()))
+	if (IPawnUIInterface* PawnUIInterface = Cast<IPawnUIInterface>(GetOwningPlayerPawn()))
 	{
 		if (UPlayerUIComponent* PlayerUIComponent = PawnUIInterface->GetPlayerUIComponent())
 		{
@@ -21,7 +20,7 @@ void UWWUserWidget::NativeOnInitialized()
 
 void UWWUserWidget::InitEnemyCreateWidget(AActor* EnemyActor)
 {
-	if (IWWInterface* PawnUIInterface = Cast<IWWInterface>(EnemyActor))
+	if (IPawnUIInterface* PawnUIInterface = Cast<IPawnUIInterface>(EnemyActor))
 	{
 		if (UEnemyUIComponent* EnemyUIComponent = PawnUIInterface->GetEnemyUIComponent())
 		{
