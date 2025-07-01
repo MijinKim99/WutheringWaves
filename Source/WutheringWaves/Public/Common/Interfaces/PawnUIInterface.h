@@ -4,11 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
-#include "WWInterface.generated.h"
+#include "PawnUIInterface.generated.h"
 
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
-class UWWInterface : public UInterface
+class UPawnUIInterface : public UInterface
 {
 	GENERATED_BODY()
 };
@@ -19,7 +19,7 @@ class UEnemyUIComponent;
 /**
  * 
  */
-class WUTHERINGWAVES_API IWWInterface
+class WUTHERINGWAVES_API IPawnUIInterface
 {
 	GENERATED_BODY()
 
