@@ -5,9 +5,13 @@
 #include "CoreMinimal.h"
 #include "GameplayTagContainer.h"
 #include "ScalableFloat.h"
+#include "WWEnumType.h"
 #include "Engine/CurveTable.h"
 #include "WWStruct.generated.h"
 
+class AWWWeaponBase;
+enum class EItemType : uint8;
+enum class EWeaponRarity : uint8;
 class APlayerWeapon;
 /**
  * 
@@ -62,6 +66,11 @@ public:
 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadWrite)
 	UTexture2D* Image;
+
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
+	EItemType ItemType;
+
+	EItemType GetItemType() const { return ItemType; }
 };
 
 USTRUCT(BlueprintType)
@@ -71,10 +80,13 @@ struct FWeaponData : public FItemBase
 
 public: 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadWrite, Category = "Weapon")
-	APlayerWeapon* WeaponActor;
+	TSubclassOf<AWWWeaponBase> WeaponActor;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(Categories="Player.Weapon"))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(Categories="Player.Weapon"),Category = "Weapon")
 	FGameplayTag WeaponTag;
+
+	UPROPERTY(EditDefaultsOnly,BlueprintReadWrite, Category = "Weapon")
+	EWeaponRarity WeaponRarity;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
 	int32 WeaponLevel;
@@ -82,13 +94,10 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite,Category = "Weapon")
 	int32 WeaponRank;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	int32 WeaponSkillRank;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite,Category = "Weapon")
 	TArray<FWeaponStatData> WeaponStats;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite,Category = "Weapon")
 	TArray<FWeaponSkillData> WeaponSkills;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
@@ -99,19 +108,35 @@ public:
 
 // 아이템 배열을 포함한 인벤토리 구조체
 USTRUCT(BlueprintType)
-struct FInventory
+struct FInventory : public FTableRowBase
 {
 	GENERATED_BODY()
 
 public:
 	// 여러 아이템을 저장할 수 있는 배열 (포인터 사용 없이 값으로 처리)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
-	TArray<FItemBase> Items;
+	TArray<FWeaponData> WeaponItems;
 
 	// 아이템 추가 함수
-	void AddItem(const FItemBase& NewItem)
+	template<typename T>
+	void AddItem(const T& Item)
 	{
-		Items.Add(NewItem);  // 아이템을 배열에 추가
+		if (!Item.IsValid()) return;
+		if (FItemBase* CastedItem = Cast<FItemBase>(Item))
+		{
+			if (CastedItem->GetItemType() == EItemType::Weapon)
+			{
+				WeaponItems.Add(Item);
+			}
+			else if (CastedItem->GetItemType() == EItemType::Echo)
+			{
+				//EchoInventory 추가
+			}
+			else if (CastedItem->GetItemType() == EItemType::Consume)
+			{
+				//ConsumeInventory 추가
+			}
+		}
 	}
 	
 };
