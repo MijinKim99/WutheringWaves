@@ -21,4 +21,6 @@ public:
 	
 	UFUNCTION(BlueprintCallable, Category="Ability")
 	bool TryActivateAbilityByTag(FGameplayTag Tag);
+
+	
 };

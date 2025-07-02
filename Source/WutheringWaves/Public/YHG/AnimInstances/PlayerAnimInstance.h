@@ -13,5 +13,6 @@ UCLASS()
 class WUTHERINGWAVES_API UPlayerAnimInstance : public UCharacterAnimInstance
 {
 	GENERATED_BODY()
+
 	
 };

@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "RootMotionModifier.h"
 #include "Common/Characters/WWCharacter.h"
 #include "EnemyCharacter.generated.h"
 
@@ -22,4 +23,15 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category ="Combat")
 	UBoxComponent* AttackCollisionBox;
+	virtual void PossessedBy(AController* NewController) override;
+	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
+	virtual UPawnUIComponent* GetPawnUIComponent() const override;
+	virtual UEnemyUIComponent* GetEnemyUIComponent() const override;
+	virtual void BeginPlay() override;
+	UFUNCTION(BlueprintCallable, Category = "Motion Warping")
+	FMotionWarpingTarget SetAttackTransformFromMotionWarpingTarget(FName WarpTargetName);
+	
+private:
+	void InitEnemyStartUpData();
+	
 };

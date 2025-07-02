@@ -2,7 +2,7 @@
 
 
 #include "Common/Characters/WWCharacter.h"
-
+#include "MotionWarpingComponent.h"
 #include "Common/WWDebugHelper.h"
 #include "Common/AbilitySystem/WWAbilitySystemComponent.h"
 #include "Common/AbilitySystem/WWAttributeSet.h"
@@ -19,6 +19,7 @@ AWWCharacter::AWWCharacter()
 	//어빌리티 부착
 	WWAbilitySystemComponent = CreateDefaultSubobject<UWWAbilitySystemComponent>(TEXT("WWAbilitySystemComponent"));
 	WWAttributeSet = CreateDefaultSubobject<UWWAttributeSet>(TEXT("WWAttributeSet"));
+	MotionWarpingComponent = CreateDefaultSubobject<UMotionWarpingComponent>(TEXT("MotionWarpingComponent"));
 }
 
 // Called when the game starts or when spawned

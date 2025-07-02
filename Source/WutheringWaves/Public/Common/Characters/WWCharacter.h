@@ -8,6 +8,7 @@
 #include "Common/Interfaces/PawnCombatInterface.h"
 #include "WWCharacter.generated.h"
 
+class UMotionWarpingComponent;
 class UWWAbilitySystemComponent;
 class UWWAttributeSet;
 class UDataAsset_Startup;
@@ -41,6 +42,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem")
 	UWWAttributeSet* WWAttributeSet;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="MotionWarping")
+	UMotionWarpingComponent* MotionWarpingComponent;
 
 	//동기식으로 데이터를 불러온다
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category = "StartupData")
