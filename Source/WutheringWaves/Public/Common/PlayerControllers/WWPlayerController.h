@@ -30,7 +30,7 @@ private:
 
 	virtual void OnPossess(APawn* InPawn) override;
 	virtual void SetupInputComponent() override;
-
+	
 	void Input_Move(const FInputActionValue& InputActionValue);
 	void Input_Look(const FInputActionValue& InputActionValue);
 

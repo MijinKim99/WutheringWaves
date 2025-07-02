@@ -13,8 +13,13 @@ UWWAttributeSet::UWWAttributeSet()
 {
 	InitCurrentHp(1.f);
 	InitMaxHp(1.f);
-	InitAttack(1.f);
-	InitDefence(1.f);
+	
+	InitApplyAttack(1.f);
+	InitBasicAttack(1.f);
+	
+	InitApplyDefense(1.f);
+	InitBasicDefense(1.f);
+	
 	InitDamageTaken(1.f);
 }
 
