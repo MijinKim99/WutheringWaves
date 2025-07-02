@@ -21,30 +21,40 @@ UCLASS()
 class WUTHERINGWAVES_API UWWAttributeSet : public UAttributeSet
 {
 	GENERATED_BODY()
-	
-	UWWAttributeSet();
 
 public:
+	UWWAttributeSet();
+	
+	//현재 HP
 	UPROPERTY(BlueprintReadOnly, Category="Status")
 	FGameplayAttributeData CurrentHp;
 	ATTRIBUTE_ACCESSORS(UWWAttributeSet, CurrentHp)
-
+	//최대 HP
 	UPROPERTY(BlueprintReadOnly, Category="Status")
 	FGameplayAttributeData MaxHp;
 	ATTRIBUTE_ACCESSORS(UWWAttributeSet, MaxHp)
 
+	//적용 공격력
 	UPROPERTY(BlueprintReadOnly, Category="Status")
-	FGameplayAttributeData Attack;
-	ATTRIBUTE_ACCESSORS(UWWAttributeSet, Attack)
-
+	FGameplayAttributeData ApplyAttack;
+	ATTRIBUTE_ACCESSORS(UWWAttributeSet, ApplyAttack)
+	//기본 공격력
 	UPROPERTY(BlueprintReadOnly, Category="Status")
-	FGameplayAttributeData Defence;
-	ATTRIBUTE_ACCESSORS(UWWAttributeSet, Defence)
+	FGameplayAttributeData BasicAttack;
+	ATTRIBUTE_ACCESSORS(UWWAttributeSet, BasicAttack)
 
+	//적용 방어력
+	UPROPERTY(BlueprintReadOnly, Category="Status")
+	FGameplayAttributeData ApplyDefense;
+	ATTRIBUTE_ACCESSORS(UWWAttributeSet, ApplyDefense)
+	//기본 방어력
+	UPROPERTY(BlueprintReadOnly, Category="Status")
+	FGameplayAttributeData BasicDefense;
+	ATTRIBUTE_ACCESSORS(UWWAttributeSet, BasicDefense)
+	
 	UPROPERTY(BlueprintReadOnly, Category="Damage")
 	FGameplayAttributeData DamageTaken;
 	ATTRIBUTE_ACCESSORS(UWWAttributeSet, DamageTaken)
-
 private:
 	TWeakInterfacePtr<IPawnUIInterface> CachedUIInterface;
 

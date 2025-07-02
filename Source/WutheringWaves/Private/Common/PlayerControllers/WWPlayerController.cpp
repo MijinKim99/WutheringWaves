@@ -6,8 +6,10 @@
 #include "EnhancedInputSubsystems.h"
 #include "Common/WWDebugHelper.h"
 #include "Common/WWGameplayTags.h"
+#include "Common/AbilitySystem/WWAbilitySystemComponent.h"
 #include "YHG/Components/Input/WWEnhancedInputComponent.h"
 #include "GameFramework/Character.h"
+#include "YHG/PlayerCharacters/PlayerCharacter.h"
 
 AWWPlayerController::AWWPlayerController()
 {
@@ -17,6 +19,13 @@ AWWPlayerController::AWWPlayerController()
 FGenericTeamId AWWPlayerController::GetGenericTeamId() const
 {
 	return HeroTeamID;
+}
+
+void AWWPlayerController::OnPossess(APawn* InPawn)
+{
+	Super::OnPossess(InPawn);
+
+	ControlledPlayerCharacter = Cast<APlayerCharacter>(GetCharacter());
 }
 
 void AWWPlayerController::SetupInputComponent()
@@ -61,7 +70,11 @@ void AWWPlayerController::SetupInputComponent()
 		this,
 		&AWWPlayerController::Input_Look);
 
-	//WWEnhancedInputComponent->BindAbilityInputAction(InputConfigDataAsset, this, &AHeroCharacter::Input_AbilityInputPressed, &AHeroCharacter::Input_AbilityInputReleased);
+	WWEnhancedInputComponent->BindAbilityInputAction(
+		DataAsset_InputConfig,
+		this,
+		&AWWPlayerController::Input_AbilityInputPressed,
+		&AWWPlayerController::Input_AbilityInputReleased);
 }
 
 void AWWPlayerController::Input_Move(const FInputActionValue& InputActionValue)
@@ -100,8 +113,10 @@ void AWWPlayerController::Input_Look(const FInputActionValue& InputActionValue)
 
 void AWWPlayerController::Input_AbilityInputPressed(FGameplayTag InputTag)
 {
+	ControlledPlayerCharacter->GetBaseAbilitySystemComponent()->OnAbilityInputPressed(InputTag);
 }
 
 void AWWPlayerController::Input_AbilityInputReleased(FGameplayTag InputTag)
 {
+	ControlledPlayerCharacter->GetBaseAbilitySystemComponent()->OnAbilityInputReleased(InputTag);
 }

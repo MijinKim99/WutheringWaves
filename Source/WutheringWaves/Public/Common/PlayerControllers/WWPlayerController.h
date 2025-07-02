@@ -7,6 +7,7 @@
 #include "GameFramework/PlayerController.h"
 #include "WWPlayerController.generated.h"
 
+class APlayerCharacter;
 struct FGameplayTag;
 struct FInputActionValue;
 class UDataAsset_InputConfig;
@@ -23,9 +24,13 @@ public:
 private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	UDataAsset_InputConfig* DataAsset_InputConfig;
-	
-	virtual void SetupInputComponent() override;
 
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	APlayerCharacter* ControlledPlayerCharacter;
+
+	virtual void OnPossess(APawn* InPawn) override;
+	virtual void SetupInputComponent() override;
+	
 	void Input_Move(const FInputActionValue& InputActionValue);
 	void Input_Look(const FInputActionValue& InputActionValue);
 
