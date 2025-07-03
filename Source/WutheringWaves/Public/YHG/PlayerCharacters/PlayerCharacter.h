@@ -33,6 +33,7 @@ private:
 	UPlayerCombatComponent* PlayerCombatComponent;
 
 protected:
+	virtual void Tick(float DeltaSeconds) override;
 	virtual void PossessedBy(AController* NewController) override;
 
 public:

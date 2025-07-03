@@ -36,6 +36,16 @@ private:
 
 	void Input_AbilityInputPressed(FGameplayTag InputTag);
 	void Input_AbilityInputReleased(FGameplayTag InputTag);
+
+private:
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "NativeInputControl")
+	FVector2D IsMove = FVector2D(0.0f, 0.0f);
+	
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "AbilityInputControl")
+	bool IsDash = false;
+
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "AbilityInputControl")
+	bool IsJump = false;
 	
 private:
 	FGenericTeamId HeroTeamID;
