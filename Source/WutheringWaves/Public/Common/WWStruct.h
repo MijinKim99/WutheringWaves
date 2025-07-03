@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameplayTagContainer.h"
 #include "ScalableFloat.h"
-#include "WWEnumType.h"
+#include "WWEnum.h"
 #include "Engine/CurveTable.h"
 #include "WWStruct.generated.h"
 
@@ -22,10 +22,10 @@ struct FWeaponStatData : public FTableRowBase
 	GENERATED_BODY()
 public: 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FString StatName;
+	EWeaponStatType StatName;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FString StatSign;
+	EStatSign StatSign;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float StatNum;
@@ -51,6 +51,43 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UCurveTable* SkillCurve;
+	
+	void InitializeStats()
+	{
+		if (!SkillCurve) return;
+
+		for (FWeaponStatData& Stat : SkillStats)
+		{
+			FName RowName = FName(*UEnum::GetValueAsString(Stat.StatName)); // 예: EWeaponStatType::Attack -> "Attack"
+			FRealCurve* Curve = SkillCurve->FindCurve(RowName, TEXT("WeaponSkillInit"));
+
+			if (Curve)
+			{
+				Stat.StatNum = Curve->Eval(static_cast<float>(SkillRank));
+			}
+		}
+	}
+	
+	FString GetFormattedDescription() const
+	{
+		FFormatNamedArguments Args;
+
+		for (int32 i = 0; i < SkillStats.Num(); ++i)
+		{
+			FString StatNameKey = FString::Printf(TEXT("StatName%d"), i + 1);
+			FString StatNumKey = FString::Printf(TEXT("StatNum%d"), i + 1);
+
+			FText StatNameText = UEnum::GetDisplayValueAsText(SkillStats[i].StatName);
+			float StatValue = SkillStats[i].StatNum;
+
+			Args.Add(*StatNameKey, StatNameText);
+			Args.Add(*StatNumKey, StatValue);
+		}
+		// SkillDescription이 FString이므로 FText로 변환 후 포맷
+		FText FormattedText = FText::Format(FText::FromString(SkillDescription), Args);
+		
+		return FormattedText.ToString(); // FString으로 반환
+	}
 };
 
 USTRUCT(BlueprintType)
