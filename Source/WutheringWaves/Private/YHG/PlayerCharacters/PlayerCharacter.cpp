@@ -31,9 +31,25 @@ APlayerCharacter::APlayerCharacter()
 	//케릭터움직임 초기세팅
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->MaxWalkSpeed = 450.0f;
+	GetCharacterMovement()->JumpZVelocity = 840.0f;
+	GetCharacterMovement()->GravityScale = 2.0f;
 
 	//메시 -90도 돌려놓아 정면으로 조정
 	GetMesh()->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
+}
+
+void APlayerCharacter::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+	
+	if (GetCharacterMovement()->IsFalling())
+	{
+		GetCharacterMovement()->RotationRate = FRotator(0.0f, 180.0f, 0.0f);
+	}
+	else
+	{
+		GetCharacterMovement()->RotationRate = FRotator(0.0f, 360.0f, 0.0f);
+	}
 }
 
 void APlayerCharacter::PossessedBy(AController* NewController)

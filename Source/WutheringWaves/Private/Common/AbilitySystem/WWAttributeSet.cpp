@@ -26,7 +26,7 @@ UWWAttributeSet::UWWAttributeSet()
 void UWWAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data)
 {
 	Super::PostGameplayEffectExecute(Data);
-
+	/*
 	if (!CachedUIInterface.IsValid())
 	{
 		CachedUIInterface = TWeakInterfacePtr<IPawnUIInterface>(Data.Target.GetAvatarActor());
@@ -37,13 +37,13 @@ void UWWAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModC
 	UPawnUIComponent* PawnUIComponent = CachedUIInterface->GetPawnUIComponent();
 
 	checkf(PawnUIComponent, TEXT("Can not Load PawnUIComponent from %s"), *Data.Target.GetAvatarActor()->GetActorLabel());
-	
+	*/
 	if (Data.EvaluatedData.Attribute == GetCurrentHpAttribute())
 	{
 		const float NewCurrentHp = FMath::Clamp(GetCurrentHp(), 0.0f, GetMaxHp());
 		SetCurrentHp(NewCurrentHp);
 
-		PawnUIComponent->OnCurrentHpChanged.Broadcast(GetCurrentHp()/GetMaxHp());
+//		PawnUIComponent->OnCurrentHpChanged.Broadcast(GetCurrentHp()/GetMaxHp());
 	}
 
 	if (Data.EvaluatedData.Attribute == GetDamageTakenAttribute())
@@ -60,7 +60,7 @@ void UWWAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModC
 		Debug::Print(DebugString, FColor::Green);
 		
 		//TODO:: Ui에 값을 전달
-		PawnUIComponent->OnCurrentHpChanged.Broadcast(GetCurrentHp()/GetMaxHp());
+//		PawnUIComponent->OnCurrentHpChanged.Broadcast(GetCurrentHp()/GetMaxHp());
 
 		//Character Death Process
 		if (NewCurrentHp == 0.0f)

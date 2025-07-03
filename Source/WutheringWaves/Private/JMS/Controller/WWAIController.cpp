@@ -5,6 +5,7 @@
 
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Common/WWDebugHelper.h"
+#include "Common/PlayerControllers/WWPlayerController.h"
 #include "Navigation/CrowdFollowingComponent.h"
 #include "Perception/AIPerceptionComponent.h"
 #include "Perception/AISenseConfig_Sight.h"
@@ -51,6 +52,7 @@ AWWAIController::AWWAIController(const FObjectInitializer& ObjectInitializer)
 
 void AWWAIController::OnEnemyPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
 {
+	//Debug::Print(FString::Printf(TEXT("Perception Updated : %s"), *Actor->GetName()), FColor::Green);
 	if (Stimulus.WasSuccessfullySensed() && Actor)
 	{
 		if (UBlackboardComponent* BlackboardComponent = GetBlackboardComponent())
