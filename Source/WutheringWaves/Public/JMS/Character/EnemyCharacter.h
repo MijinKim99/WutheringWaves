@@ -17,6 +17,8 @@ class WUTHERINGWAVES_API AEnemyCharacter : public AWWCharacter
 {
 	GENERATED_BODY()
 AEnemyCharacter();
+public:
+	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UEnemyCombatComponent* EnemyCombatComponent;
@@ -24,12 +26,11 @@ protected:
 	UPROPERTY(EditAnywhere, Category ="Combat")
 	UBoxComponent* AttackCollisionBox;
 	virtual void PossessedBy(AController* NewController) override;
-	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
 	virtual UPawnUIComponent* GetPawnUIComponent() const override;
 	virtual UEnemyUIComponent* GetEnemyUIComponent() const override;
 	virtual void BeginPlay() override;
 	UFUNCTION(BlueprintCallable, Category = "Motion Warping")
-	FMotionWarpingTarget SetAttackTransformFromMotionWarpingTarget(FName WarpTargetName);
+	void SetAttackTransformFromMotionWarpingTarget(FName WarpTargetName);
 	
 private:
 	void InitEnemyStartUpData();

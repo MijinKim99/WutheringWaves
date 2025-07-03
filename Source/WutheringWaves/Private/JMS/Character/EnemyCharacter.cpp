@@ -41,7 +41,7 @@ void AEnemyCharacter::PossessedBy(AController* NewController)
 
 UPawnCombatComponent* AEnemyCharacter::GetPawnCombatComponent() const
 {
-	return Super::GetPawnCombatComponent();
+	return EnemyCombatComponent;
 }
 
 UPawnUIComponent* AEnemyCharacter::GetPawnUIComponent() const
@@ -59,16 +59,18 @@ void AEnemyCharacter::BeginPlay()
 	Super::BeginPlay();
 }
 
-FMotionWarpingTarget AEnemyCharacter::SetAttackTransformFromMotionWarpingTarget(FName WarpTargetName)
+void AEnemyCharacter::SetAttackTransformFromMotionWarpingTarget(FName WarpTargetName)
 {
 	const FMotionWarpingTarget* Target = MotionWarpingComponent->FindWarpTarget(WarpTargetName);
 	if (Target)
 	{
-		return *Target;
+		EnemyCombatComponent->SetAttackTransform(FTransform(FRotator(0.f, GetActorRotation().Yaw, 0.f),
+		                                                    Target->GetLocation(),
+		                                                    FVector(1.f, 1.f, 1.f)));
 	}
 	else
 	{
-		return FMotionWarpingTarget();
+		EnemyCombatComponent->SetAttackTransform(GetActorTransform());
 	}
 }
 

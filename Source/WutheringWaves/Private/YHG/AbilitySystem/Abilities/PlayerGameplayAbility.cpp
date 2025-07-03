@@ -47,7 +47,7 @@ FGameplayEffectSpecHandle UPlayerGameplayAbility::MakePlayerDamageGameplayEffect
 
 	//연산에 필요한 정보 주입
 	SpecHandle.Data->SetSetByCallerMagnitude(
-		WWGameplayTags::Shared_SetByCaller_BaseDamage,
+		WWGameplayTags::Shared_SetByCaller_Damage_Physical,
 		WeaponWWDamage
 		);
 
