@@ -19,7 +19,7 @@ public:
 
 protected:
 	UPROPERTY()
-	class  AWWCharacter* OwningCharacter;
+	class AWWCharacter* OwningCharacter;
 	UPROPERTY()
 	class UCharacterMovementComponent* OwningMovementComponent;
 

@@ -54,9 +54,9 @@ protected:
 	virtual UPawnUIComponent* GetPawnUIComponent() const override;
 
 	//IPawnCombatInterface
-	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
 	
 public:
+	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
 	FORCEINLINE UWWAbilitySystemComponent* GetBaseAbilitySystemComponent() const { return WWAbilitySystemComponent; }
 	FORCEINLINE UWWAttributeSet* GetBaseAttributeSet() const { return WWAttributeSet; }
 };
