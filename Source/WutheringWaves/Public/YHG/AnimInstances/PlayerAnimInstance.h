@@ -14,5 +14,17 @@ class WUTHERINGWAVES_API UPlayerAnimInstance : public UCharacterAnimInstance
 {
 	GENERATED_BODY()
 
+protected:
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "PlayerLocomotion")
+	FVector2D MoveValue;
 	
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "PlayerLocomotion")
+	bool bFalling;
+
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "PlayerLocomotion")
+	bool bGrounded;
+
+public:
+	virtual void NativeInitializeAnimation() override;
+	virtual void NativeThreadSafeUpdateAnimation(float DeltaSeconds) override;
 };
