@@ -6,6 +6,7 @@
 #include "Engine/DataAsset.h"
 #include "DataAsset_Startup.generated.h"
 
+class UGameplayEffect;
 class UWWAbilitySystemComponent;
 class UWWGameplayAbility;
 
@@ -31,6 +32,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category="StartupData")
 	TArray<TSubclassOf<UWWGameplayAbility>> ReactiveAbilities;
 
+	UPROPERTY(EditDefaultsOnly, Category="StartupData")
+	TArray<TSubclassOf<UGameplayEffect>> StartupGameplayEffects;
+	
 	//능력부여
 	void GrantAbilities(const TArray<TSubclassOf<UWWGameplayAbility>> GAs, UWWAbilitySystemComponent* InASC, int32 Level);
 };
