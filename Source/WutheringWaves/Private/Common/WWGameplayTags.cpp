@@ -10,6 +10,8 @@ namespace WWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Look, "InputTag.Look")
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Dash, "InputTag.Dash")
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Jump, "InputTag.Jump")
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_LightAttack, "InputTag.LightAttack")
+	
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Hold, "InputTag.Hold")
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Toggle, "InputTag.Toggle")
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Toggle_Targeting, "InputTag.Toggle.Targeting")
@@ -26,6 +28,7 @@ namespace WWGameplayTags
 	//Ability
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Dash, "Player.Ability.Dash")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Jump, "Player.Ability.Jump")
+	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Attack_Light, "Player.Ability.Attack.Light")
 	/*UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Equip_Swords, "Player.Ability.Equip.Swords")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Equip_Pistols, "Player.Ability.Equip.Pistols")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Equip_Rectifiers, "Player.Ability.Equip.Rectifiers")*/

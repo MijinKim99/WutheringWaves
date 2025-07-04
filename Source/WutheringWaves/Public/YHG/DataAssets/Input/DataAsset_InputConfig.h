@@ -11,7 +11,6 @@ struct FWWInputActionConfig;
 class UInputAction;
 class UInputMappingContext;
 /**
- * 
  */
 UCLASS()
 class WUTHERINGWAVES_API UDataAsset_InputConfig : public UDataAsset

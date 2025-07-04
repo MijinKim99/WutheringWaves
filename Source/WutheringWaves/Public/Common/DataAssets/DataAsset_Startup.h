@@ -8,6 +8,7 @@
 
 class UWWAbilitySystemComponent;
 class UWWGameplayAbility;
+class UGameplayEffect;
 
 /**
  * 
@@ -30,6 +31,9 @@ protected:
 	//특정 조건에 대한 적중반응이나 사망같은 능력들
 	UPROPERTY(EditDefaultsOnly, Category="StartupData")
 	TArray<TSubclassOf<UWWGameplayAbility>> ReactiveAbilities;
+
+	UPROPERTY(EditDefaultsOnly, Category = "StartupData")
+	TArray<TSubclassOf<UGameplayEffect>> StartupGameplayEffects;
 
 	//능력부여
 	void GrantAbilities(const TArray<TSubclassOf<UWWGameplayAbility>> GAs, UWWAbilitySystemComponent* InASC, int32 Level);
