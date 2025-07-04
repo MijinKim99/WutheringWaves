@@ -3,10 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "ActiveGameplayEffectHandle.h"
+#include "GameplayEffectTypes.h"
+#include "GenericTeamAgentInterface.h"
 #include "RootMotionModifier.h"
 #include "Common/Characters/WWCharacter.h"
 #include "EnemyCharacter.generated.h"
 
+struct FEnemyAttackCollisionInfo;
 class UEnemyCombatComponent;
 class UBoxComponent;
 /**
@@ -19,6 +23,15 @@ class WUTHERINGWAVES_API AEnemyCharacter : public AWWCharacter
 AEnemyCharacter();
 public:
 	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
+
+public:
+
+	UFUNCTION()
+	void OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
+						int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	// Attack
+	void EnableAttackCollision(const FVector& Location, float Duration,const FVector& BoxExtent);
+	
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UEnemyCombatComponent* EnemyCombatComponent;
@@ -29,10 +42,14 @@ protected:
 	virtual UPawnUIComponent* GetPawnUIComponent() const override;
 	virtual UEnemyUIComponent* GetEnemyUIComponent() const override;
 	virtual void BeginPlay() override;
+
+	// Attack
+	FTimerHandle CollisionActivationTimerHandle;
+	void DisableAttackCollision();
+
 	UFUNCTION(BlueprintCallable, Category = "Motion Warping")
 	void SetAttackTransformFromMotionWarpingTarget(FName WarpTargetName);
 	
 private:
 	void InitEnemyStartUpData();
-	
 };
