@@ -18,14 +18,15 @@ void UDataAsset_Startup::GiveToAbilitySystemComponent(UWWAbilitySystemComponent*
 	//두 종류 모두 부여
 	GrantAbilities(ActivateOnGivenAbilities, ASC, Level);
 	GrantAbilities(ReactiveAbilities, ASC, Level);
+
 	if (!StartupGameplayEffects.IsEmpty())
 	{
-		for ( const TSubclassOf<UGameplayEffect>& BP_GameplayEffect : StartupGameplayEffects)
+		for (const TSubclassOf<UGameplayEffect>& BP_Effect : StartupGameplayEffects)
 		{
-			if (!BP_GameplayEffect) continue;
+			if (!BP_Effect) continue;
 
-			//BP클래스에서 Native c++클래스를 추출해서 사용
-			UGameplayEffect* EffectCDO = BP_GameplayEffect->GetDefaultObject<UGameplayEffect>();
+			//BP클래스에서 순수 c++클래스를 추출해서 사용
+			UGameplayEffect* EffectCDO = BP_Effect->GetDefaultObject<UGameplayEffect>();
 			ASC->ApplyGameplayEffectToSelf(EffectCDO, Level, ASC->MakeEffectContext());
 		}
 	}

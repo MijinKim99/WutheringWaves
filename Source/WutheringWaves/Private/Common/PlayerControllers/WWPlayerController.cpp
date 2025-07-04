@@ -13,6 +13,12 @@
 
 AWWPlayerController::AWWPlayerController()
 {
+	IsMove = FVector2D(0.0f, 0.0f);
+	IsDash = false;
+	IsJump = false;
+	IsLightAttack = false;
+	LightAttackComboCount = 1;
+	
 	HeroTeamID = FGenericTeamId(0);
 }
 

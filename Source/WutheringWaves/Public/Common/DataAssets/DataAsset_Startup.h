@@ -9,6 +9,7 @@
 class UGameplayEffect;
 class UWWAbilitySystemComponent;
 class UWWGameplayAbility;
+class UGameplayEffect;
 
 /**
  * 
@@ -32,9 +33,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category="StartupData")
 	TArray<TSubclassOf<UWWGameplayAbility>> ReactiveAbilities;
 
-	UPROPERTY(EditDefaultsOnly, Category="StartupData")
+	UPROPERTY(EditDefaultsOnly, Category = "StartupData")
 	TArray<TSubclassOf<UGameplayEffect>> StartupGameplayEffects;
-	
+
 	//능력부여
 	void GrantAbilities(const TArray<TSubclassOf<UWWGameplayAbility>> GAs, UWWAbilitySystemComponent* InASC, int32 Level);
 };
