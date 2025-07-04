@@ -51,6 +51,15 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UCurveTable* SkillCurve;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bIsStackable;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float SkillTime;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 SkillStack;
 	
 	void InitializeStats()
 	{
@@ -145,35 +154,28 @@ public:
 
 // 아이템 배열을 포함한 인벤토리 구조체
 USTRUCT(BlueprintType)
-struct FInventory : public FTableRowBase
+struct FInventory_Base : public FTableRowBase
 {
 	GENERATED_BODY()
 
 public:
 	// 여러 아이템을 저장할 수 있는 배열 (포인터 사용 없이 값으로 처리)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
-	TArray<FWeaponData> WeaponItems;
+	FString ItemIndex;
 
-	// 아이템 추가 함수
-	template<typename T>
-	void AddItem(const T& Item)
-	{
-		if (!Item.IsValid()) return;
-		if (FItemBase* CastedItem = Cast<FItemBase>(Item))
-		{
-			if (CastedItem->GetItemType() == EItemType::Weapon)
-			{
-				WeaponItems.Add(Item);
-			}
-			else if (CastedItem->GetItemType() == EItemType::Echo)
-			{
-				//EchoInventory 추가
-			}
-			else if (CastedItem->GetItemType() == EItemType::Consume)
-			{
-				//ConsumeInventory 추가
-			}
-		}
-	}
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Inventory")
+	int32 ItemCount;
 	
+};
+
+USTRUCT(BlueprintType)
+struct FInventory_Weapon : public FInventory_Base
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Inventory_Weapon")
+	FString ItemOwner;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Inventory_Weapon")
+	UTexture2D* ItemOwnerImage;
 };

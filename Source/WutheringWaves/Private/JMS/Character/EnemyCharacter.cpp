@@ -3,8 +3,13 @@
 
 #include "JMS/Character/EnemyCharacter.h"
 
+#include "AbilitySystemBlueprintLibrary.h"
+#include "AbilitySystemComponent.h"
+#include "GenericTeamAgentInterface.h"
 #include "MotionWarpingComponent.h"
+#include "Abilities/GameplayAbilityTypes.h"
 #include "Common/WWDebugHelper.h"
+#include "Common/WWGameplayTags.h"
 #include "Common/DataAssets/DataAsset_Startup.h"
 #include "Components/BoxComponent.h"
 #include "Engine/AssetManager.h"
@@ -27,9 +32,7 @@ AEnemyCharacter::AEnemyCharacter()
 	GetCharacterMovement()->BrakingDecelerationWalking = 1000.0f;
 
 	AttackCollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("AttackCollisionBox"));
-	AttackCollisionBox->SetupAttachment(GetMesh());
 	AttackCollisionBox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-
 	EnemyCombatComponent = CreateDefaultSubobject<UEnemyCombatComponent>(TEXT("EnemyCombatComponent"));
 }
 
@@ -37,11 +40,33 @@ void AEnemyCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 	InitEnemyStartUpData();
+	AttackCollisionBox->OnComponentBeginOverlap.AddUniqueDynamic(this, &AEnemyCharacter::OnBeginOverlap);
 }
 
 UPawnCombatComponent* AEnemyCharacter::GetPawnCombatComponent() const
 {
 	return EnemyCombatComponent;
+}
+
+
+void AEnemyCharacter::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+                                     UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	Debug::Print(FString::Printf(TEXT("Collision Begin Overlap : %s"), *OtherActor->GetActorNameOrLabel()));
+	APawn* OtherPawn = Cast<APawn>(OtherActor);
+	if (!OtherPawn)
+	{
+		return;
+	}
+	IGenericTeamAgentInterface* OtherTeamAgent = Cast<IGenericTeamAgentInterface>(OtherPawn->GetController());
+	if (!OtherTeamAgent)
+	{
+		return;
+	}
+	if (OtherTeamAgent->GetGenericTeamId() != Cast<IGenericTeamAgentInterface>(GetController())->GetGenericTeamId())
+	{
+		EnemyCombatComponent->OnHitTargetActor(OtherActor);
+	}
 }
 
 UPawnUIComponent* AEnemyCharacter::GetPawnUIComponent() const
@@ -65,14 +90,32 @@ void AEnemyCharacter::SetAttackTransformFromMotionWarpingTarget(FName WarpTarget
 	if (Target)
 	{
 		EnemyCombatComponent->SetAttackTransform(FTransform(FRotator(0.f, GetActorRotation().Yaw, 0.f),
-		                                                    Target->GetLocation(),
-		                                                    FVector(1.f, 1.f, 1.f)));
+															Target->GetLocation(),
+															FVector(1.f, 1.f, 1.f)));
 	}
 	else
 	{
 		EnemyCombatComponent->SetAttackTransform(GetActorTransform());
 	}
 }
+
+void AEnemyCharacter::DisableAttackCollision()
+{
+	AttackCollisionBox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	
+}
+
+void AEnemyCharacter::EnableAttackCollision(const FVector& Location, float Duration,const FVector& BoxExtent)
+{
+	AttackCollisionBox->SetWorldLocationAndRotation(Location, GetActorRotation());
+	AttackCollisionBox->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
+	AttackCollisionBox->SetBoxExtent(BoxExtent);
+	GetWorld()->GetTimerManager().SetTimer(CollisionActivationTimerHandle, this,
+										   &AEnemyCharacter::DisableAttackCollision, Duration,
+										   false);
+	AttackCollisionBox->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+}
+
 
 void AEnemyCharacter::InitEnemyStartUpData()
 {
