@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "Common/Characters/WWCharacter.h"
-#include "GameplayTagContainer.h"
 #include "PlayerCharacter.generated.h"
 
 class UCameraComponent;
@@ -38,4 +37,46 @@ protected:
 
 public:
 	FORCEINLINE UPlayerCombatComponent* GetPlayerCombatComponent() const { return PlayerCombatComponent; }
+
+//StateControl
+protected:
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "StateControl")
+	bool bIsGrounded;
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "StateControl")
+	bool bIsFalling;
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "StateControl")
+	bool bIsIdle;
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "StateControl")
+	bool bIsLeftMoving;
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "StateControl")
+	bool bIsRightMoving;
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "StateControl")
+	bool bIsRun;
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "StateControl")
+	bool bIsJumping;
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "StateControl")
+	bool bIsLeftJumping;
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "StateControl")
+	bool bIsRightJumping;
+	
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "AbilityStateControl")
+	int32 LightAttackComboCount;
+	
+public:
+	UFUNCTION()
+	bool GetIsGrounded() const;
+	UFUNCTION()
+	bool GetIsFalling() const;
+	UFUNCTION()
+	bool GetIsIdle() const;
+	UFUNCTION()
+	bool GetIsRightMoving() const;
+	UFUNCTION()
+	bool GetIsLeftMoving() const;
+	UFUNCTION()
+	bool GetIsRun() const;
+	UFUNCTION()
+	bool GetIsLeftJumping() const;
+	UFUNCTION()
+	bool GetIsRightJumping() const;
 };
