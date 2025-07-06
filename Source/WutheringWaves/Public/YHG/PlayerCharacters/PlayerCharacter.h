@@ -58,6 +58,9 @@ protected:
 	bool bIsLeftJumping;
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "StateControl")
 	bool bIsRightJumping;
+
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "AbilityStateControl")
+	bool AttackMode;
 	
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "AbilityStateControl")
 	int32 LightAttackComboCount;

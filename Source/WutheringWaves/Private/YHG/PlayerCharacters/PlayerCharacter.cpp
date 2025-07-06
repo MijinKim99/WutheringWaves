@@ -37,7 +37,9 @@ APlayerCharacter::APlayerCharacter()
 
 	//메시 -90도 돌려놓아 정면으로 조정
 	GetMesh()->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
-
+	
+	AttackMode = false;
+	
 	LightAttackComboCount = 1;
 }
 
