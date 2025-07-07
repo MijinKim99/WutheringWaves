@@ -64,6 +64,23 @@ UPawnCombatComponent* AWWCharacter::GetPawnCombatComponent() const
 	return nullptr;
 }
 
+void AWWCharacter::CancelAllActiveAbilities(UAbilitySystemComponent* ASC)
+{
+	if (!ASC)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("ActionControlANS : Can't find ASC"));
+		return;
+	}
+
+	for (FGameplayAbilitySpec& Spec : ASC->GetActivatableAbilities())
+	{
+		if (Spec.IsActive())
+		{
+			ASC->CancelAbilityHandle(Spec.Handle);
+		}
+	}
+}
+
 /*
 // Called to bind functionality to input
 void AWWCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

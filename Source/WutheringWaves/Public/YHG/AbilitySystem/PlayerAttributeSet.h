@@ -52,4 +52,37 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category="Status")
 	FGameplayAttributeData BasicCriticalDamage;
 	ATTRIBUTE_ACCESSORS(UPlayerAttributeSet, BasicCriticalDamage)
+
+
+	
+	//속성별 피해
+	UPROPERTY(BlueprintReadOnly, Category="Status")
+	FGameplayAttributeData ApplyFireDamage;
+	UPROPERTY(BlueprintReadOnly, Category="Status")
+	FGameplayAttributeData BasicFireDamage;
+
+	UPROPERTY(BlueprintReadOnly, Category="Status")
+	FGameplayAttributeData ApplyIceDamage;
+	UPROPERTY(BlueprintReadOnly, Category="Status")
+	FGameplayAttributeData BasicIceDamage;
+
+	UPROPERTY(BlueprintReadOnly, Category="Status")
+	FGameplayAttributeData ApplyAirDamage;
+	UPROPERTY(BlueprintReadOnly, Category="Status")
+	FGameplayAttributeData BasicAirDamage;
+
+	UPROPERTY(BlueprintReadOnly, Category="Status")
+	FGameplayAttributeData ApplyElectricDamage;
+	UPROPERTY(BlueprintReadOnly, Category="Status")
+	FGameplayAttributeData BasicElectricDamage;
+
+	UPROPERTY(BlueprintReadOnly, Category="Status")
+	FGameplayAttributeData ApplyLightDamage;
+	UPROPERTY(BlueprintReadOnly, Category="Status")
+	FGameplayAttributeData BasicLightDamage;
+
+	UPROPERTY(BlueprintReadOnly, Category="Status")
+	FGameplayAttributeData ApplyDarkDamage;
+	UPROPERTY(BlueprintReadOnly, Category="Status")
+	FGameplayAttributeData BasicDarkDamage;
 };

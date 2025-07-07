@@ -26,11 +26,6 @@ AWWPlayerController* UPlayerGameplayAbility::GetPlayerControllerFromActorInfo()
 	return CachedPlayerController.IsValid() ? CachedPlayerController.Get() : nullptr;
 }
 
-UPlayerCombatComponent* UPlayerGameplayAbility::GetPlayerCombatComponentFromActorInfo()
-{
-	return GetPlayerCharacterFromActorInfo()->GetPlayerCombatComponent();
-}
-
 FGameplayEffectSpecHandle UPlayerGameplayAbility::MakePlayerDamageGameplayEffectSpecHandle(
 	TSubclassOf<UGameplayEffect> Effect, float WeaponWWDamage, FGameplayTag AttackTypeTag, int32 ComboCount)
 {

@@ -3,9 +3,6 @@
 
 #include "WutheringWaves/Public/YHG/DataAssets/Input/DataAsset_InputConfig.h"
 
-#include "InputAction.h"
-#include "YHGStructType.h"
-
 UInputAction* UDataAsset_InputConfig::FindNativeInputActionByTag(const FGameplayTag& InInputTag) const
 {
 	for (const FWWInputActionConfig& InputActionConfig : NativeInputActions)

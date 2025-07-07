@@ -132,7 +132,7 @@ public:
 	FGameplayTag WeaponTag;
 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadWrite, Category = "Weapon")
-	EWeaponRarity WeaponRarity;
+	EItemRarity WeaponRarity;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
 	int32 WeaponLevel;

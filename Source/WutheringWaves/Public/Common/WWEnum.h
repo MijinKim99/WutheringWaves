@@ -22,8 +22,8 @@ enum class EWWSuccessType : uint8
 };
 
 //0703 KMJ Add_Weapon & WeaponSkill & Inventory 관련
-UENUM()
-enum class EWeaponRarity : uint8
+UENUM(BlueprintType)
+enum class EItemRarity : uint8
 {
 	FiveStar,
 	FourStar,
@@ -32,7 +32,7 @@ enum class EWeaponRarity : uint8
 	OneStar
 };
 
-UENUM()
+UENUM(BlueprintType)
 enum class EItemType : uint8
 {
 	Weapon,
@@ -40,7 +40,7 @@ enum class EItemType : uint8
 	Consume
 };
 
-UENUM()
+UENUM(BlueprintType)
 enum class EWeaponStatType : uint8
 {
 	Attack,
@@ -54,6 +54,13 @@ enum class EStatSign : uint8
 {
 	Plus,
 	Multiple
+};
+
+UENUM(BlueprintType)
+enum class EWeaponLocked : uint8
+{
+	Locked,
+	Unlocked
 };
 
 class WWEnum

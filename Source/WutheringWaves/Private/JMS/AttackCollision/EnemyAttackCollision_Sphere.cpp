@@ -19,5 +19,4 @@ AEnemyAttackCollision_Sphere::AEnemyAttackCollision_Sphere()
 void AEnemyAttackCollision_Sphere::BeginPlay()
 {
 	Super::BeginPlay();
-	SphereComponent->OnComponentBeginOverlap.AddUniqueDynamic(this,&AEnemyAttackCollision::OnBeginOverlap);
 }

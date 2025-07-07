@@ -16,26 +16,27 @@ namespace WWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Toggle, "InputTag.Toggle")
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Toggle_Targeting, "InputTag.Toggle.Targeting")
 	
-	//Player Tags
+	//Player Weapon
 	UE_DEFINE_GAMEPLAY_TAG(Player_Weapon_Swords, "Player.Weapon.Swords")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Weapon_Pistols, "Player.Weapon.Pistols")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Weapon_Rectifiers, "Player.Weapon.Rectifiers")
 
-	//Event
+	//Player Event
 	UE_DEFINE_GAMEPLAY_TAG(Player_Event_WeaponEquip, "Player.Event.WeaponEquip")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Event_WeaponUnEquip, "Player.Event.WeaponUnEquip")
 
-	//Ability
+	//Player Ability
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Dash, "Player.Ability.Dash")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Jump, "Player.Ability.Jump")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Attack_Light, "Player.Ability.Attack.Light")
-	/*UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Equip_Swords, "Player.Ability.Equip.Swords")
-	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Equip_Pistols, "Player.Ability.Equip.Pistols")
-	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Equip_Rectifiers, "Player.Ability.Equip.Rectifiers")*/
 
-	//Status
+	//Player Status
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_Dashing, "Player.Status.Dashing")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_Jumping, "Player.Status.Jumping")
+	UE_DEFINE_GAMEPLAY_TAG(Player_Status_Attacking_Light, "Player.Status.Attacking.Light")
+
+	//Player SetByCaller
+	UE_DEFINE_GAMEPLAY_TAG(Player_SetByCaller_AttackType_Light, "Player.SetByCaller.AttackType.Light")
 
 	//Shared
 	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_Damage_Physical, "Shared.SetByCaller.Damage.Physical")
