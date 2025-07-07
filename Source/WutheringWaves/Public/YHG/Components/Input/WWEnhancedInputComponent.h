@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "EnhancedInputComponent.h"
-#include "YHGStructType.h"
 #include "Common/WWDebugHelper.h"
 #include "YHG/DataAssets/Input/DataAsset_InputConfig.h"
 #include "WWEnhancedInputComponent.generated.h"

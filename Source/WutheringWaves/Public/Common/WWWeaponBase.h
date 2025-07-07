@@ -5,7 +5,11 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "WWWeaponBase.generated.h"
+
+DECLARE_DELEGATE_OneParam(FOnTargetInteractedDelegate, AActor*)
+
 class UBoxComponent;
+
 UCLASS()
 class WUTHERINGWAVES_API AWWWeaponBase : public AActor
 {

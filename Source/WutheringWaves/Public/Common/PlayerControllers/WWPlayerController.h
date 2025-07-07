@@ -39,19 +39,18 @@ private:
 
 private:
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "NativeInputControl")
-	FVector2D IsMove;
+	FVector2D IsInputMove;
 	
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "AbilityInputControl")
-	bool IsDash;
+	bool bIsInputDash;
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "AbilityInputControl")
-	bool IsJump;
+	bool bIsInputJump;
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "AbilityInputControl")
-	bool IsLightAttack;
+	bool bIsInputLightAttack;
 
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "AbilityStateControl")
-	int32 LightAttackComboCount;
+	
 	
 private:
 	FGenericTeamId HeroTeamID;

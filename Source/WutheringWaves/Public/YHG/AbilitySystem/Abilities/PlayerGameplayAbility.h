@@ -26,9 +26,6 @@ public:
 	AWWPlayerController* GetPlayerControllerFromActorInfo();
 
 	UFUNCTION(BlueprintPure, Category="Ability")
-	UPlayerCombatComponent* GetPlayerCombatComponentFromActorInfo();
-
-	UFUNCTION(BlueprintPure, Category="Ability")
 	FGameplayEffectSpecHandle MakePlayerDamageGameplayEffectSpecHandle(TSubclassOf<UGameplayEffect> Effect
 		,float WeaponBaseDamage, FGameplayTag AttackTypeTag, int32 ComboCount
 	);

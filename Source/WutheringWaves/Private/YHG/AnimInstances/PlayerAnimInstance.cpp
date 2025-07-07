@@ -2,3 +2,36 @@
 
 
 #include "YHG/AnimInstances/PlayerAnimInstance.h"
+#include "Common/WWDebugHelper.h"
+#include "YHG/PlayerCharacters/PlayerCharacter.h"
+
+void UPlayerAnimInstance::NativeInitializeAnimation()
+{
+	Super::NativeInitializeAnimation();
+
+	PlayerCharacter = Cast<APlayerCharacter>(OwningCharacter);
+	if (!PlayerCharacter)
+	{
+		Debug::Print(TEXT("PlayerAnimInstance : Failed Cast PlayerCharacter"));
+		return;
+	}
+}
+
+void UPlayerAnimInstance::NativeThreadSafeUpdateAnimation(float DeltaSeconds)
+{
+	Super::NativeThreadSafeUpdateAnimation(DeltaSeconds);
+
+	if (!PlayerCharacter)
+	{
+		Debug::Print(TEXT("PlayerAnimInstance : Can't find PlayerCharacter by Update"));
+		return;
+	}
+	bIsGrounded = PlayerCharacter->GetIsGrounded();
+	bIsFalling = PlayerCharacter->GetIsFalling();
+	bIsIdle = PlayerCharacter->GetIsIdle();
+	bIsLeftMoving = PlayerCharacter->GetIsLeftMoving();
+	bIsRightMoving = PlayerCharacter->GetIsRightMoving();
+	bIsRun = PlayerCharacter->GetIsRun();
+	bIsLeftJumping = PlayerCharacter->GetIsLeftJumping();
+	bIsRightJumping = PlayerCharacter->GetIsRightJumping();
+}

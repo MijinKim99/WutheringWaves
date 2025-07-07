@@ -7,9 +7,24 @@
 #include "Engine/DataAsset.h"
 #include "DataAsset_InputConfig.generated.h"
 
-struct FWWInputActionConfig;
 class UInputAction;
 class UInputMappingContext;
+
+USTRUCT(BlueprintType)
+struct FWWInputActionConfig
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Categories = "InputTag"))
+	FGameplayTag InputTag;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UInputAction* InputAction;
+
+	bool IsValid() const
+	{
+		return InputTag.IsValid() && InputAction;
+	}
+};
 /**
  */
 UCLASS()

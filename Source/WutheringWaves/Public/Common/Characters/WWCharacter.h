@@ -59,4 +59,9 @@ public:
 	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
 	FORCEINLINE UWWAbilitySystemComponent* GetBaseAbilitySystemComponent() const { return WWAbilitySystemComponent; }
 	FORCEINLINE UWWAttributeSet* GetBaseAttributeSet() const { return WWAttributeSet; }
+
+//어빌리티 제어
+public:
+	UFUNCTION(BlueprintCallable)
+	void CancelAllActiveAbilities(UAbilitySystemComponent* ASC);
 };
