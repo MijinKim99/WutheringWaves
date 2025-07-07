@@ -78,6 +78,12 @@ DerivedDataCache/*
 # Content/Assets 폴더 무시
 # JMS: 뒤에 * 추가
 Content/Assets/*
+Content/Forest_VFX
+Content/SciFi_UrbanPack
+Content/StylizedRenderingSystem
+Content/DissolutionVFX
+Content/AmbientFx
+Content/StarterFxKit
 
 # Custom by JMS
 # Rider 파일 제외
