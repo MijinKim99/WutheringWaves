@@ -7,7 +7,6 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/KismetMathLibrary.h"
-#include "YHG/Components/Combat/PlayerCombatComponent.h"
 
 APlayerCharacter::APlayerCharacter()
 {
@@ -26,9 +25,6 @@ APlayerCharacter::APlayerCharacter()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	FollowCamera->bUsePawnControlRotation = false;
 
-	//CombatComponent 세팅
-	PlayerCombatComponent = CreateDefaultSubobject<UPlayerCombatComponent>(TEXT("PlayerCombatComponent"));
-
 	//케릭터움직임 초기세팅
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->MaxWalkSpeed = 450.0f;
@@ -41,6 +37,8 @@ APlayerCharacter::APlayerCharacter()
 	AttackMode = false;
 	
 	LightAttackComboCount = 1;
+
+	LightAttackTargets.Empty();
 }
 
 void APlayerCharacter::Tick(float DeltaSeconds)

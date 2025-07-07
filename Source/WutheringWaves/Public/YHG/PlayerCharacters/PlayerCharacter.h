@@ -6,6 +6,7 @@
 #include "Common/Characters/WWCharacter.h"
 #include "PlayerCharacter.generated.h"
 
+class AEnemyCharacter;
 class UCameraComponent;
 class USpringArmComponent;
 class UPlayerCombatComponent;
@@ -28,15 +29,9 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FollowCamera;
 
-	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, category = "Combat", meta = (AllowPrivateAccess = "true"))
-	UPlayerCombatComponent* PlayerCombatComponent;
-
 protected:
 	virtual void Tick(float DeltaSeconds) override;
 	virtual void PossessedBy(AController* NewController) override;
-
-public:
-	FORCEINLINE UPlayerCombatComponent* GetPlayerCombatComponent() const { return PlayerCombatComponent; }
 
 //StateControl
 protected:
@@ -64,6 +59,9 @@ protected:
 	
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "AbilityStateControl")
 	int32 LightAttackComboCount;
+
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "Attack")
+	TSet<AEnemyCharacter*> LightAttackTargets;
 	
 public:
 	UFUNCTION()
