@@ -3,6 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "ActiveGameplayEffectHandle.h"
+#include "GameplayEffectTypes.h"
 #include "WWEnum.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "WWBlueprintFunctionLibrary.generated.h"
@@ -31,6 +33,10 @@ public:
 
 	static bool NativeActorHasTag(AActor* Actor, FGameplayTag Tag);
 
+	UFUNCTION(BlueprintCallable, Category="FunctionLibrary")
+	static FActiveGameplayEffectHandle ApplyGameplayEffectSpecHandleToTarget(AActor* TargetActor,
+																	  const FGameplayEffectSpecHandle&
+																	  InGameplayEffectSpecHandle);
 	
 	UFUNCTION(BlueprintCallable, Category="FunctionLibrary", meta=(DisplayName="BP_HasTag", ExpandEnumAsExecs = "OutType"))
 	static void BP_HasTag(AActor* Actor, FGameplayTag Tag, EWWConfirmType& OutType);
@@ -52,7 +58,6 @@ public:
 	UFUNCTION(BlueprintPure, Category="FunctionLibrary", meta=(CompactNodeTitle = "Get Value At Level"))
 	static float GetScalableFloatValueAtLevel(const FScalableFloat& ScFloat, float Level);
 	
-
 	//TODO: 방향 태그 추가 및 판별 로직 추가 필요
 	/*
 	UFUNCTION(BlueprintPure, Category="FunctionLibrary")

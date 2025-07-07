@@ -34,7 +34,11 @@ class WUTHERINGWAVES_API UEnemyCombatComponent : public UPawnCombatComponent
 public:
 	void SetAttackTransform(const FTransform& InTransform);
 	UFUNCTION(BlueprintCallable, Category = "Enemy Combat Component")
-	void EnableAttackCollisionForAWhile(const FEnemyAttackCollisionInfo& AttackCollisionInfo,const FGameplayEffectSpecHandle& GameplayEffectSpecHandle);
+	void EnableAttackCollisionForAWhile(const FEnemyAttackCollisionInfo& AttackCollisionInfo,
+	                                    const FGameplayEffectSpecHandle& GameplayEffectSpecHandle);
+	UFUNCTION(BlueprintCallable, Category = "Enemy Combat Component")
+	void LaunchCollisionProjectile(const FEnemyAttackCollisionInfo& AttackCollisionInfo,
+	                                                   const FGameplayEffectSpecHandle& GameplayEffectSpecHandle);
 	void OnHitTargetActor(AActor* HitActor);
 
 protected:
@@ -42,9 +46,6 @@ protected:
 
 	FGameplayEffectSpecHandle GameplayEffectSpecHandleCache;
 	TSet<AActor*> HitTargetSet;
-	FActiveGameplayEffectHandle ApplyGameplayEffectSpecHandleToTarget(AActor* TargetActor,
-	                                                                  const FGameplayEffectSpecHandle&
-	                                                                  InGameplayEffectSpecHandle);
 
 	void SetGameplayEffectSpecHandle(const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle);
 
