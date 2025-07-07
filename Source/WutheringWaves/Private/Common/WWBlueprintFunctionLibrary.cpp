@@ -46,6 +46,15 @@ bool UWWBlueprintFunctionLibrary::NativeActorHasTag(AActor* Actor, FGameplayTag 
 	return ASC->HasMatchingGameplayTag(Tag);
 }
 
+FActiveGameplayEffectHandle UWWBlueprintFunctionLibrary::ApplyGameplayEffectSpecHandleToTarget(AActor* TargetActor,
+	const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle)
+{
+	UAbilitySystemComponent* ASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
+	check(ASC&&InGameplayEffectSpecHandle.IsValid());
+
+	return ASC->ApplyGameplayEffectSpecToTarget(*InGameplayEffectSpecHandle.Data, ASC);
+}
+
 void UWWBlueprintFunctionLibrary::BP_HasTag(AActor* Actor, FGameplayTag Tag, EWWConfirmType& OutType)
 {
 	OutType = NativeActorHasTag(Actor, Tag) ? EWWConfirmType::Yes : EWWConfirmType::No;
@@ -93,7 +102,7 @@ float UWWBlueprintFunctionLibrary::GetScalableFloatValueAtLevel(const FScalableF
 }
 
 bool UWWBlueprintFunctionLibrary::ApplyGameplayEffectSpecHandleToTargetActor(AActor* Instigator, AActor* TargetActor,
-	const FGameplayEffectSpecHandle& SpecHandle)
+                                                                             const FGameplayEffectSpecHandle& SpecHandle)
 {
 	UWWAbilitySystemComponent* SourceASC = NativeGetAbilitySystemComponentFromActor(Instigator);
 	UWWAbilitySystemComponent* TargetASC = NativeGetAbilitySystemComponentFromActor(TargetActor);

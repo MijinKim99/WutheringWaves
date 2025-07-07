@@ -105,7 +105,7 @@ void AEnemyCharacter::DisableAttackCollision()
 	
 }
 
-void AEnemyCharacter::EnableAttackCollision(const FVector& Location, float Duration,const FVector& BoxExtent)
+void AEnemyCharacter::SetAttackCollisionAtLocation(const FVector& Location, float Duration,const FVector& BoxExtent)
 {
 	AttackCollisionBox->SetWorldLocationAndRotation(Location, GetActorRotation());
 	AttackCollisionBox->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
@@ -114,6 +114,11 @@ void AEnemyCharacter::EnableAttackCollision(const FVector& Location, float Durat
 										   &AEnemyCharacter::DisableAttackCollision, Duration,
 										   false);
 	AttackCollisionBox->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+}
+
+void AEnemyCharacter::LaunchAttackCollisionAsProjectile(const FVector& TargetLocation, const FVector& BoxExtent)
+{
+	
 }
 
 

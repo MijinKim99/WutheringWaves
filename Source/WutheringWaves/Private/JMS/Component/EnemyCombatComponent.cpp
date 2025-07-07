@@ -7,6 +7,7 @@
 #include "AbilitySystemComponent.h"
 #include "RootMotionModifier.h"
 #include "Abilities/GameplayAbilityTypes.h"
+#include "Common/WWBlueprintFunctionLibrary.h"
 #include "Common/WWGameplayTags.h"
 #include "EntitySystem/MovieSceneEntitySystemRunner.h"
 #include "JMS/AttackCollision/EnemyAttackCollision.h"
@@ -21,15 +22,19 @@ void UEnemyCombatComponent::SetAttackTransform(const FTransform& InTransform)
 void UEnemyCombatComponent::EnableAttackCollisionForAWhile(const FEnemyAttackCollisionInfo& AttackCollisionInfo,
                                                            const FGameplayEffectSpecHandle& GameplayEffectSpecHandle)
 {
-	
 	SetGameplayEffectSpecHandle(GameplayEffectSpecHandle);
-	Cast<AEnemyCharacter>(GetOwningPawn())->EnableAttackCollision(AttackTransform.GetTranslation(),AttackCollisionInfo.Duration,AttackCollisionInfo.BoxExtent);
+	Cast<AEnemyCharacter>(GetOwningPawn())->SetAttackCollisionAtLocation(
+		AttackTransform.GetTranslation(), AttackCollisionInfo.Duration, AttackCollisionInfo.BoxExtent);
+}
+
+void UEnemyCombatComponent::LaunchCollisionProjectile(const FEnemyAttackCollisionInfo& AttackCollisionInfo,
+                                                      const FGameplayEffectSpecHandle& GameplayEffectSpecHandle)
+{
 }
 
 void UEnemyCombatComponent::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 void UEnemyCombatComponent::OnHitTargetActor(AActor* HitActor)
@@ -43,7 +48,7 @@ void UEnemyCombatComponent::OnHitTargetActor(AActor* HitActor)
 	HitTargetSet.Add(HitActor);
 
 	// GameplayEffectSpecHandle 적용
-	ApplyGameplayEffectSpecHandleToTarget(HitActor, GameplayEffectSpecHandleCache);
+	UWWBlueprintFunctionLibrary::ApplyGameplayEffectSpecHandleToTarget(HitActor, GameplayEffectSpecHandleCache);
 
 	// Gameplay Event 전달
 	FGameplayEventData Data;
@@ -51,16 +56,6 @@ void UEnemyCombatComponent::OnHitTargetActor(AActor* HitActor)
 	Data.Target = HitActor;
 	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(HitActor, WWGameplayTags::Shared_Event_HitReact, Data);
 }
-
-FActiveGameplayEffectHandle UEnemyCombatComponent::ApplyGameplayEffectSpecHandleToTarget(AActor* TargetActor,
-                                                                                         const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle)
-{
-	UAbilitySystemComponent* ASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
-	check(ASC&&InGameplayEffectSpecHandle.IsValid());
-
-	return ASC->ApplyGameplayEffectSpecToTarget(*InGameplayEffectSpecHandle.Data, ASC);
-}
-
 
 void UEnemyCombatComponent::SetGameplayEffectSpecHandle(const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle)
 {

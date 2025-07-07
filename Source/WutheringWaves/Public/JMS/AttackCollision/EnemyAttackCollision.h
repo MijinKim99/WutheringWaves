@@ -9,7 +9,10 @@
 #include "EnemyAttackCollision.generated.h"
 
 
-UCLASS()
+class UProjectileMovementComponent;
+
+// TODO: 적 하나만 공격 가능하므로 나중에 수정 필요
+UCLASS(Abstract)
 class WUTHERINGWAVES_API AEnemyAttackCollision : public AActor
 {
 	GENERATED_BODY()
@@ -27,22 +30,30 @@ public:
 	float CollisionDuration = 1.0f;
 	void SetGameplayEffectSpecHandle(const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle);
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Projectile")
+	bool bIsProjectile = false;
 
-	UFUNCTION()
-	void OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
-	                    int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	virtual void AttackAsProjectile(const FVector& TargetLocation, const FVector& BoxExtent);
+
 
 protected:
+	// Collision Setting
 	FTimerHandle CollisionActivationTimerHandle;
-	void DestroyCollision();
+	UFUNCTION()
+	virtual void ResetCollision();
+	FTransform InitialRelativeTransform;
 
-	void CheckHitTargetOnSpawn();
-
+	// Damage
 	FGameplayEffectSpecHandle GameplayEffectSpecHandle;
 	TSet<AActor*> HitTargetSet;
 	void OnHitTargetActor(AActor* HitActor);
-	FActiveGameplayEffectHandle ApplyGameplayEffectSpecHandleToTarget(AActor* TargetActor,
-	                                                                  const FGameplayEffectSpecHandle&
-	                                                                  InGameplayEffectSpecHandle);
+
 	FGenericTeamId InstigatorTeamId;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Projectile")
+	UProjectileMovementComponent* ProjectileMovementComponent;
+
+	
+	virtual void OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
+						int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 };

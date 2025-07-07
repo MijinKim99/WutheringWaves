@@ -18,5 +18,4 @@ AEnemyAttackCollision_Capsule::AEnemyAttackCollision_Capsule()
 void AEnemyAttackCollision_Capsule::BeginPlay()
 {
 	Super::BeginPlay();
-	CapsuleComponent->OnComponentBeginOverlap.AddUniqueDynamic(this, &AEnemyAttackCollision::OnBeginOverlap);
 }
