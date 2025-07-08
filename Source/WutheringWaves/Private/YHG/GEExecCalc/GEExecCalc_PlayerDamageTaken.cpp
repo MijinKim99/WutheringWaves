@@ -6,14 +6,14 @@
 #include "Common/WWGameplayTags.h"
 #include "Common/AbilitySystem/WWAttributeSet.h"
 
-struct FDamageCapture
+struct FPlayerDamageCapture
 {
 	//BaseAttributeSet에 변수를 캡처
 	DECLARE_ATTRIBUTE_CAPTUREDEF(ApplyAttack)
 	DECLARE_ATTRIBUTE_CAPTUREDEF(ApplyDefense)
 	DECLARE_ATTRIBUTE_CAPTUREDEF(DamageTaken)
 
-	FDamageCapture()
+	FPlayerDamageCapture()
 	{
 		//Source GE - 생성주체, Target GE - 적용대상
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UWWAttributeSet, ApplyAttack, Source, false);
@@ -23,9 +23,9 @@ struct FDamageCapture
 };
 
 
-static const FDamageCapture& GetDamageCapture()
+static const FPlayerDamageCapture& GetDamageCapture()
 {
-	static FDamageCapture DamageCapture;
+	static FPlayerDamageCapture DamageCapture;
 	return DamageCapture;
 }
 
