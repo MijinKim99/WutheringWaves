@@ -24,29 +24,14 @@ AEnemyCharacter();
 public:
 	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
 
-public:
-
-	UFUNCTION()
-	void OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
-						int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
-	// Attack
-	void SetAttackCollisionAtLocation(const FVector& Location, float Duration,const FVector& BoxExtent);
-	void LaunchAttackCollisionAsProjectile(const FVector& TargetLocation, const FVector& BoxExtent);
-	
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UEnemyCombatComponent* EnemyCombatComponent;
 
-	UPROPERTY(EditAnywhere, Category ="Combat")
-	UBoxComponent* AttackCollisionBox;
 	virtual void PossessedBy(AController* NewController) override;
 	virtual UPawnUIComponent* GetPawnUIComponent() const override;
 	virtual UEnemyUIComponent* GetEnemyUIComponent() const override;
 	virtual void BeginPlay() override;
-
-	// Attack
-	FTimerHandle CollisionActivationTimerHandle;
-	void DisableAttackCollision();
 
 	UFUNCTION(BlueprintCallable, Category = "Motion Warping")
 	void SetAttackTransformFromMotionWarpingTarget(FName WarpTargetName);
