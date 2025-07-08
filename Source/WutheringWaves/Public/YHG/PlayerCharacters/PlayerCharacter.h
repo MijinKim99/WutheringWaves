@@ -48,14 +48,15 @@ protected:
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "StateControl")
 	bool bIsRun;
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "StateControl")
-	bool bIsJumping;
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "StateControl")
 	bool bIsLeftJumping;
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "StateControl")
 	bool bIsRightJumping;
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "AbilityStateControl")
-	bool AttackMode;
+	bool bCanAirDash;
+	
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "AbilityStateControl")
+	bool bAttackMode;
 	
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "AbilityStateControl")
 	int32 LightAttackComboCount;

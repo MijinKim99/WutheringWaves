@@ -36,7 +36,7 @@ APlayerCharacter::APlayerCharacter(const FObjectInitializer& ObjectInitializer)
 	//메시 -90도 돌려놓아 정면으로 조정
 	GetMesh()->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
 	
-	AttackMode = false;
+	bAttackMode = false;
 	
 	LightAttackComboCount = 1;
 
@@ -86,6 +86,11 @@ void APlayerCharacter::Tick(float DeltaSeconds)
 	
 	bIsLeftJumping = bIsLeftMoving && ((GetCharacterMovement()->Velocity.Z) > (GetCharacterMovement()->JumpZVelocity / 2));
 	bIsRightJumping = bIsRightMoving && ((GetCharacterMovement()->Velocity.Z) > (GetCharacterMovement()->JumpZVelocity / 2));
+
+	if (bIsGrounded)
+	{
+		bCanAirDash = true;
+	}
 }
 
 void APlayerCharacter::PossessedBy(AController* NewController)
