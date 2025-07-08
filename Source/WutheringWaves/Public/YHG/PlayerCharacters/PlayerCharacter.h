@@ -20,7 +20,7 @@ class WUTHERINGWAVES_API APlayerCharacter : public AWWCharacter
 	GENERATED_BODY()
 
 public:
-	APlayerCharacter();
+	APlayerCharacter(const FObjectInitializer& ObjectInitializer);
 
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))

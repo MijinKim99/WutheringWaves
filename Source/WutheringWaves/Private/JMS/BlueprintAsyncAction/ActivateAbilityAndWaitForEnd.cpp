@@ -27,7 +27,7 @@ void UActivateAbilityAndWaitForEnd::Activate()
 	//이 함수는 활성화 가능한 모든 게임어빌리티 스팩을 가져온다.
 	ASC->GetActivatableGameplayAbilitySpecsByAllMatchingTags(AbilityTag.GetSingleTagContainer(), AbilitySpecs);
 
-						Debug::Print(TEXT("Check Here"));
+						// Debug::Print(TEXT("Check Here"));
 	//AbilitySpecs 배열에 받은 데이터가 유효하면
 	if (!AbilitySpecs.IsEmpty())
 	{
@@ -45,14 +45,14 @@ void UActivateAbilityAndWaitForEnd::Activate()
 				{
 					FDelegateHandle DelegateHandle = Ability->OnGameplayAbilityEnded.AddUObject(
 						this, &UActivateAbilityAndWaitForEnd::BroadCastOnAbilityEnd);
-					if (DelegateHandle.IsValid())
-					{
-						Debug::Print(TEXT("Delegate Bind Success"));
-					}
-					else
-					{
-						Debug::Print(TEXT("Delegate Bind Failed"));
-					}
+					// if (DelegateHandle.IsValid())
+					// {
+					// 	Debug::Print(TEXT("Delegate Bind Success"));
+					// }
+					// else
+					// {
+					// 	Debug::Print(TEXT("Delegate Bind Failed"));
+					// }
 				}
 			}
 			else
@@ -68,5 +68,5 @@ void UActivateAbilityAndWaitForEnd::Activate()
 void UActivateAbilityAndWaitForEnd::BroadCastOnAbilityEnd(UGameplayAbility* Ability)
 {
 	OnAbilityEnd.Broadcast();
-	Debug::Print(FString::Printf(TEXT("%s : Ability End"), *Ability->GetName()));
+	// Debug::Print(FString::Printf(TEXT("%s : Ability End"), *Ability->GetName()));
 }

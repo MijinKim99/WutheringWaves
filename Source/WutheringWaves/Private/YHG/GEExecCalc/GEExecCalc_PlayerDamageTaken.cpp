@@ -6,14 +6,14 @@
 #include "Common/WWGameplayTags.h"
 #include "Common/AbilitySystem/WWAttributeSet.h"
 
-struct FDamageCapture
+struct FPlayerDamageCapture
 {
 	//BaseAttributeSet에 변수를 캡처
 	DECLARE_ATTRIBUTE_CAPTUREDEF(ApplyAttack)
 	DECLARE_ATTRIBUTE_CAPTUREDEF(ApplyDefense)
 	DECLARE_ATTRIBUTE_CAPTUREDEF(DamageTaken)
 
-	FDamageCapture()
+	FPlayerDamageCapture()
 	{
 		//Source GE - 생성주체, Target GE - 적용대상
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UWWAttributeSet, ApplyAttack, Source, false);
@@ -23,9 +23,9 @@ struct FDamageCapture
 };
 
 
-static const FDamageCapture& GetDamageCapture()
+static const FPlayerDamageCapture& GetDamageCapture()
 {
-	static FDamageCapture DamageCapture;
+	static FPlayerDamageCapture DamageCapture;
 	return DamageCapture;
 }
 
@@ -58,7 +58,7 @@ void UGEExecCalc_PlayerDamageTaken::Execute_Implementation(const FGameplayEffect
 	//EffectSpec에서 BaseDamage와 콤보카운트_라이트, 콤보카운트_해비를 추출하여 변수에 적용
 	for (const TPair<FGameplayTag, float>& TagMagnitude  : EffectSpec.SetByCallerTagMagnitudes)
 	{
-		if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Player_SetByCaller_AttackType_Light))
+		if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Shared_SetByCaller_Damage_Light))
 		{
 			CachedComboCount_Light = TagMagnitude.Value;
 			//Debug::Print(TEXT("CachedComboCount_Light"), CachedComboCount_Light);

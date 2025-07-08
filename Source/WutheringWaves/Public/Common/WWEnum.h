@@ -49,7 +49,7 @@ enum class EWeaponStatType : uint8
 	BasicATK
 };
 
-UENUM()
+UENUM(BlueprintType)
 enum class EStatSign : uint8
 {
 	Plus,

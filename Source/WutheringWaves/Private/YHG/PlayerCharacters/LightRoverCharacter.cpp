@@ -5,7 +5,8 @@
 
 #include "Components/CapsuleComponent.h"
 
-ALightRoverCharacter::ALightRoverCharacter()
+ALightRoverCharacter::ALightRoverCharacter(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer)
 {
 	GetCapsuleComponent()->InitCapsuleSize(34.0f, 77.0f);
 

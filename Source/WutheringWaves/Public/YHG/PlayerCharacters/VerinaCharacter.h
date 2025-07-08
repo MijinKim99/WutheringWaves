@@ -15,5 +15,5 @@ class WUTHERINGWAVES_API AVerinaCharacter : public APlayerCharacter
 	GENERATED_BODY()
 
 public:
-	AVerinaCharacter();
+	AVerinaCharacter(const FObjectInitializer& ObjectInitializer);
 };

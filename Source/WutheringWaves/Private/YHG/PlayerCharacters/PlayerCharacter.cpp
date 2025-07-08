@@ -3,12 +3,14 @@
 #include "WutheringWaves/Public/YHG/PlayerCharacters/PlayerCharacter.h"
 
 #include "Camera/CameraComponent.h"
+#include "Common/Components/WWCharacterMovementComponent.h"
 #include "Common/DataAssets/DataAsset_Startup.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 
-APlayerCharacter::APlayerCharacter()
+APlayerCharacter::APlayerCharacter(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer)
 {
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationRoll = false;
