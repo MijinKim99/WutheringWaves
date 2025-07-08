@@ -15,5 +15,5 @@ class WUTHERINGWAVES_API AChixiaCharacter : public APlayerCharacter
 	GENERATED_BODY()
 
 public:
-	AChixiaCharacter();
+	AChixiaCharacter(const FObjectInitializer& ObjectInitializer);
 };
