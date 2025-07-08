@@ -5,7 +5,8 @@
 
 #include "Components/CapsuleComponent.h"
 
-AChixiaCharacter::AChixiaCharacter()
+AChixiaCharacter::AChixiaCharacter(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer)
 {
 	GetCapsuleComponent()->InitCapsuleSize(34.0f, 77.0f);
 

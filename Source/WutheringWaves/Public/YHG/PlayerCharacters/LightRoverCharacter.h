@@ -17,5 +17,5 @@ class WUTHERINGWAVES_API ALightRoverCharacter : public APlayerCharacter
 
 	
 public:
-	ALightRoverCharacter();
+	ALightRoverCharacter(const FObjectInitializer& ObjectInitializer);
 };

@@ -6,11 +6,28 @@
 #include "Common/WWDebugHelper.h"
 #include "Common/AbilitySystem/WWAbilitySystemComponent.h"
 #include "Common/AbilitySystem/WWAttributeSet.h"
+#include "Common/AbilitySystem/Abilities/WWGameplayAbility.h"
+#include "Common/Components/WWCharacterMovementComponent.h"
 
 // Sets default values
 AWWCharacter::AWWCharacter()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = false;
+
+	//VFX 지상 데칼 투영 영향을 줌
+	GetMesh()->bReceivesDecals = false;
+
+	//어빌리티 부착
+	WWAbilitySystemComponent = CreateDefaultSubobject<UWWAbilitySystemComponent>(TEXT("WWAbilitySystemComponent"));
+	WWAttributeSet = CreateDefaultSubobject<UWWAttributeSet>(TEXT("WWAttributeSet"));
+	MotionWarpingComponent = CreateDefaultSubobject<UMotionWarpingComponent>(TEXT("MotionWarpingComponent"));
+}
+
+AWWCharacter::AWWCharacter(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer.SetDefaultSubobjectClass<UWWCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
+{
+	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
 	//VFX 지상 데칼 투영 영향을 줌
@@ -64,11 +81,35 @@ UPawnCombatComponent* AWWCharacter::GetPawnCombatComponent() const
 	return nullptr;
 }
 
+void AWWCharacter::CancelActiveAbilities(UAbilitySystemComponent* ASC, FGameplayTag CancelTag)
+{
+	if (!ASC || !CancelTag.IsValid())
+	{
+		return;
+	}
+    
+	for (FGameplayAbilitySpec& Spec : ASC->GetActivatableAbilities())
+	{
+		if (!Spec.IsActive())
+			continue;
+
+		const UGameplayAbility* AbilityCDO = Spec.Ability;
+		if (!AbilityCDO)
+			continue;
+
+		// 어빌리티에 태그가 포함되어 있으면
+		if (AbilityCDO->AbilityTags.HasTagExact(CancelTag))
+		{
+			ASC->CancelAbilityHandle(Spec.Handle);
+		}
+	}
+}
+
 void AWWCharacter::CancelAllActiveAbilities(UAbilitySystemComponent* ASC)
 {
 	if (!ASC)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("ActionControlANS : Can't find ASC"));
+		Debug::Print(TEXT("WWCharacter : CancelAllActiveAbilities, Can't find ASC"));
 		return;
 	}
 

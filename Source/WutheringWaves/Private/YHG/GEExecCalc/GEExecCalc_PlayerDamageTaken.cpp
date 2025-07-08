@@ -58,7 +58,7 @@ void UGEExecCalc_PlayerDamageTaken::Execute_Implementation(const FGameplayEffect
 	//EffectSpec에서 BaseDamage와 콤보카운트_라이트, 콤보카운트_해비를 추출하여 변수에 적용
 	for (const TPair<FGameplayTag, float>& TagMagnitude  : EffectSpec.SetByCallerTagMagnitudes)
 	{
-		if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Player_SetByCaller_AttackType_Light))
+		if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Shared_SetByCaller_Damage_Light))
 		{
 			CachedComboCount_Light = TagMagnitude.Value;
 			//Debug::Print(TEXT("CachedComboCount_Light"), CachedComboCount_Light);

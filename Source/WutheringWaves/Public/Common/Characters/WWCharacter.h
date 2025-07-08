@@ -21,6 +21,7 @@ class WUTHERINGWAVES_API AWWCharacter : public ACharacter , public IPawnUIInterf
 public:
 	// Sets default values for this character's properties
 	AWWCharacter();
+	AWWCharacter(const FObjectInitializer& ObjectInitializer);
 
 protected:
 	// Called when the game starts or when spawned
@@ -62,6 +63,9 @@ public:
 
 //어빌리티 제어
 public:
+	UFUNCTION(BlueprintCallable)
+	void CancelActiveAbilities(UAbilitySystemComponent* ASC, FGameplayTag CancelTag);
+	
 	UFUNCTION(BlueprintCallable)
 	void CancelAllActiveAbilities(UAbilitySystemComponent* ASC);
 };

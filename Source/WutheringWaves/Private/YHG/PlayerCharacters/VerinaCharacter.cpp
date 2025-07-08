@@ -5,7 +5,8 @@
 
 #include "Components/CapsuleComponent.h"
 
-AVerinaCharacter::AVerinaCharacter()
+AVerinaCharacter::AVerinaCharacter(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer)
 {
 	GetCapsuleComponent()->InitCapsuleSize(34.0f, 66.0f);
 
