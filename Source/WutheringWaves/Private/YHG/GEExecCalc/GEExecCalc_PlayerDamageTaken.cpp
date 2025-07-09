@@ -23,7 +23,8 @@ struct FPlayerDamageCapture
 };
 
 
-static const FPlayerDamageCapture& GetDPlayeramageCapture()
+
+static const FPlayerDamageCapture& GetPlayerDamageCapture()
 {
 	static FPlayerDamageCapture DamageCapture;
 	return DamageCapture;
@@ -32,9 +33,9 @@ static const FPlayerDamageCapture& GetDPlayeramageCapture()
 
 UGEExecCalc_PlayerDamageTaken::UGEExecCalc_PlayerDamageTaken()
 {
-	RelevantAttributesToCapture.Add(GetDPlayeramageCapture().ApplyAttackDef);
-	RelevantAttributesToCapture.Add(GetDPlayeramageCapture().ApplyDefenseDef);
-	RelevantAttributesToCapture.Add(GetDPlayeramageCapture().DamageTakenDef);
+	RelevantAttributesToCapture.Add(GetPlayerDamageCapture().ApplyAttackDef);
+	RelevantAttributesToCapture.Add(GetPlayerDamageCapture().ApplyDefenseDef);
+	RelevantAttributesToCapture.Add(GetPlayerDamageCapture().DamageTakenDef);
 }
 
 void UGEExecCalc_PlayerDamageTaken::Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams,
@@ -50,7 +51,7 @@ void UGEExecCalc_PlayerDamageTaken::Execute_Implementation(const FGameplayEffect
 	EvaluateParameters.TargetTags = EffectSpec.CapturedTargetTags.GetAggregatedTags();
 
 	float SourceAttack = 0.f;
-	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetDPlayeramageCapture().ApplyAttackDef, EvaluateParameters, SourceAttack);
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetPlayerDamageCapture().ApplyAttackDef, EvaluateParameters, SourceAttack);
 	
 	float BaseDamage = 0.f;
 	int32 CachedComboCount_Light = 0;
@@ -66,7 +67,7 @@ void UGEExecCalc_PlayerDamageTaken::Execute_Implementation(const FGameplayEffect
 	}
 
 	float TargetDefence = 0.f;
-	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetDPlayeramageCapture().ApplyDefenseDef, EvaluateParameters, TargetDefence);
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetPlayerDamageCapture().ApplyDefenseDef, EvaluateParameters, TargetDefence);
 	
 	if (CachedComboCount_Light != 0)
 	{
@@ -81,7 +82,7 @@ void UGEExecCalc_PlayerDamageTaken::Execute_Implementation(const FGameplayEffect
 	{
 		OutExecutionOutput.AddOutputModifier(
 			FGameplayModifierEvaluatedData(
-			GetDPlayeramageCapture().DamageTakenProperty,
+			GetPlayerDamageCapture().DamageTakenProperty,
 						EGameplayModOp::Override,
 						FinalDamage
 			)

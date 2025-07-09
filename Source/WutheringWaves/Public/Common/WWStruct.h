@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameplayTagContainer.h"
 #include "ScalableFloat.h"
+#include "WWDebugHelper.h"
 #include "WWEnum.h"
 #include "Engine/CurveTable.h"
 #include "WWStruct.generated.h"
@@ -61,41 +62,32 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 SkillStack;
 	
-	void InitializeStats()
+	float InitializeStats(EWeaponStatType StatName) const
 	{
-		if (!SkillCurve) return;
-
-		for (FWeaponStatData& Stat : SkillStats)
-		{
-			FName RowName = FName(*UEnum::GetValueAsString(Stat.StatName)); // 예: EWeaponStatType::Attack -> "Attack"
+		if (!SkillCurve) return 0.0f;
+			// 올바른 RowName 생성 (예: "Attack")
+			FString EnumString = UEnum::GetDisplayValueAsText(StatName).ToString(); 
+			FName RowName = FName(*EnumString);
 			FRealCurve* Curve = SkillCurve->FindCurve(RowName, TEXT("WeaponSkillInit"));
 
-			if (Curve)
-			{
-				Stat.StatNum = Curve->Eval(static_cast<float>(SkillRank));
-			}
+		if (Curve)
+		{
+			float StatNum = Curve->Eval(static_cast<float>(SkillRank));
+			Debug::Print(FString::Printf(TEXT("StatNum: %f"), StatNum));
+			return StatNum;
 		}
+		return 0.0f;
 	}
 	
 	FString GetFormattedDescription() const
 	{
-		FFormatNamedArguments Args;
+		FString Result = SkillDescription;
 
-		for (int32 i = 0; i < SkillStats.Num(); ++i)
-		{
-			FString StatNameKey = FString::Printf(TEXT("StatName%d"), i + 1);
-			FString StatNumKey = FString::Printf(TEXT("StatNum%d"), i + 1);
+		// 추가 치환: 스택 수, 지속 시간 등
+		Result = Result.Replace(TEXT("{SkillStack}"), *FString::FromInt(SkillStack));
+		Result = Result.Replace(TEXT("{SkillTime}"), *FString::SanitizeFloat(SkillTime));
 
-			FText StatNameText = UEnum::GetDisplayValueAsText(SkillStats[i].StatName);
-			float StatValue = SkillStats[i].StatNum;
-
-			Args.Add(*StatNameKey, StatNameText);
-			Args.Add(*StatNumKey, StatValue);
-		}
-		// SkillDescription이 FString이므로 FText로 변환 후 포맷
-		FText FormattedText = FText::Format(FText::FromString(SkillDescription), Args);
-		
-		return FormattedText.ToString(); // FString으로 반환
+		return Result;
 	}
 };
 
@@ -144,7 +136,7 @@ public:
 	TArray<FWeaponStatData> WeaponStats;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite,Category = "Weapon")
-	TArray<FWeaponSkillData> WeaponSkills;
+	FWeaponSkillData WeaponSkills;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
 	FString WeaponDescription;
