@@ -1,12 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "JMS/BlueprintAsyncAction/ActivateAbilityAndWaitForEnd.h"
+#include "Common/BlueprintAsyncAction/ActivateAbilityAndWaitForEnd.h"
 
 #include "AbilitySystemComponent.h"
 #include "GameplayAbilitySpec.h"
 #include "GameplayTagContainer.h"
 #include "Common/WWDebugHelper.h"
+#include "Engine/RendererSettings.h"
 
 UActivateAbilityAndWaitForEnd* UActivateAbilityAndWaitForEnd::ActivateAbilityAndWaitForEnd(
 	UAbilitySystemComponent* AbilitySystemComponent, const FGameplayTag& AbilityTag)
@@ -27,7 +28,7 @@ void UActivateAbilityAndWaitForEnd::Activate()
 	//이 함수는 활성화 가능한 모든 게임어빌리티 스팩을 가져온다.
 	ASC->GetActivatableGameplayAbilitySpecsByAllMatchingTags(AbilityTag.GetSingleTagContainer(), AbilitySpecs);
 
-						// Debug::Print(TEXT("Check Here"));
+	// Debug::Print(TEXT("Check Here"));
 	//AbilitySpecs 배열에 받은 데이터가 유효하면
 	if (!AbilitySpecs.IsEmpty())
 	{
@@ -43,23 +44,21 @@ void UActivateAbilityAndWaitForEnd::Activate()
 				UGameplayAbility* Ability = AbilitySpec->GetPrimaryInstance();
 				if (Ability)
 				{
-					FDelegateHandle DelegateHandle = Ability->OnGameplayAbilityEnded.AddUObject(
+					Ability->OnGameplayAbilityEnded.AddUObject(
 						this, &UActivateAbilityAndWaitForEnd::BroadCastOnAbilityEnd);
-					// if (DelegateHandle.IsValid())
-					// {
-					// 	Debug::Print(TEXT("Delegate Bind Success"));
-					// }
-					// else
-					// {
-					// 	Debug::Print(TEXT("Delegate Bind Failed"));
-					// }
+
+					Ability->OnGameplayAbilityCancelled.AddUObject(
+						this, &UActivateAbilityAndWaitForEnd::BroadCastOnAbilityCancelled);
+				}
+				else
+				{
+					OnAbilityCancelled.Broadcast();
 				}
 			}
 			else
 			{
 				BroadCastOnAbilityEnd(AbilitySpec->Ability);
 				Debug::Print(FString::Printf(TEXT("%s : Ability Activation Failed"), *AbilitySpec->Ability->GetName()));
-				SetReadyToDestroy();
 			}
 		}
 	}
@@ -69,4 +68,9 @@ void UActivateAbilityAndWaitForEnd::BroadCastOnAbilityEnd(UGameplayAbility* Abil
 {
 	OnAbilityEnd.Broadcast();
 	// Debug::Print(FString::Printf(TEXT("%s : Ability End"), *Ability->GetName()));
+}
+
+void UActivateAbilityAndWaitForEnd::BroadCastOnAbilityCancelled()
+{
+	OnAbilityCancelled.Broadcast();
 }

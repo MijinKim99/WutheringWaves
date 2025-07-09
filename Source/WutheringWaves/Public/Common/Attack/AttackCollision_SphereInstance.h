@@ -33,11 +33,16 @@ protected:
 	
 
 	FGenericTeamId InstigatorTeamId;
+	
+	// Event To Send
+	FGameplayTag HitReactEventTag;
 public:
-	UFUNCTION(BlueprintCallable, Category = "SphereProjectile")
+	UFUNCTION(BlueprintCallable, Category = "SphereInstance")
 	void AttackOverlappingEnemies(const FVector& TargetLocation);
-	UFUNCTION(BlueprintCallable, Category = "SphereProjectile")
+	UFUNCTION(BlueprintCallable, Category = "SphereInstance")
 	void SetSphereRadius(float InRadius);
-	UFUNCTION(BlueprintCallable, Category = "SphereProjectile")
+	UFUNCTION(BlueprintCallable, Category = "SphereInstance")
 	void SetDamageEffect(const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle);
+	UFUNCTION(BlueprintCallable, Category = "SphereInstance")
+	void SetHitReactEventTag(FGameplayTag InGameplayEventTag);
 };

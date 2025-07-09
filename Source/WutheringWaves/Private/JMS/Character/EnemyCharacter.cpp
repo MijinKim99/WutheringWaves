@@ -12,10 +12,12 @@
 #include "Common/WWGameplayTags.h"
 #include "Common/DataAssets/DataAsset_Startup.h"
 #include "Components/BoxComponent.h"
+#include "Components/WidgetComponent.h"
 #include "Engine/AssetManager.h"
 #include "Engine/StreamableManager.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "JMS/Component/EnemyCombatComponent.h"
+#include "KMJ/UIComponents/EnemyUIComponent.h"
 
 AEnemyCharacter::AEnemyCharacter()
 {
@@ -32,6 +34,9 @@ AEnemyCharacter::AEnemyCharacter()
 	GetCharacterMovement()->BrakingDecelerationWalking = 1000.0f;
 
 	EnemyCombatComponent = CreateDefaultSubobject<UEnemyCombatComponent>(TEXT("EnemyCombatComponent"));
+	EnemyUIComponent = CreateDefaultSubobject<UEnemyUIComponent>(TEXT("EnemyUIComponent"));
+	WidgetComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("WidgetComponent"));
+	WidgetComponent->SetupAttachment(GetMesh());
 }
 
 void AEnemyCharacter::PossessedBy(AController* NewController)
@@ -46,12 +51,12 @@ UPawnCombatComponent* AEnemyCharacter::GetPawnCombatComponent() const
 }
 UPawnUIComponent* AEnemyCharacter::GetPawnUIComponent() const
 {
-	return Super::GetPawnUIComponent();
+	return EnemyUIComponent;
 }
 
 UEnemyUIComponent* AEnemyCharacter::GetEnemyUIComponent() const
 {
-	return Super::GetEnemyUIComponent();
+	return EnemyUIComponent;
 }
 
 void AEnemyCharacter::BeginPlay()
@@ -92,6 +97,7 @@ void AEnemyCharacter::InitEnemyStartUpData()
 				{
 					LoadedData->GiveToAbilitySystemComponent(WWAbilitySystemComponent);
 					Debug::Print(TEXT("Enemy Async StartupData Loaded"), FColor::Green);
+					OnInitialized.Broadcast();
 				}
 			}
 		)

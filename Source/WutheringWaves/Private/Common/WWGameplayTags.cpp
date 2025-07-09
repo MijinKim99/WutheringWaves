@@ -39,7 +39,7 @@ namespace WWGameplayTags
 	//Player SetByCaller
 	UE_DEFINE_GAMEPLAY_TAG(Player_SetByCaller_AttackType_Light, "Player.SetByCaller.AttackType.Light")
 
-	//Shared
+	//Shared SetByCaller
 	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_Damage_Physical, "Shared.SetByCaller.Damage.Physical")
 	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_Damage_Ice, "Shared.SetByCaller.Damage.Ice")
 	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_Damage_Fire, "Shared.SetByCaller.Damage.Fire")
@@ -47,12 +47,22 @@ namespace WWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_Damage_Wind, "Shared.SetByCaller.Damage.Wind")
 	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_Damage_Light, "Shared.SetByCaller.Damage.Light")
 	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_Damage_Dark, "Shared.SetByCaller.Damage.Dark")
-	
+
+	//Shared Status
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Status_Dead, "Shared.Status.Dead")
-	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_HitReact, "Shared.Event.HitReact")
+	UE_DEFINE_GAMEPLAY_TAG(Shared_Status_Hit_Falling, "Shared.Status.Hit.Falling")
+
+	//Shared Event
+	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_HitReact_Small, "Shared.Event.HitReact.Small")
+	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_HitReact_Big, "Shared.Event.HitReact.Big")
+
+	//Shared Ability
+	UE_DEFINE_GAMEPLAY_TAG(Shared_Ability_HitReact_Small, "Shared.Ability.HitReact.Small")
+	UE_DEFINE_GAMEPLAY_TAG(Shared_Ability_HitReact_Big, "Shared.Ability.HitReact.Big")
 
 	//Enemy
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_Attack, "Enemy.Ability.Attack")
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_StepBack, "Enemy.Ability.StepBack")
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Event_SpawnHitCollision, "Enemy.Event.SpawnHitCollision")
 	
 }

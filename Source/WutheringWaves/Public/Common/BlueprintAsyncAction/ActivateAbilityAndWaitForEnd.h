@@ -25,6 +25,8 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FOnAbilityEndDelegate OnAbilityEnd;
+	UPROPERTY(BlueprintAssignable)
+	FOnAbilityEndDelegate OnAbilityCancelled;
 
 	virtual void Activate() override;
 
@@ -36,4 +38,6 @@ protected:
 
 	UFUNCTION()
 	void BroadCastOnAbilityEnd(UGameplayAbility* Ability);
+	UFUNCTION()
+	void BroadCastOnAbilityCancelled();
 };

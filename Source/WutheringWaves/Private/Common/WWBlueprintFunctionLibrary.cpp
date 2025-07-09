@@ -102,15 +102,19 @@ float UWWBlueprintFunctionLibrary::GetScalableFloatValueAtLevel(const FScalableF
 }
 
 bool UWWBlueprintFunctionLibrary::ApplyGameplayEffectSpecHandleToTargetActor(AActor* Instigator, AActor* TargetActor,
-                                                                             const FGameplayEffectSpecHandle& SpecHandle)
+                                                                             const FGameplayEffectSpecHandle&
+                                                                             SpecHandle)
 {
 	UWWAbilitySystemComponent* SourceASC = NativeGetAbilitySystemComponentFromActor(Instigator);
 	UWWAbilitySystemComponent* TargetASC = NativeGetAbilitySystemComponentFromActor(TargetActor);
 
-	FActiveGameplayEffectHandle ActiveGameplayEffectHandle = SourceASC->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data,TargetASC);
+	FActiveGameplayEffectHandle ActiveGameplayEffectHandle = SourceASC->ApplyGameplayEffectSpecToTarget(
+		*SpecHandle.Data, TargetASC);
 
 	return ActiveGameplayEffectHandle.WasSuccessfullyApplied();
 }
+
+
 
 /*
 bool UWWBlueprintFunctionLibrary::IsValidBlock(AActor* Attacker, AActor* Defender)

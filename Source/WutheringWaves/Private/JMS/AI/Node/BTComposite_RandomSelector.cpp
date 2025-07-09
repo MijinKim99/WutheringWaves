@@ -6,7 +6,7 @@
 UBTComposite_RandomSelector::UBTComposite_RandomSelector(const FObjectInitializer& ObjectInitializer)
     : Super(ObjectInitializer), LastSuccessfulChildIdx(INDEX_NONE)
 {
-    NodeName = "Selector Random";
+    NodeName = "Random Selector";
 }
  
 void UBTComposite_RandomSelector::InitializeMemory(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, EBTMemoryInit::Type InitType) const
