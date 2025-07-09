@@ -75,6 +75,11 @@ UPawnUIComponent* AWWCharacter::GetPawnUIComponent() const
 	return nullptr;
 }
 
+UAbilitySystemComponent* AWWCharacter::GetAbilitySystemComponent() const
+{
+	return WWAbilitySystemComponent;
+}
+
 UPawnCombatComponent* AWWCharacter::GetPawnCombatComponent() const
 {
 	// 자식에서 구현

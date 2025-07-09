@@ -118,63 +118,64 @@ void UGEExecClac_EnemyDamageTaken::Execute_Implementation(
 	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetResistanceCapture().WindResistanceDef, EvaluateParameters, TargetWindResistance);
 	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetResistanceCapture().LightResistanceDef, EvaluateParameters, TargetLightResistance);
 	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetResistanceCapture().DarkResistanceDef, EvaluateParameters, TargetDarkResistance);
-	
-	//EffectSpec에서 BaseDamage를 추출하여 변수에 적용
-	// 저항력에 대한 대미지 계산 : 대미지 * (1-저항)
-	for (const TPair<FGameplayTag, float>& TagMagnitude  : EffectSpec.SetByCallerTagMagnitudes)
-	{
-		if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Shared_SetByCaller_Damage_Physical))
-		{
-			SourcePhysicalDamage = TagMagnitude.Value;
-			SourcePhysicalDamage *= (1.f - TargetPhysicalResistance);
-			SourceAttack = TagMagnitude.Value;
-			Debug::Print(TEXT("PhysicalDamage"), SourceAttack);
-		}
-		if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Shared_SetByCaller_Damage_Ice))
-		{
-			SourceIceDamage = TagMagnitude.Value;
-			SourceIceDamage *= (1.f - TargetIceResistance);
-			Debug::Print(TEXT("IceDamage"), SourceIceDamage);
-		}
-		if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Shared_SetByCaller_Damage_Fire))
-		{
-			SourceFireDamage = TagMagnitude.Value;
-			SourceFireDamage *= (1.f - TargetFireResistance);
-			Debug::Print(TEXT("FireDamage"), SourceFireDamage);
-		}
-		if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Shared_SetByCaller_Damage_Lightning))
-		{
-			SourceLightningDamage = TagMagnitude.Value;
-			SourceLightningDamage *= (1.f - TargetLightningResistance);
-			Debug::Print(TEXT("LightningDamage"), SourceLightningDamage);
-		}
-		if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Shared_SetByCaller_Damage_Wind))
-		{
-			SourceWindDamage = TagMagnitude.Value;
-			SourceWindDamage *= (1.f - TargetWindResistance);
-			Debug::Print(TEXT("WindDamage"), SourceWindDamage);
-		}
-		if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Shared_SetByCaller_Damage_Light))
-		{
-			SourceLightDamage = TagMagnitude.Value;
-			SourceLightDamage *= (1.f - TargetLightResistance);
-			Debug::Print(TEXT("LightDamage"), SourceLightDamage);
-		}
-		if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Shared_SetByCaller_Damage_Dark))
-		{
-			SourceDarkDamage = TagMagnitude.Value;
-			SourceDarkDamage *= (1.f - TargetDarkResistance);
-			Debug::Print(TEXT("DarkDamage"), SourceDarkDamage);
-		}
-	}
+	//
+	// //EffectSpec에서 BaseDamage를 추출하여 변수에 적용
+	// // 저항력에 대한 대미지 계산 : 대미지 * (1-저항)
+	// for (const TPair<FGameplayTag, float>& TagMagnitude  : EffectSpec.SetByCallerTagMagnitudes)
+	// {
+	// 	if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Shared_SetByCaller_Damage_Physical))
+	// 	{
+	// 		SourcePhysicalDamage = TagMagnitude.Value;
+	// 		SourcePhysicalDamage *= (1.f - TargetPhysicalResistance);
+	// 		SourceAttack = TagMagnitude.Value;
+	// 		Debug::Print(TEXT("PhysicalDamage"), SourceAttack);
+	// 	}
+	// 	if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Shared_SetByCaller_Damage_Ice))
+	// 	{
+	// 		SourceIceDamage = TagMagnitude.Value;
+	// 		SourceIceDamage *= (1.f - TargetIceResistance);
+	// 		Debug::Print(TEXT("IceDamage"), SourceIceDamage);
+	// 	}
+	// 	if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Shared_SetByCaller_Damage_Fire))
+	// 	{
+	// 		SourceFireDamage = TagMagnitude.Value;
+	// 		SourceFireDamage *= (1.f - TargetFireResistance);
+	// 		Debug::Print(TEXT("FireDamage"), SourceFireDamage);
+	// 	}
+	// 	if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Shared_SetByCaller_Damage_Lightning))
+	// 	{
+	// 		SourceLightningDamage = TagMagnitude.Value;
+	// 		SourceLightningDamage *= (1.f - TargetLightningResistance);
+	// 		Debug::Print(TEXT("LightningDamage"), SourceLightningDamage);
+	// 	}
+	// 	if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Shared_SetByCaller_Damage_Wind))
+	// 	{
+	// 		SourceWindDamage = TagMagnitude.Value;
+	// 		SourceWindDamage *= (1.f - TargetWindResistance);
+	// 		Debug::Print(TEXT("WindDamage"), SourceWindDamage);
+	// 	}
+	// 	if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Shared_SetByCaller_Damage_Light))
+	// 	{
+	// 		SourceLightDamage = TagMagnitude.Value;
+	// 		SourceLightDamage *= (1.f - TargetLightResistance);
+	// 		Debug::Print(TEXT("LightDamage"), SourceLightDamage);
+	// 	}
+	// 	if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Shared_SetByCaller_Damage_Dark))
+	// 	{
+	// 		SourceDarkDamage = TagMagnitude.Value;
+	// 		SourceDarkDamage *= (1.f - TargetDarkResistance);
+	// 		Debug::Print(TEXT("DarkDamage"), SourceDarkDamage);
+	// 	}
+	// }
 
-	float TargetDefence = 0.f;
-	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetDamageCapture().ApplyDefenseDef, EvaluateParameters, TargetDefence);
-	Debug::Print(TEXT("TargetDefence"), TargetDefence);
-
-	const float FinalDamage = SourcePhysicalDamage * SourceAttack / TargetDefence;
-	Debug::Print(TEXT("FinalDamage"), FinalDamage);
-	
+	// float TargetDefence = 0.f;
+	// ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetDamageCapture().ApplyDefenseDef, EvaluateParameters, TargetDefence);
+	// Debug::Print(TEXT("TargetDefence"), TargetDefence);
+	//
+	// const float FinalDamage = SourcePhysicalDamage * SourceAttack / TargetDefence;
+	// Debug::Print(TEXT("FinalDamage"), FinalDamage);
+	//
+	const float FinalDamage = SourceAttack;
 	if (FinalDamage > 0.f)
 	{
 		OutExecutionOutput.AddOutputModifier(

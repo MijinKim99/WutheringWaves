@@ -55,7 +55,7 @@ void AAttackCollision_SphereProjectile::OnHitTargetActor(AActor* HitActor)
 	FGameplayEventData Data;
 	Data.Instigator = GetInstigator();
 	Data.Target = HitActor;
-	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(HitActor, WWGameplayTags::Shared_Event_HitReact, Data);
+	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(HitActor, HitReactEventTag, Data);
 	UGameplayCueFunctionLibrary::ExecuteGameplayCueOnActor(this, ExplosionGameplayCueTag, FGameplayCueParameters());
 	Deactivate();
 }
@@ -73,6 +73,11 @@ void AAttackCollision_SphereProjectile::SetProjectileGameplayCueTag(FGameplayTag
 void AAttackCollision_SphereProjectile::SetExplosionGameplayCueTag(FGameplayTag InGameplayCueTag)
 {
 	ExplosionGameplayCueTag = InGameplayCueTag;
+}
+
+void AAttackCollision_SphereProjectile::SetHitReactEventTag(FGameplayTag InGameplayEventTag)
+{
+	HitReactEventTag = InGameplayEventTag;
 }
 
 void AAttackCollision_SphereProjectile::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
