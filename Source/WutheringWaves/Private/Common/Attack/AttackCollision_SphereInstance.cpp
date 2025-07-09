@@ -68,7 +68,7 @@ void AAttackCollision_SphereInstance::AttackOverlappingEnemies(const FVector& Ta
 			Data.Instigator = GetInstigator();
 			Data.Target = FoundActor;
 			UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(FoundCharacter,
-			                                                         WWGameplayTags::Shared_Event_HitReact, Data);
+			                                                         HitReactEventTag, Data);
 			//Gameplay Effect 적용
 		}
 	}
@@ -82,4 +82,9 @@ void AAttackCollision_SphereInstance::SetSphereRadius(float InRadius)
 void AAttackCollision_SphereInstance::SetDamageEffect(const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle)
 {
 	GameplayEffectSpecHandle = InGameplayEffectSpecHandle;
+}
+
+void AAttackCollision_SphereInstance::SetHitReactEventTag(FGameplayTag InGameplayEventTag)
+{
+	HitReactEventTag = InGameplayEventTag;
 }

@@ -23,6 +23,7 @@ struct FPlayerDamageCapture
 };
 
 
+
 static const FPlayerDamageCapture& GetPlayerDamageCapture()
 {
 	static FPlayerDamageCapture DamageCapture;

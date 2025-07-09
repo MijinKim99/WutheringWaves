@@ -57,6 +57,9 @@ protected:
 	FGameplayTag ProjectileGameplayCueTag;
 	FGameplayTag ExplosionGameplayCueTag;
 
+	// Event To Send
+	FGameplayTag HitReactEventTag;
+
 public:
 	// 콜리전 크기, 위치, GameplayCue 지정해준 후에 호출해야함
 	UFUNCTION(BlueprintCallable, Category = "SphereProjectile")
@@ -69,4 +72,6 @@ public:
 	void SetProjectileGameplayCueTag(FGameplayTag InGameplayCueTag);
 	UFUNCTION(BlueprintCallable, Category = "SphereProjectile")
 	void SetExplosionGameplayCueTag(FGameplayTag InGameplayCueTag);
+	UFUNCTION(BlueprintCallable, Category = "SphereProjectile")
+	void SetHitReactEventTag(FGameplayTag InGameplayEventTag);
 };

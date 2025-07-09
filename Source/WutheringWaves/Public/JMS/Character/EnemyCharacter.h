@@ -10,12 +10,15 @@
 #include "Common/Characters/WWCharacter.h"
 #include "EnemyCharacter.generated.h"
 
+class UWidgetComponent;
 struct FEnemyAttackCollisionInfo;
 class UEnemyCombatComponent;
 class UBoxComponent;
 /**
  * 
  */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnInitializedDelegate);
+
 UCLASS()
 class WUTHERINGWAVES_API AEnemyCharacter : public AWWCharacter
 {
@@ -28,6 +31,12 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UEnemyCombatComponent* EnemyCombatComponent;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="UI")
+	UEnemyUIComponent* EnemyUIComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="UI")
+	UWidgetComponent* WidgetComponent;
+
 	virtual void PossessedBy(AController* NewController) override;
 	virtual UPawnUIComponent* GetPawnUIComponent() const override;
 	virtual UEnemyUIComponent* GetEnemyUIComponent() const override;
@@ -35,6 +44,9 @@ protected:
 
 	UFUNCTION(BlueprintCallable, Category = "Motion Warping")
 	void SetAttackTransformFromMotionWarpingTarget(FName WarpTargetName);
+
+	UPROPERTY(BlueprintAssignable)
+	FOnInitializedDelegate OnInitialized;
 	
 private:
 	void InitEnemyStartUpData();

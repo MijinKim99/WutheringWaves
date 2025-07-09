@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Common/Interfaces/PawnUIInterface.h"
+#include "AbilitySystemInterface.h"
 #include "Common/Interfaces/PawnCombatInterface.h"
 #include "WWCharacter.generated.h"
 
@@ -14,7 +15,7 @@ class UWWAttributeSet;
 class UDataAsset_Startup;
 
 UCLASS()
-class WUTHERINGWAVES_API AWWCharacter : public ACharacter , public IPawnUIInterface, public IPawnCombatInterface
+class WUTHERINGWAVES_API AWWCharacter : public ACharacter , public IPawnUIInterface, public IPawnCombatInterface, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
@@ -55,6 +56,9 @@ protected:
 	virtual UPawnUIComponent* GetPawnUIComponent() const override;
 
 	//IPawnCombatInterface
+
+	//IAbilitySystemInterface
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	
 public:
 	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
