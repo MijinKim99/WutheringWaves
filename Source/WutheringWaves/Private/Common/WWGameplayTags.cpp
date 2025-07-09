@@ -55,10 +55,13 @@ namespace WWGameplayTags
 	//Shared Event
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_HitReact_Small, "Shared.Event.HitReact.Small")
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_HitReact_Big, "Shared.Event.HitReact.Big")
+	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_HitReact_Pushed, "Shared.Event.HitReact.Pushed")
 
 	//Shared Ability
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Ability_HitReact_Small, "Shared.Ability.HitReact.Small")
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Ability_HitReact_Big, "Shared.Ability.HitReact.Big")
+	UE_DEFINE_GAMEPLAY_TAG(Shared_Ability_HitReact_Pushed, "Shared.Ability.HitReact.Pushed")
+	UE_DEFINE_GAMEPLAY_TAG(Shared_Ability_Death, "Shared.Ability.Death")
 
 	//Enemy
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_Attack, "Enemy.Ability.Attack")

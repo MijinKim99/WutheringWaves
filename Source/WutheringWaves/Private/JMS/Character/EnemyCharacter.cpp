@@ -11,6 +11,7 @@
 #include "Common/WWDebugHelper.h"
 #include "Common/WWGameplayTags.h"
 #include "Common/DataAssets/DataAsset_Startup.h"
+#include "Common/Widget/WWUserWidget.h"
 #include "Components/BoxComponent.h"
 #include "Components/WidgetComponent.h"
 #include "Engine/AssetManager.h"
@@ -62,6 +63,10 @@ UEnemyUIComponent* AEnemyCharacter::GetEnemyUIComponent() const
 void AEnemyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	if (UWWUserWidget* HealthWidget = Cast<UWWUserWidget>(WidgetComponent->GetUserWidgetObject()))
+	{
+		HealthWidget->InitEnemyCreateWidget(this);
+	}
 }
 
 void AEnemyCharacter::SetAttackTransformFromMotionWarpingTarget(FName WarpTargetName)
