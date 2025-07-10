@@ -3,3 +3,14 @@
 
 #include "JMS/AnimInstance/EnemyAnimInstance.h"
 
+#include "Common/Characters/WWCharacter.h"
+
+void UEnemyAnimInstance::NativeThreadSafeUpdateAnimation(float DeltaSeconds)
+{
+	Super::NativeThreadSafeUpdateAnimation(DeltaSeconds);
+	if (!OwningCharacter || !OwningMovementComponent)
+	{
+		return;
+	}
+	Velocity = OwningCharacter->GetVelocity();
+}

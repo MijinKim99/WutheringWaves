@@ -11,7 +11,7 @@
 class UGameplayAbility;
 class UAbilitySystemComponent;
 /**
- * 
+ *  
  */
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnAbilityEndDelegate);
 UCLASS()
