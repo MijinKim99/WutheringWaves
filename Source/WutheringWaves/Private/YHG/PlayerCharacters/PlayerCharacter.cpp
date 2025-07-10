@@ -91,7 +91,7 @@ void APlayerCharacter::Tick(float DeltaSeconds)
 		bCanAirDash = true;
 	}
 	
-	GetCharacterMovement()->MaxWalkSpeed = bSprintMode ? 750.0f : 450.0f;
+	GetCharacterMovement()->MaxWalkSpeed = bSprintMode ? 600.0f : 450.0f;
 }
 
 void APlayerCharacter::PossessedBy(AController* NewController)
