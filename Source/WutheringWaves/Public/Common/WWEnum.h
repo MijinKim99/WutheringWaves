@@ -63,6 +63,15 @@ enum class EWeaponLocked : uint8
 	Unlocked
 };
 
+UENUM(BlueprintType)
+enum class ECharacterName : uint8
+{
+	Rover,
+	Verina,
+	Chixia,
+	None
+};
+
 class WWEnum
 {
 public:
