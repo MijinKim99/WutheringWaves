@@ -62,30 +62,55 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 SkillStack;
 	
-	float InitializeStats(EWeaponStatType StatName) const
-	{
-		if (!SkillCurve) return 0.0f;
-			// 올바른 RowName 생성 (예: "Attack")
-			FString EnumString = UEnum::GetDisplayValueAsText(StatName).ToString(); 
-			FName RowName = FName(*EnumString);
-			FRealCurve* Curve = SkillCurve->FindCurve(RowName, TEXT("WeaponSkillInit"));
-
-		if (Curve)
-		{
-			float StatNum = Curve->Eval(static_cast<float>(SkillRank));
-			Debug::Print(FString::Printf(TEXT("StatNum: %f"), StatNum));
-			return StatNum;
-		}
-		return 0.0f;
-	}
-	
 	FString GetFormattedDescription() const
 	{
 		FString Result = SkillDescription;
 
+		for (int32 i = 0; i < SkillStats.Num(); ++i)
+		{
+			FString StatNameKey = FString::Printf(TEXT("{StatName%d}"), i + 1);
+			FString StatNumKey  = FString::Printf(TEXT("{StatNum%d}"), i + 1);
+
+			// StatName 매핑
+			FString EnumName = UEnum::GetDisplayValueAsText(SkillStats[i].StatName).ToString();
+			FString StatName;
+
+			// CurveTable에서 실시간으로 StatNum 가져오기
+			float StatNumFloat = 0.f;
+			
+			if (!SkillCurve) StatNumFloat = 0.0f;
+			// 올바른 RowName 생성 (예: "Attack")
+			FName RowName = FName(*EnumName);
+			FRealCurve* Curve = SkillCurve->FindCurve(RowName, TEXT("WeaponSkillInit"));
+
+			if (Curve)
+			{
+				float StatNum = Curve->Eval(static_cast<float>(SkillRank));
+				//Debug::Print(FString::Printf(TEXT("StatNum: %f"), StatNum));
+				StatNumFloat = StatNum;
+			}
+			
+			if (EnumName == "Attack")
+				StatName = TEXT("공격력");
+			else if (EnumName == "Critical Percent")
+				StatName = TEXT("크리티컬");
+			else if (EnumName == "Energy Regen")
+				StatName = TEXT("공명 효율");
+			else if (EnumName == "Basic ATK")
+				StatName = TEXT("일반 공격 피해 보너스");
+			else
+				StatName = EnumName;
+
+			FString StatNum = FString::SanitizeFloat(StatNumFloat, 1);
+			if (SkillStats[i].StatSign == EStatSign::Multiple) StatNum += TEXT("%");
+
+			Result = Result.Replace(*StatNameKey, *StatName);
+			Result = Result.Replace(*StatNumKey, *StatNum);
+		}
+		
 		// 추가 치환: 스택 수, 지속 시간 등
 		Result = Result.Replace(TEXT("{SkillStack}"), *FString::FromInt(SkillStack));
-		Result = Result.Replace(TEXT("{SkillTime}"), *FString::SanitizeFloat(SkillTime));
+		Result = Result.Replace(TEXT("{SkillTime}"), *FString::SanitizeFloat(SkillTime,1));
 
 		return Result;
 	}
@@ -151,12 +176,9 @@ struct FInventory_Base : public FTableRowBase
 	GENERATED_BODY()
 
 public:
-	// 여러 아이템을 저장할 수 있는 배열 (포인터 사용 없이 값으로 처리)
+	//아이템 불러오기 위한 용도의 아이템 원래의 인덱스 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
-	FString ItemIndex;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Inventory")
-	int32 ItemCount;
+	FString RowIndex;
 	
 };
 
@@ -166,7 +188,16 @@ struct FInventory_Weapon : public FInventory_Base
 	GENERATED_BODY()
 public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Inventory_Weapon")
-	FString ItemOwner;
+	int32 WeaponCurrentLevel;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Inventory_Weapon")
+	int32 WeaponCurrentRank;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 SkillRank;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Inventory_Weapon")
+	ECharacterName ItemOwner;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Inventory_Weapon")
 	UTexture2D* ItemOwnerImage;

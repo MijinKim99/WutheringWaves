@@ -3,11 +3,11 @@
 #include "WutheringWaves/Public/YHG/PlayerCharacters/PlayerCharacter.h"
 
 #include "Camera/CameraComponent.h"
-#include "Common/Components/WWCharacterMovementComponent.h"
 #include "Common/DataAssets/DataAsset_Startup.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "KMJ/UIComponents/PlayerUIComponent.h"
 
 APlayerCharacter::APlayerCharacter(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
@@ -33,14 +33,13 @@ APlayerCharacter::APlayerCharacter(const FObjectInitializer& ObjectInitializer)
 	GetCharacterMovement()->JumpZVelocity = 840.0f;
 	GetCharacterMovement()->GravityScale = 2.0f;
 
+	//플레이어 UI 세팅
+	PlayerUI = CreateDefaultSubobject<UPlayerUIComponent>(TEXT("PlayerUI"));;
+
 	//메시 -90도 돌려놓아 정면으로 조정
 	GetMesh()->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
 	
-	AttackMode = false;
-	
 	LightAttackComboCount = 1;
-
-	LightAttackTargets.Empty();
 }
 
 void APlayerCharacter::Tick(float DeltaSeconds)
@@ -86,6 +85,13 @@ void APlayerCharacter::Tick(float DeltaSeconds)
 	
 	bIsLeftJumping = bIsLeftMoving && ((GetCharacterMovement()->Velocity.Z) > (GetCharacterMovement()->JumpZVelocity / 2));
 	bIsRightJumping = bIsRightMoving && ((GetCharacterMovement()->Velocity.Z) > (GetCharacterMovement()->JumpZVelocity / 2));
+
+	if (bIsGrounded)
+	{
+		bCanAirDash = true;
+	}
+	
+	GetCharacterMovement()->MaxWalkSpeed = bSprintMode ? 600.0f : 450.0f;
 }
 
 void APlayerCharacter::PossessedBy(AController* NewController)

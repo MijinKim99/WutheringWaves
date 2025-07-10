@@ -103,3 +103,9 @@ Content/SlashFX/*
 Content/StylizedToonBeam01/*
 Content/CelShader/*
 Content/CartoonSkyShader/*
+
+#KMJ_캐시 파일 제외
+Binaries/*
+DerivedDataCache/*
+Intermediate/*
+Saved/*
