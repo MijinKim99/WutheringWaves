@@ -22,4 +22,5 @@ class WUTHERINGWAVES_API UWWCharacterMovementComponent : public UCharacterMoveme
 	
 public:
 	virtual FVector ConstrainAnimRootMotionVelocity(const FVector& RootMotionVelocity, const FVector& CurrentVelocity) const override;
+	//virtual void ApplyRootMotionToVelocity(float deltaTime) override;
 };
