@@ -8,6 +8,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "KMJ/UIComponents/PlayerUIComponent.h"
+#include "YHG/Components/Combat/PlayerCombatComponent.h"
 
 APlayerCharacter::APlayerCharacter(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
@@ -19,7 +20,7 @@ APlayerCharacter::APlayerCharacter(const FObjectInitializer& ObjectInitializer)
 	//스프링암 초기세팅
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	CameraBoom->SetupAttachment(GetRootComponent());
-	CameraBoom->TargetArmLength = 300.0f;
+	CameraBoom->TargetArmLength = 450.0f;
 	CameraBoom->bUsePawnControlRotation = true;
 
 	//카메라 초기세팅
@@ -32,7 +33,10 @@ APlayerCharacter::APlayerCharacter(const FObjectInitializer& ObjectInitializer)
 	GetCharacterMovement()->MaxWalkSpeed = 450.0f;
 	GetCharacterMovement()->JumpZVelocity = 840.0f;
 	GetCharacterMovement()->GravityScale = 2.0f;
-
+	
+	//플레이어 Combat
+	PlayerCombat = CreateDefaultSubobject<UPlayerCombatComponent>(TEXT("PlayerCombat"));
+	
 	//플레이어 UI 세팅
 	PlayerUI = CreateDefaultSubobject<UPlayerUIComponent>(TEXT("PlayerUI"));;
 
@@ -106,6 +110,11 @@ void APlayerCharacter::PossessedBy(AController* NewController)
 			LoadedData->GiveToAbilitySystemComponent(WWAbilitySystemComponent);
 		}
 	}
+}
+
+UPawnCombatComponent* APlayerCharacter::GetPawnCombatComponent() const
+{
+	return PlayerCombat;
 }
 
 bool APlayerCharacter::GetIsGrounded() const
