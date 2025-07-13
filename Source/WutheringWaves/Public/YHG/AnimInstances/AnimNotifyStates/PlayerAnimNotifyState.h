@@ -6,6 +6,7 @@
 #include "Common/AnimInstances/AnimNotifyStates/WWAnimNotifyState.h"
 #include "PlayerAnimNotifyState.generated.h"
 
+class APlayerCharacter;
 class AWWPlayerController;
 /**
  * 
@@ -16,6 +17,12 @@ class WUTHERINGWAVES_API UPlayerAnimNotifyState : public UWWAnimNotifyState
 	GENERATED_BODY()
 
 protected:
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
+	USkeletalMeshComponent* SkeletalMeshComponent;
+	
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
+	APlayerCharacter* PlayerCharacter;
+	
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
 	AWWPlayerController* WWPlayerController;
 public:
