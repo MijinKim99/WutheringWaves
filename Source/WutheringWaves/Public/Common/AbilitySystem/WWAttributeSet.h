@@ -56,8 +56,8 @@ public:
 	FGameplayAttributeData DamageTaken;
 	ATTRIBUTE_ACCESSORS(UWWAttributeSet, DamageTaken)
 private:
+	TWeakInterfacePtr<IPawnUIInterface> CachedUIInterface;
 
 protected:
-	TWeakInterfacePtr<IPawnUIInterface> CachedUIInterface;
 	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) override;
 };

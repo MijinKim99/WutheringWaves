@@ -13,8 +13,8 @@ UCLASS()
 class WUTHERINGWAVES_API UEnemyAttributeSet : public UWWAttributeSet
 {
 	GENERATED_BODY()
-public:
 	UEnemyAttributeSet();
+public:
 	UPROPERTY(BlueprintReadOnly, Category="Resistance")
 	FGameplayAttributeData PhysicalResistance;
 	ATTRIBUTE_ACCESSORS(UEnemyAttributeSet, PhysicalResistance)
@@ -36,6 +36,4 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category="Resistance")
 	FGameplayAttributeData DarkResistance;
 	ATTRIBUTE_ACCESSORS(UEnemyAttributeSet, DarkResistance)
-private:
-	TWeakInterfacePtr<IPawnUIInterface> CachedUIInterface;
 };
