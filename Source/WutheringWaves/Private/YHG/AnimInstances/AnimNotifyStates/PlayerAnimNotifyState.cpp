@@ -5,35 +5,18 @@
 
 #include "Common/PlayerControllers/WWPlayerController.h"
 #include "Common/WWDebugHelper.h"
-#include "YHG/PlayerCharacters/PlayerCharacter.h"
 
 void UPlayerAnimNotifyState::NotifyBegin(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation,
                                          float TotalDuration, const FAnimNotifyEventReference& EventReference)
 {
 	Super::NotifyBegin(MeshComp, Animation, TotalDuration, EventReference);
 
-	SkeletalMeshComponent = MeshComp;
-
-	if (!SkeletalMeshComponent)
-	{
-		Debug::Print(TEXT("PlayerAnimNotifyState : Can't find SkeletalMeshComponent"));
-		return;
-	}
-
-	
-	PlayerCharacter = Cast<APlayerCharacter>(MeshComp->GetOwner());
-
-	if (!PlayerCharacter)
-	{
-		Debug::Print(TEXT("PlayerAnimNotifyState : Failed Cast PlayerCharacter"));
-		return;
-	}
-	
+	AController* Controller = MeshComp->GetOwner()->GetInstigatorController();
 	WWPlayerController = Cast<AWWPlayerController>(MeshComp->GetOwner()->GetInstigatorController());
 
 	if (!WWPlayerController)
 	{
-		Debug::Print(TEXT("PlayerAnimNotifyState : Failed Cast WWPlayerController"));
+		Debug::Print(TEXT("CancelAbilityByNative : Failed Cast WWPlayerController"));
 		return;
 	}
 }

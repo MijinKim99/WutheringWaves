@@ -72,6 +72,14 @@ enum class ECharacterName : uint8
 	None
 };
 
+UENUM(BlueprintType)
+enum class ECharacterSettingMenu : uint8
+{
+	Status,
+	Weapon,
+	Echo
+};
+
 class WWEnum
 {
 public:

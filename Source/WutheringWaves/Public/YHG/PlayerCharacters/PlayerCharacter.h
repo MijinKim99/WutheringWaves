@@ -96,33 +96,4 @@ public:
 	bool GetIsLeftJumping() const;
 	UFUNCTION()
 	bool GetIsRightJumping() const;
-
-protected:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="PlayerCharacterAnimation")
-	UAnimMontage* FGroundDash;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="PlayerCharacterAnimation")
-	UAnimMontage* BGroundDash;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="PlayerCharacterAnimation")
-	UAnimMontage* FSuccessGroundDash;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="PlayerCharacterAnimation")
-	UAnimMontage* BSuccessGroundDash;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="PlayerCharacterAnimation")
-	UAnimMontage* FAirDash;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="PlayerCharacterAnimation")
-	UAnimMontage* BAirDash;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="PlayerCharacterAnimation")
-	UAnimMontage* RFJump;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="PlayerCharacterAnimation")
-	UAnimMontage* LFJump;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="PlayerCharacterAnimation")
-	UAnimMontage* RFRunJump;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="PlayerCharacterAnimation")
-	UAnimMontage* LFRunJump;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="PlayerCharacterAnimation")
-	UAnimMontage* RStopSprint;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="PlayerCharacterAnimation")
-	UAnimMontage* LStopSprint;
 };
