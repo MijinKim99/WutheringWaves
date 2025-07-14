@@ -4,7 +4,6 @@
 #include "Common/Attack/AttackCollision_CapsuleInstance.h"
 
 #include "AbilitySystemBlueprintLibrary.h"
-#include "GameplayCueFunctionLibrary.h"
 #include "Abilities/GameplayAbilityTypes.h"
 #include "Common/WWBlueprintFunctionLibrary.h"
 #include "Common/Characters/WWCharacter.h"
@@ -32,29 +31,16 @@ void AAttackCollision_CapsuleInstance::BeginPlay()
 void AAttackCollision_CapsuleInstance::SetActive(bool IsActive, APawn* InInstigator)
 {
 	Super::SetActive(IsActive, InInstigator);
-	if (IsActive)
-	{
-		CapsuleComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-		if (InInstigator)
-		{
-			InstigatorTeamId = Cast<IGenericTeamAgentInterface>(InInstigator->GetController())->GetGenericTeamId();
-		}
-	}
-	else
-	{
-		CapsuleComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	}
 }
 
 void AAttackCollision_CapsuleInstance::Deactivate()
 {
 	Super::Deactivate();
-	
 }
 
-void AAttackCollision_CapsuleInstance::AttackOverlappingEnemies()
+void AAttackCollision_CapsuleInstance::AttackOverlappingEnemies(const FVector& TargetLocation)
 {
-	
+	SetActorLocation(TargetLocation);
 	TArray<AActor*> OverlappingActors;
 	CapsuleComponent->GetOverlappingActors(OverlappingActors);
 	for (AActor* FoundActor : OverlappingActors)
@@ -86,7 +72,6 @@ void AAttackCollision_CapsuleInstance::AttackOverlappingEnemies()
 			//Gameplay Effect 적용
 		}
 	}
-	Deactivate();
 }
 
 void AAttackCollision_CapsuleInstance::SetCapsuleSize(float InRadius, float InHalfHeight)
@@ -104,9 +89,3 @@ void AAttackCollision_CapsuleInstance::SetHitReactEventTag(FGameplayTag InGamepl
 {
 	HitReactEventTag = InGameplayEventTag;
 }
-
-void AAttackCollision_CapsuleInstance::SetAttackVFXGameplayCueTag(FGameplayTag InGameplayCueTag)
-{
-	AttackFXGameplayCueTag = InGameplayCueTag;
-}
-

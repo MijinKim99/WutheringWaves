@@ -26,8 +26,7 @@ namespace WWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Player_Event_WeaponUnEquip, "Player.Event.WeaponUnEquip")
 
 	//Player Ability
-	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_GroundDash, "Player.Ability.GroundDash")
-	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_AirDash, "Player.Ability.AirDash")
+	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Dash, "Player.Ability.Dash")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Jump, "Player.Ability.Jump")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Attack_Light, "Player.Ability.Attack.Light")
 
@@ -35,9 +34,6 @@ namespace WWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_Dashing, "Player.Status.Dashing")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_Jumping, "Player.Status.Jumping")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_Attacking_Light, "Player.Status.Attacking.Light")
-
-	//Player SetByCaller
-	UE_DEFINE_GAMEPLAY_TAG(Player_SetByCaller_AttackType_Light, "Player.SetByCaller.AttackType.Light")
 
 	//Shared SetByCaller
 	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_Damage_Physical, "Shared.SetByCaller.Damage.Physical")
@@ -63,15 +59,9 @@ namespace WWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Ability_HitReact_Pushed, "Shared.Ability.HitReact.Pushed")
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Ability_Death, "Shared.Ability.Death")
 
-	//Enemy Ability
+	//Enemy
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_Attack, "Enemy.Ability.Attack")
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_StepBack, "Enemy.Ability.StepBack")
-
-	//Enemy Event
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Event_SpawnHitCollision, "Enemy.Event.SpawnHitCollision")
-
-	//Enemy Status
-	UE_DEFINE_GAMEPLAY_TAG(Enemy_Status_Staggered, "Enemy.Status.Staggered")
-	
 	
 }
