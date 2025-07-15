@@ -37,14 +37,12 @@ protected:
 	
 	FGenericTeamId InstigatorTeamId;
 
-	// FX
-	FGameplayTag AttackFXGameplayCueTag;
 	
 	// Event To Send
 	FGameplayTag HitReactEventTag;
 public:
 	UFUNCTION(BlueprintCallable, Category = "CapsuleInstance")
-	void AttackOverlappingEnemies();
+	void AttackOverlappingEnemies(const FVector& TargetLocation);
 	UFUNCTION(BlueprintCallable, Category = "CapsuleInstance")
 	void SetCapsuleSize(float InRadius, float InHalfHeight);
 	UFUNCTION(BlueprintCallable, Category = "CapsuleInstance")
