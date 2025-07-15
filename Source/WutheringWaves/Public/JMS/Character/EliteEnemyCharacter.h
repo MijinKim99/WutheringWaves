@@ -14,4 +14,6 @@ class WUTHERINGWAVES_API AEliteEnemyCharacter : public AEnemyCharacter
 {
 	GENERATED_BODY()
 public:
+	
+	
 };

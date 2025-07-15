@@ -112,6 +112,11 @@ void APlayerCharacter::PossessedBy(AController* NewController)
 	}
 }
 
+UPawnUIComponent* APlayerCharacter::GetPawnUIComponent() const
+{
+	return PlayerUI;
+}
+
 UPawnCombatComponent* APlayerCharacter::GetPawnCombatComponent() const
 {
 	return PlayerCombat;
