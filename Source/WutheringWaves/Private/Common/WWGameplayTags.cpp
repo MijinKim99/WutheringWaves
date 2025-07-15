@@ -56,6 +56,7 @@ namespace WWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_HitReact_Small, "Shared.Event.HitReact.Small")
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_HitReact_Big, "Shared.Event.HitReact.Big")
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_HitReact_Pushed, "Shared.Event.HitReact.Pushed")
+	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_Animation_LoopEnd, "Shared.Event.HitReact.LoopEnd")
 
 	//Shared Ability
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Ability_HitReact_Small, "Shared.Ability.HitReact.Small")
@@ -72,6 +73,7 @@ namespace WWGameplayTags
 
 	//Enemy Status
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Status_Staggered, "Enemy.Status.Staggered")
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Status_ParryEnabled, "Enemy.Status.ParryEnabled")
 	
 	
 }
