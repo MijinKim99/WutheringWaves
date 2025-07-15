@@ -26,7 +26,8 @@ class WUTHERINGWAVES_API AAttackCollisionSphereProjectile : public AWWPooledObje
 public:
 	// Sets default values for this actor's properties
 	AAttackCollisionSphereProjectile();
-
+	UFUNCTION(BlueprintCallable)
+	UProjectileMovementComponent* GetProjectileMovementComponent() const;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

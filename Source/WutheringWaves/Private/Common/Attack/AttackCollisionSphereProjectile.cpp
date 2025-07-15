@@ -29,6 +29,11 @@ AAttackCollisionSphereProjectile::AAttackCollisionSphereProjectile()
 	SphereComponent->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
 }
 
+UProjectileMovementComponent* AAttackCollisionSphereProjectile::GetProjectileMovementComponent() const
+{
+	return ProjectileMovementComponent;
+}
+
 // Called when the game starts or when spawned
 void AAttackCollisionSphereProjectile::BeginPlay()
 {

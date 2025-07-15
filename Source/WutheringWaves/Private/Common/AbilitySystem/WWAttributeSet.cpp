@@ -42,7 +42,6 @@ void UWWAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModC
 		return;
 	}
 	//
-
 	
 	checkf(PawnUIComponent, TEXT("Can not Load PawnUIComponent from %s"), *Data.Target.GetAvatarActor()->GetActorLabel());
 	
