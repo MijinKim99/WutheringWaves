@@ -38,6 +38,7 @@ private:
 protected:
 	virtual void Tick(float DeltaSeconds) override;
 	virtual void PossessedBy(AController* NewController) override;
+	virtual UPawnUIComponent* GetPawnUIComponent() const override;
 	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
 
 //StateControl
