@@ -23,8 +23,8 @@ UCLASS()
 class WUTHERINGWAVES_API AEnemyCharacter : public AWWCharacter
 {
 	GENERATED_BODY()
-AEnemyCharacter();
 public:
+AEnemyCharacter();
 	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
 
 protected:

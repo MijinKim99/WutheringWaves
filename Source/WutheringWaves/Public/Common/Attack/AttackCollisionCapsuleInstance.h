@@ -32,7 +32,9 @@ protected:
 
 	FGameplayEffectSpecHandle GameplayEffectSpecHandle;
 	
-
+	// FX
+	FGameplayTag AttackFXGameplayCueTag;
+	
 	FGenericTeamId InstigatorTeamId;
 	
 	// Event To Send
@@ -46,4 +48,6 @@ public:
 	void SetDamageEffect(const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle);
 	UFUNCTION(BlueprintCallable, Category = "SphereInstance")
 	void SetHitReactEventTag(FGameplayTag InGameplayEventTag);
+	UFUNCTION(BlueprintCallable, Category = "SphereInstance")
+	void SetAttackVFXGameplayCueTag(FGameplayTag InGameplayCueTag);
 };
