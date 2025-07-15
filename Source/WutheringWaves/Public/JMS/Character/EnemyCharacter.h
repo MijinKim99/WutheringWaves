@@ -23,8 +23,9 @@ UCLASS()
 class WUTHERINGWAVES_API AEnemyCharacter : public AWWCharacter
 {
 	GENERATED_BODY()
+
 public:
-AEnemyCharacter();
+	AEnemyCharacter();
 	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
 
 protected:
@@ -47,7 +48,7 @@ protected:
 
 	UPROPERTY(BlueprintAssignable)
 	FOnInitializedDelegate OnInitialized;
-	
+
 private:
 	void InitEnemyStartUpData();
 };

@@ -21,7 +21,6 @@ UEliteAttributeSet::UEliteAttributeSet()
 void UEliteAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data)
 {
 	Super::PostGameplayEffectExecute(Data);
-	Super::PostGameplayEffectExecute(Data);
 	if (!CachedUIInterface.IsValid())
 	{
 		CachedUIInterface = TWeakInterfacePtr<IPawnUIInterface>(Data.Target.GetAvatarActor());
@@ -64,4 +63,5 @@ void UEliteAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectM
 	// 		UWWBlueprintFunctionLibrary::AddTagToActor(Data.Target.GetAvatarActor(), WWGameplayTags::Enemy_Status_Staggered);
 	// 	}
 	// }
+
 }

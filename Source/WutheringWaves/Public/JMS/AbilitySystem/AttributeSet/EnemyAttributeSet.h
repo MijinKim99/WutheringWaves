@@ -22,8 +22,8 @@ UCLASS()
 class WUTHERINGWAVES_API UEnemyAttributeSet : public UAttributeSet
 {
 	GENERATED_BODY()
-	UEnemyAttributeSet();
 public:
+	UEnemyAttributeSet();
 	UPROPERTY(BlueprintReadOnly, Category="Resistance")
 	FGameplayAttributeData PhysicalResistance;
 	ATTRIBUTE_ACCESSORS(UEnemyAttributeSet, PhysicalResistance)
