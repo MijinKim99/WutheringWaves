@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "EnhancedInputComponent.h"
 #include "Common/WWDebugHelper.h"
-#include "YHG/DataAssets/Input/DataAsset_InputConfig.h"
+#include "YHG/DataAssets/Input/InputConfig.h"
 #include "WWEnhancedInputComponent.generated.h"
 /**
  * 
@@ -18,7 +18,7 @@ class WUTHERINGWAVES_API UWWEnhancedInputComponent : public UEnhancedInputCompon
 public:
 	template<class UserObject, typename CallbackFunc>
 	void BindNativeInputAction(
-		const UDataAsset_InputConfig* InInputConfig,
+		const UInputConfig* InInputConfig,
 		const FGameplayTag& InInputTag,
 		ETriggerEvent TriggerEvent, 
 	UserObject* ContextObject,
@@ -26,14 +26,14 @@ public:
 
 	template<class UserObject, typename CallbackFunc>
 	void BindAbilityInputAction(
-		const UDataAsset_InputConfig* InInputConfig,
+		const UInputConfig* InInputConfig,
 		UserObject* ContextObject,
 		CallbackFunc InputPressedFunc,
 		CallbackFunc InputRelesedFunc);
 };
 
 template<class UserObject, typename CallbackFunc>
-inline void UWWEnhancedInputComponent::BindNativeInputAction(const UDataAsset_InputConfig* InInputConfig, const FGameplayTag& InInputTag, 
+inline void UWWEnhancedInputComponent::BindNativeInputAction(const UInputConfig* InInputConfig, const FGameplayTag& InInputTag, 
 ETriggerEvent TriggerEvent, UserObject* ContextObject, CallbackFunc Func)
 {
 	if (!InInputConfig)
@@ -48,7 +48,7 @@ ETriggerEvent TriggerEvent, UserObject* ContextObject, CallbackFunc Func)
 };
 
 template<class UserObject, typename CallbackFunc>
-inline void UWWEnhancedInputComponent::BindAbilityInputAction(const UDataAsset_InputConfig* InInputConfig, UserObject* ContextObject, CallbackFunc InputPressedFunc, CallbackFunc InputRelesedFunc)
+inline void UWWEnhancedInputComponent::BindAbilityInputAction(const UInputConfig* InInputConfig, UserObject* ContextObject, CallbackFunc InputPressedFunc, CallbackFunc InputRelesedFunc)
 {
 	checkf(InInputConfig, TEXT("Input config data asset is null,can not proceed with binding"));
 

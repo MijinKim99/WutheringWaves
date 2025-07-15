@@ -17,7 +17,6 @@
 #include "Engine/AssetManager.h"
 #include "Engine/StreamableManager.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "JMS/AbilitySystem/AttributeSet/EnemyAttributeSet.h"
 #include "JMS/Component/EnemyCombatComponent.h"
 #include "KMJ/UIComponents/EnemyUIComponent.h"
 
@@ -39,7 +38,6 @@ AEnemyCharacter::AEnemyCharacter()
 	EnemyUIComponent = CreateDefaultSubobject<UEnemyUIComponent>(TEXT("EnemyUIComponent"));
 	WidgetComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("WidgetComponent"));
 	WidgetComponent->SetupAttachment(GetMesh());
-	
 }
 
 void AEnemyCharacter::PossessedBy(AController* NewController)

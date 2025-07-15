@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Common/DataAssets/DataAsset_Startup.h"
 #include "GameplayTagContainer.h"
-#include "DataAsset_StartupPlayerCharacter.generated.h"
+#include "PlayerCharacterStartup.generated.h"
 
 USTRUCT(BlueprintType)
 struct FPlayerInputAbilitySet
@@ -25,7 +25,7 @@ struct FPlayerInputAbilitySet
  * 
  */
 UCLASS()
-class WUTHERINGWAVES_API UDataAsset_StartupPlayerCharacter : public UDataAsset_Startup
+class WUTHERINGWAVES_API UPlayerCharacterStartup : public UDataAsset_Startup
 {
 	GENERATED_BODY()
 

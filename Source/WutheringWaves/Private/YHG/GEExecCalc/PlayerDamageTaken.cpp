@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "YHG/GEExecCalc/GEExecCalc_PlayerDamageTaken.h"
+#include "YHG/GEExecCalc/PlayerDamageTaken.h"
 
 #include "Common/WWGameplayTags.h"
 #include "Common/AbilitySystem/WWAttributeSet.h"
@@ -31,14 +31,14 @@ static const FPlayerDamageCapture& GetPlayerDamageCapture()
 }
 
 
-UGEExecCalc_PlayerDamageTaken::UGEExecCalc_PlayerDamageTaken()
+UPlayerDamageTaken::UPlayerDamageTaken()
 {
 	RelevantAttributesToCapture.Add(GetPlayerDamageCapture().ApplyAttackDef);
 	RelevantAttributesToCapture.Add(GetPlayerDamageCapture().ApplyDefenseDef);
 	RelevantAttributesToCapture.Add(GetPlayerDamageCapture().DamageTakenDef);
 }
 
-void UGEExecCalc_PlayerDamageTaken::Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams,
+void UPlayerDamageTaken::Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams,
 	FGameplayEffectCustomExecutionOutput& OutExecutionOutput) const
 {
 	Super::Execute_Implementation(ExecutionParams, OutExecutionOutput);

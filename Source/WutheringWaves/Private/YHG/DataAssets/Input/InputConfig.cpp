@@ -1,9 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "WutheringWaves/Public/YHG/DataAssets/Input/DataAsset_InputConfig.h"
+#include "WutheringWaves/Public/YHG/DataAssets/Input/InputConfig.h"
 
-UInputAction* UDataAsset_InputConfig::FindNativeInputActionByTag(const FGameplayTag& InInputTag) const
+UInputAction* UInputConfig::FindNativeInputActionByTag(const FGameplayTag& InInputTag) const
 {
 	for (const FWWInputActionConfig& InputActionConfig : NativeInputActions)
 	{
