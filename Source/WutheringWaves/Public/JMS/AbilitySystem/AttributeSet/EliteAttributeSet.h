@@ -3,14 +3,23 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "JMS/AbilitySystem/AttributeSet/EnemyAttributeSet.h"
+#include "AttributeSet.h"
+#include "Common/AbilitySystem/WWAbilitySystemComponent.h"
 #include "EliteAttributeSet.generated.h"
 
 /**
  * 
  */
+#define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
+GAMEPLAYATTRIBUTE_PROPERTY_GETTER(ClassName, PropertyName) \
+GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
+GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
+GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
+
+class IPawnUIInterface;
+
 UCLASS()
-class WUTHERINGWAVES_API UEliteAttributeSet : public UEnemyAttributeSet
+class WUTHERINGWAVES_API UEliteAttributeSet : public UAttributeSet
 {
 	GENERATED_BODY()
 public:

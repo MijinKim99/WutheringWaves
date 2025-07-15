@@ -3,14 +3,23 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Common/AbilitySystem/WWAttributeSet.h"
+#include "AttributeSet.h"
+#include "Common/AbilitySystem/WWAbilitySystemComponent.h"
 #include "EnemyAttributeSet.generated.h"
 
 /**
  * 
  */
+#define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
+GAMEPLAYATTRIBUTE_PROPERTY_GETTER(ClassName, PropertyName) \
+GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
+GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
+GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
+
+class IPawnUIInterface;
+
 UCLASS()
-class WUTHERINGWAVES_API UEnemyAttributeSet : public UWWAttributeSet
+class WUTHERINGWAVES_API UEnemyAttributeSet : public UAttributeSet
 {
 	GENERATED_BODY()
 public:
@@ -38,4 +47,6 @@ public:
 	ATTRIBUTE_ACCESSORS(UEnemyAttributeSet, DarkResistance)
 private:
 	TWeakInterfacePtr<IPawnUIInterface> CachedUIInterface;
+protected:
+	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) override;
 };
