@@ -10,7 +10,7 @@
 class APlayerCharacter;
 struct FGameplayTag;
 struct FInputActionValue;
-class UDataAsset_InputConfig;
+class UInputConfig;
 /**
  * 
  */
@@ -23,7 +23,7 @@ public:
 	virtual FGenericTeamId GetGenericTeamId() const override;
 private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	UDataAsset_InputConfig* DataAsset_InputConfig;
+	UInputConfig* DataAsset_InputConfig;
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	APlayerCharacter* ControlledPlayerCharacter;

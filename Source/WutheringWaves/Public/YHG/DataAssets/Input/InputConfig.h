@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameplayTagContainer.h"
 #include "Engine/DataAsset.h"
-#include "DataAsset_InputConfig.generated.h"
+#include "InputConfig.generated.h"
 
 class UInputAction;
 class UInputMappingContext;
@@ -28,7 +28,7 @@ public:
 /**
  */
 UCLASS()
-class WUTHERINGWAVES_API UDataAsset_InputConfig : public UDataAsset
+class WUTHERINGWAVES_API UInputConfig : public UDataAsset
 {
 	GENERATED_BODY()
 

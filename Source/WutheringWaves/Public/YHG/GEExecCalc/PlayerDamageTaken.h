@@ -4,16 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "GameplayEffectExecutionCalculation.h"
-#include "GEExecCalc_PlayerDamageTaken.generated.h"
+#include "PlayerDamageTaken.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class WUTHERINGWAVES_API UGEExecCalc_PlayerDamageTaken : public UGameplayEffectExecutionCalculation
+class WUTHERINGWAVES_API UPlayerDamageTaken : public UGameplayEffectExecutionCalculation
 {
 	GENERATED_BODY()
-	UGEExecCalc_PlayerDamageTaken();
+	UPlayerDamageTaken();
 
 public:
 	virtual void Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams, FGameplayEffectCustomExecutionOutput& OutExecutionOutput) const override;
