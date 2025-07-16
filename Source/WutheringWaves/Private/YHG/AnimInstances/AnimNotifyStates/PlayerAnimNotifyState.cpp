@@ -11,17 +11,8 @@ void UPlayerAnimNotifyState::NotifyBegin(USkeletalMeshComponent* MeshComp, UAnim
                                          float TotalDuration, const FAnimNotifyEventReference& EventReference)
 {
 	Super::NotifyBegin(MeshComp, Animation, TotalDuration, EventReference);
-
-	SkeletalMeshComponent = MeshComp;
-
-	if (!SkeletalMeshComponent)
-	{
-		Debug::Print(TEXT("PlayerAnimNotifyState : Can't find SkeletalMeshComponent"));
-		return;
-	}
-
 	
-	PlayerCharacter = Cast<APlayerCharacter>(MeshComp->GetOwner());
+	PlayerCharacter = Cast<APlayerCharacter>(WWCharacter);
 
 	if (!PlayerCharacter)
 	{
@@ -29,7 +20,7 @@ void UPlayerAnimNotifyState::NotifyBegin(USkeletalMeshComponent* MeshComp, UAnim
 		return;
 	}
 	
-	WWPlayerController = Cast<AWWPlayerController>(MeshComp->GetOwner()->GetInstigatorController());
+	WWPlayerController = Cast<AWWPlayerController>(Controller);
 
 	if (!WWPlayerController)
 	{
