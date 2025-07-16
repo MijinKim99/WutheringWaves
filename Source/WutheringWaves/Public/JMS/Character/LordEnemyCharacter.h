@@ -6,6 +6,7 @@
 #include "JMS/Character/EliteEnemyCharacter.h"
 #include "LordEnemyCharacter.generated.h"
 
+class ULordAttributeSet;
 /**
  * 
  */
@@ -15,6 +16,7 @@ class WUTHERINGWAVES_API ALordEnemyCharacter : public AEliteEnemyCharacter
 	GENERATED_BODY()
 
 public:
+
 	UFUNCTION(BlueprintCallable, Category = "Parry")
 	void StartParryEvent();
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Parry")
@@ -37,4 +39,5 @@ protected:
 	FTimerHandle DisableParryTimerHandle;
 	FTimerHandle UpdateGuideDurationTimerHandle;
 	FTimerHandle UpdateEnableDurationTimerHandle;
+
 };

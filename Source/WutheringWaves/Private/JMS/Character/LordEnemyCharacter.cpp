@@ -7,6 +7,7 @@
 #include "Common/WWDebugHelper.h"
 #include "Common/WWGameplayTags.h"
 
+
 void ALordEnemyCharacter::StartParryEvent()
 {
 	GetWorld()->GetTimerManager().SetTimer(EnableParryTimerHandle, this, &ALordEnemyCharacter::EnableParry,
