@@ -3,36 +3,38 @@
 
 #include "JMS/AbilitySystem/GEExecCalc/GEExecClac_EnemyDamageTaken.h"
 
+#include "AbilitySystemBlueprintLibrary.h"
 #include "Common/WWDebugHelper.h"
 #include "Common/WWGameplayTags.h"
 #include "Common/AbilitySystem/WWAttributeSet.h"
+#include "JMS/AbilitySystem/AttributeSet/EliteAttributeSet.h"
 #include "JMS/AbilitySystem/AttributeSet/EnemyAttributeSet.h"
+#include "JMS/AbilitySystem/AttributeSet/LordAttributeSet.h"
 
-struct FDamageCapture
+struct FWWAttributeSetCapture
 {
 	//BaseAttributeSet에 변수를 캡처
 	//DECLARE_ATTRIBUTE_CAPTUREDEF(ApplyAttack)
 	DECLARE_ATTRIBUTE_CAPTUREDEF(ApplyDefense)
 	DECLARE_ATTRIBUTE_CAPTUREDEF(DamageTaken)
-	
-	
 
-	FDamageCapture()
+
+	FWWAttributeSetCapture()
 	{
 		//Source GE - 생성주체, Target GE - 적용대상
 		//DEFINE_ATTRIBUTE_CAPTUREDEF(UWWAttributeSet, ApplyAttack, Source, false);
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UWWAttributeSet, ApplyDefense, Target, false);
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UWWAttributeSet, DamageTaken, Target, false);
-		
 	}
 };
-static const FDamageCapture& GetDamageCapture()
+
+static const FWWAttributeSetCapture& GetWWAttributeSetCapture()
 {
-	static FDamageCapture DamageCapture;
-	return DamageCapture;
+	static FWWAttributeSetCapture AttributeSetCapture;
+	return AttributeSetCapture;
 }
 
-struct FResistanceCapture
+struct FEnemyAttributeSetCapture
 {
 	DECLARE_ATTRIBUTE_CAPTUREDEF(PhysicalResistance)
 	DECLARE_ATTRIBUTE_CAPTUREDEF(IceResistance)
@@ -41,7 +43,8 @@ struct FResistanceCapture
 	DECLARE_ATTRIBUTE_CAPTUREDEF(WindResistance)
 	DECLARE_ATTRIBUTE_CAPTUREDEF(LightResistance)
 	DECLARE_ATTRIBUTE_CAPTUREDEF(DarkResistance)
-	FResistanceCapture()
+
+	FEnemyAttributeSetCapture()
 	{
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UEnemyAttributeSet, PhysicalResistance, Target, false);
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UEnemyAttributeSet, IceResistance, Target, false);
@@ -53,25 +56,49 @@ struct FResistanceCapture
 	}
 };
 
-static const FResistanceCapture& GetResistanceCapture()
+static const FEnemyAttributeSetCapture& GetEnemyAttributeSetCapture()
 {
-	static FResistanceCapture ResistanceCapture;
-	return ResistanceCapture;
+	static FEnemyAttributeSetCapture AttributeSetCapture;
+	return AttributeSetCapture;
+}
+
+struct FEliteAttributeSetCapture
+{
+	//BaseAttributeSet에 변수를 캡처
+	DECLARE_ATTRIBUTE_CAPTUREDEF(StaggerDamageTaken)
+	DECLARE_ATTRIBUTE_CAPTUREDEF(ParryDamageTaken)
+
+
+	FEliteAttributeSetCapture()
+	{
+		//Source GE - 생성주체, Target GE - 적용대상
+		//DEFINE_ATTRIBUTE_CAPTUREDEF(UWWAttributeSet, ApplyAttack, Source, false);
+		DEFINE_ATTRIBUTE_CAPTUREDEF(UEliteAttributeSet, StaggerDamageTaken, Target, false);
+		DEFINE_ATTRIBUTE_CAPTUREDEF(UEliteAttributeSet, ParryDamageTaken, Target, false);
+	}
+};
+
+static const FEliteAttributeSetCapture& GetEliteAttributeSetCapture()
+{
+	static FEliteAttributeSetCapture AttributeSetCapture;
+	return AttributeSetCapture;
 }
 
 UGEExecClac_EnemyDamageTaken::UGEExecClac_EnemyDamageTaken()
 {
 	//RelevantAttributesToCapture 주입
 	//RelevantAttributesToCapture.Add(GetDamageCapture().ApplyAttackDef);
-	RelevantAttributesToCapture.Add(GetDamageCapture().ApplyDefenseDef);
-	RelevantAttributesToCapture.Add(GetDamageCapture().DamageTakenDef);
-	RelevantAttributesToCapture.Add(GetResistanceCapture().PhysicalResistanceDef);
-	RelevantAttributesToCapture.Add(GetResistanceCapture().IceResistanceDef);
-	RelevantAttributesToCapture.Add(GetResistanceCapture().FireResistanceDef);
-	RelevantAttributesToCapture.Add(GetResistanceCapture().LightningResistanceDef);
-	RelevantAttributesToCapture.Add(GetResistanceCapture().WindResistanceDef);
-	RelevantAttributesToCapture.Add(GetResistanceCapture().LightResistanceDef);
-	RelevantAttributesToCapture.Add(GetResistanceCapture().DarkResistanceDef);
+	RelevantAttributesToCapture.Add(GetWWAttributeSetCapture().ApplyDefenseDef);
+	RelevantAttributesToCapture.Add(GetWWAttributeSetCapture().DamageTakenDef);
+	RelevantAttributesToCapture.Add(GetEnemyAttributeSetCapture().PhysicalResistanceDef);
+	RelevantAttributesToCapture.Add(GetEnemyAttributeSetCapture().IceResistanceDef);
+	RelevantAttributesToCapture.Add(GetEnemyAttributeSetCapture().FireResistanceDef);
+	RelevantAttributesToCapture.Add(GetEnemyAttributeSetCapture().LightningResistanceDef);
+	RelevantAttributesToCapture.Add(GetEnemyAttributeSetCapture().WindResistanceDef);
+	RelevantAttributesToCapture.Add(GetEnemyAttributeSetCapture().LightResistanceDef);
+	RelevantAttributesToCapture.Add(GetEnemyAttributeSetCapture().DarkResistanceDef);
+	RelevantAttributesToCapture.Add(GetEliteAttributeSetCapture().StaggerDamageTakenDef);
+	RelevantAttributesToCapture.Add(GetEliteAttributeSetCapture().ParryDamageTakenDef);
 }
 
 void UGEExecClac_EnemyDamageTaken::Execute_Implementation(
@@ -80,21 +107,14 @@ void UGEExecClac_EnemyDamageTaken::Execute_Implementation(
 {
 	Super::Execute_Implementation(ExecutionParams, OutExecutionOutput);
 
-	//주입한 스팩 얻어오기
+	// Boilerplate
 	const FGameplayEffectSpec& EffectSpec = ExecutionParams.GetOwningSpec();
 
 	FAggregatorEvaluateParameters EvaluateParameters;
 	EvaluateParameters.SourceTags = EffectSpec.CapturedSourceTags.GetAggregatedTags();
 	EvaluateParameters.TargetTags = EffectSpec.CapturedTargetTags.GetAggregatedTags();
 
-	// Source 속성 대미지
-	// float SourceAttack = 0.f;
-	// ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetDamageCapture().ApplyAttackDef, EvaluateParameters, SourceAttack);
-	// Debug::Print(TEXT("SourceAttack"), SourceAttack);
-
-
-	
-	// Targe 속성 저항
+	// EnemyAttributeSet에서 Attribute를 불러와서 지역변수에 저장
 	float TargetPhysicalResistance = 0.f;
 	float TargetIceResistance = 0.f;
 	float TargetFireResistance = 0.f;
@@ -103,17 +123,22 @@ void UGEExecClac_EnemyDamageTaken::Execute_Implementation(
 	float TargetLightResistance = 0.f;
 	float TargetDarkResistance = 0.f;
 
-	// 속성 저항 불러오기
-	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetResistanceCapture().PhysicalResistanceDef, EvaluateParameters, TargetPhysicalResistance);
-	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetResistanceCapture().IceResistanceDef, EvaluateParameters, TargetIceResistance);
-	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetResistanceCapture().FireResistanceDef, EvaluateParameters, TargetFireResistance);
-	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetResistanceCapture().LightningResistanceDef, EvaluateParameters, TargetLightningResistance);
-	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetResistanceCapture().WindResistanceDef, EvaluateParameters, TargetWindResistance);
-	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetResistanceCapture().LightResistanceDef, EvaluateParameters, TargetLightResistance);
-	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetResistanceCapture().DarkResistanceDef, EvaluateParameters, TargetDarkResistance);
-	
-	// EffectSpec에서 ApplyDamage를 추출하여 변수에 적용
-	// 저항력에 대한 대미지 계산 : 대미지 * (1-저항)
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetEnemyAttributeSetCapture().PhysicalResistanceDef,
+	                                                           EvaluateParameters, TargetPhysicalResistance);
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetEnemyAttributeSetCapture().IceResistanceDef,
+	                                                           EvaluateParameters, TargetIceResistance);
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetEnemyAttributeSetCapture().FireResistanceDef,
+	                                                           EvaluateParameters, TargetFireResistance);
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetEnemyAttributeSetCapture().LightningResistanceDef,
+	                                                           EvaluateParameters, TargetLightningResistance);
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetEnemyAttributeSetCapture().WindResistanceDef,
+	                                                           EvaluateParameters, TargetWindResistance);
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetEnemyAttributeSetCapture().LightResistanceDef,
+	                                                           EvaluateParameters, TargetLightResistance);
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetEnemyAttributeSetCapture().DarkResistanceDef,
+	                                                           EvaluateParameters, TargetDarkResistance);
+
+	// EffectSpec에서 SetByCallerTagMagnitudes를 추출하여 각 태그에 따라 서로 다른 지역변수에 저장
 	float SourcePhysicalDamage = 0.f;
 	float SourceIceDamage = 0.f;
 	float SourceFireDamage = 0.f;
@@ -121,7 +146,9 @@ void UGEExecClac_EnemyDamageTaken::Execute_Implementation(
 	float SourceWindDamage = 0.f;
 	float SourceLightDamage = 0.f;
 	float SourceDarkDamage = 0.f;
-	for (const TPair<FGameplayTag, float>& TagMagnitude  : EffectSpec.SetByCallerTagMagnitudes)
+	float SourceStaggerDamage = 0.f;
+	float SourceParryDamage = 0.f;
+	for (const TPair<FGameplayTag, float>& TagMagnitude : EffectSpec.SetByCallerTagMagnitudes)
 	{
 		if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Shared_SetByCaller_Damage_Physical))
 		{
@@ -138,6 +165,7 @@ void UGEExecClac_EnemyDamageTaken::Execute_Implementation(
 		if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Shared_SetByCaller_Damage_Fire))
 		{
 			SourceFireDamage = TagMagnitude.Value;
+			Debug::Print(TEXT("AppliedFireDamage"), SourceFireDamage);
 			SourceFireDamage *= (1.f - TargetFireResistance);
 			Debug::Print(TEXT("FireDamage"), SourceFireDamage);
 		}
@@ -165,30 +193,61 @@ void UGEExecClac_EnemyDamageTaken::Execute_Implementation(
 			SourceDarkDamage *= (1.f - TargetDarkResistance);
 			Debug::Print(TEXT("DarkDamage"), SourceDarkDamage);
 		}
+		if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Shared_SetByCaller_Damage_Stagger))
+		{
+			SourceStaggerDamage = TagMagnitude.Value;
+			Debug::Print(TEXT("StaggerDamage"), SourceStaggerDamage);
+		}
+		if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Shared_SetByCaller_Damage_Parry))
+		{
+			SourceParryDamage = TagMagnitude.Value;
+			Debug::Print(TEXT("StaggerDamage"), SourceStaggerDamage);
+		}
 	}
 	float TargetDefence = 0.f;
-	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetDamageCapture().ApplyDefenseDef, EvaluateParameters, TargetDefence);
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetWWAttributeSetCapture().ApplyDefenseDef,
+	                                                           EvaluateParameters, TargetDefence);
 	Debug::Print(TEXT("TargetDefence"), TargetDefence);
 
 	// 현재는 한번에 하나의 대미지만 들어옴
-	float AppliedSourceDamage = SourcePhysicalDamage + SourceIceDamage + SourceFireDamage + SourceLightningDamage + SourceWindDamage + SourceLightDamage + SourceDarkDamage;
+	float AppliedSourceDamage = SourcePhysicalDamage + SourceIceDamage + SourceFireDamage + SourceLightningDamage +
+		SourceWindDamage + SourceLightDamage + SourceDarkDamage;
 	// 방어력에 의한 영향 : 1 - (적의 방어력/(적의 방어력 + 800 + 8×캐릭터 레벨))
-	float DefenceEffect = 1.0f-(TargetDefence/(TargetDefence + 800.0f));
+	float DefenceEffect = 1.0f - (TargetDefence / (TargetDefence + 800.0f));
 	// 캐릭터 공격력, 다양한 공격력 증가 요소, 크리티컬 수치는 적용된 상태로 값이 들어와야 함
 	const float FinalDamage = AppliedSourceDamage * DefenceEffect;
 	Debug::Print(TEXT("FinalDamage"), FinalDamage);
 
 
-	// 현재는 주어진 대미지 수치만 DamageTaken 어트리뷰트에 Override
-	// 어떤 속성의 대미지가 들어왔는지 표시하려면 아래 코드를 참고해서 추가 구현 필요
+	// 출력 : 여러 Attribute 중 필요한 값들을 변경
 	if (FinalDamage > 0.f)
 	{
 		OutExecutionOutput.AddOutputModifier(
 			FGameplayModifierEvaluatedData(
-			GetDamageCapture().DamageTakenProperty,
-						EGameplayModOp::Override,
-						FinalDamage
+				GetWWAttributeSetCapture().DamageTakenProperty,
+				EGameplayModOp::Override,
+				FinalDamage
 			)
 		);
+		if (SourceStaggerDamage > 0.f)
+		{
+			OutExecutionOutput.AddOutputModifier(
+				FGameplayModifierEvaluatedData(
+					GetEliteAttributeSetCapture().StaggerDamageTakenProperty,
+					EGameplayModOp::Override,
+					SourceStaggerDamage
+				)
+			);
+		}
+		if (SourceParryDamage > 0.f)
+		{
+			OutExecutionOutput.AddOutputModifier(
+				FGameplayModifierEvaluatedData(
+					GetEliteAttributeSetCapture().ParryDamageTakenProperty,
+					EGameplayModOp::Override,
+					SourceParryDamage
+				)
+			);
+		}
 	}
 }

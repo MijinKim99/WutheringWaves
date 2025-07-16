@@ -14,16 +14,4 @@ UCLASS()
 class WUTHERINGWAVES_API UEnemyAnimNotifyState : public UWWAnimNotifyState
 {
 	GENERATED_BODY()
-
-protected:
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
-	USkeletalMeshComponent* SkeletalMeshComponent;
-
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
-	AEnemyCharacter* OwningEnemyCharacter;
-
-
-public:
-	virtual void NotifyBegin(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, float TotalDuration,
-	                         const FAnimNotifyEventReference& EventReference) override;
 };

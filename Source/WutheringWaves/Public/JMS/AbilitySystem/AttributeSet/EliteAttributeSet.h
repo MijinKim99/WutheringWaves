@@ -33,6 +33,9 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category="Stagger")
 	FGameplayAttributeData StaggerDamageTaken;
 	ATTRIBUTE_ACCESSORS(UEliteAttributeSet, StaggerDamageTaken)
+	UPROPERTY(BlueprintReadOnly, Category="Parry")
+	FGameplayAttributeData ParryDamageTaken;
+	ATTRIBUTE_ACCESSORS(UEliteAttributeSet, ParryDamageTaken)
 private:
 	TWeakInterfacePtr<IPawnUIInterface> CachedUIInterface;
 protected:

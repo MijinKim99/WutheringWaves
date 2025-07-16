@@ -6,6 +6,7 @@
 #include "JMS/Character/EnemyCharacter.h"
 #include "EliteEnemyCharacter.generated.h"
 
+class UEliteAttributeSet;
 /**
  * 
  */
@@ -14,6 +15,10 @@ class WUTHERINGWAVES_API AEliteEnemyCharacter : public AEnemyCharacter
 {
 	GENERATED_BODY()
 public:
+	AEliteEnemyCharacter();
+protected:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem")
+	UEliteAttributeSet* EliteAttributeSet;
 	
 	
 };

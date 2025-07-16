@@ -33,6 +33,7 @@ void UEnemyAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectM
 
 	
 	checkf(PawnUIComponent, TEXT("Can not Load PawnUIComponent from %s"), *Data.Target.GetAvatarActor()->GetActorLabel());
+	
 	//
 	// if (Data.EvaluatedData.Attribute == GetCurrentHpAttribute())
 	// {

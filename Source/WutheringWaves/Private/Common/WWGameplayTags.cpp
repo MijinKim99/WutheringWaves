@@ -48,6 +48,8 @@ namespace WWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_Damage_Wind, "Shared.SetByCaller.Damage.Wind")
 	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_Damage_Light, "Shared.SetByCaller.Damage.Light")
 	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_Damage_Dark, "Shared.SetByCaller.Damage.Dark")
+	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_Damage_Stagger, "Shared.SetByCaller.Damage.Stagger")
+	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_Damage_Parry, "Shared.SetByCaller.Damage.Parry")
 
 	//Shared Status
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Status_Dead, "Shared.Status.Dead")
@@ -68,9 +70,12 @@ namespace WWGameplayTags
 	//Enemy Ability
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_Attack, "Enemy.Ability.Attack")
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_StepBack, "Enemy.Ability.StepBack")
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_Staggered, "Enemy.Ability.Staggered")
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_Parried, "Enemy.Ability.Parried")
 
 	//Enemy Event
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Event_SpawnHitCollision, "Enemy.Event.SpawnHitCollision")
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Event_Parried, "Enemy.Event.Parried")
 
 	//Enemy Status
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Status_Staggered, "Enemy.Status.Staggered")

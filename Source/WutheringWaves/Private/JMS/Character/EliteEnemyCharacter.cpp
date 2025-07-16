@@ -5,3 +5,7 @@
 
 #include "JMS/AbilitySystem/AttributeSet/EliteAttributeSet.h"
 
+AEliteEnemyCharacter::AEliteEnemyCharacter()
+{
+	EliteAttributeSet = CreateDefaultSubobject<UEliteAttributeSet>(TEXT("EliteAttributeSet"));
+}
