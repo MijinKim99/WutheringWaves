@@ -10,6 +10,7 @@
 #include "Common/Characters/WWCharacter.h"
 #include "EnemyCharacter.generated.h"
 
+class UEnemyAttributeSet;
 class UWidgetComponent;
 struct FEnemyAttackCollisionInfo;
 class UEnemyCombatComponent;
@@ -29,6 +30,9 @@ public:
 	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
 
 protected:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem")
+	UEnemyAttributeSet* EnemyAttributeSet;
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UEnemyCombatComponent* EnemyCombatComponent;
 
