@@ -131,53 +131,6 @@ UPawnUIComponent* APlayerCharacter::GetPawnUIComponent() const
 	return PlayerUI;
 }
 
-void APlayerCharacter::CancelPlayerActiveAbilities(UAbilitySystemComponent* ASC, FGameplayTag CancelTag)
-{
-	if (!ASC || !CancelTag.IsValid())
-	{
-		Debug::Print(TEXT("EnemyCharacter : CancelEnemyActiveAbilities, Can't find ASC or CancelTag"));
-		return;
-	}
-
-	for (FGameplayAbilitySpec& Spec : ASC->GetActivatableAbilities())
-	{
-		if (!Spec.IsActive())
-			continue;
-
-		const UGameplayAbility* AbilityCDO = Spec.Ability;
-		if (!AbilityCDO)
-			continue;
-
-		// 어빌리티에 태그가 포함되어 있으면
-		if (AbilityCDO->AbilityTags.HasTagExact(CancelTag))
-		{
-			ASC->CancelAbilityHandle(Spec.Handle);
-		}
-	}
-}
-
-void APlayerCharacter::CancelPlayerAllActiveAbilities(UAbilitySystemComponent* ASC)
-{
-	if (!ASC)
-	{
-		Debug::Print(TEXT("WWCharacter : CancelAllActiveAbilities, Can't find ASC"));
-		return;
-	}
-
-	for (FGameplayAbilitySpec& Spec : ASC->GetActivatableAbilities())
-	{
-		if (Spec.IsActive())
-		{
-			ASC->CancelAbilityHandle(Spec.Handle);
-		}
-	}
-}
-
-UPlayerUIComponent* APlayerCharacter::GetPlayerUIComponent() const
-{
-	return PlayerUI;
-}
-
 bool APlayerCharacter::GetIsGrounded() const
 {
 	return bIsGrounded;
