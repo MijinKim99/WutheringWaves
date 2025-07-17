@@ -4,8 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "Common/Characters/WWCharacter.h"
+#include "AbilitySystemInterface.h"
 #include "PlayerCharacter.generated.h"
 
+class UAttributeSet;
 struct FGameplayTag;
 class UAbilitySystemComponent;
 class UResonatorAttributeSet;
@@ -18,12 +20,17 @@ class UPlayerCombatComponent;
  * 
  */
 UCLASS()
-class WUTHERINGWAVES_API APlayerCharacter : public AWWCharacter
+class WUTHERINGWAVES_API APlayerCharacter : public AWWCharacter , public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
 public:
 	APlayerCharacter(const FObjectInitializer& ObjectInitializer);
+
+	//IAbilitySystemInterface
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+
+	UAttributeSet* GetResonatorAttributeSet() const;
 
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
@@ -42,6 +49,7 @@ protected:
 	virtual void Tick(float DeltaSeconds) override;
 	virtual void PossessedBy(AController* NewController) override;
 	virtual UPawnUIComponent* GetPawnUIComponent() const override;
+
 
 protected:
 	//AN이나, ANS같은 곳에서, 원하는 시점에 캔슬하기 위한 함수들 

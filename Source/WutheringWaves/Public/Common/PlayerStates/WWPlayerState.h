@@ -7,6 +7,7 @@
 #include "AbilitySystemInterface.h"
 #include "WWPlayerState.generated.h"
 
+class UResonatorAttributeSet;
 class UPlayerCharacterStartup;
 class UWWAbilitySystemComponent;
 class UPlayerAttributeSet;
@@ -14,7 +15,7 @@ class UPlayerAttributeSet;
  * 
  */
 UCLASS()
-class WUTHERINGWAVES_API AWWPlayerState : public APlayerState
+class WUTHERINGWAVES_API AWWPlayerState : public APlayerState, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
@@ -28,6 +29,7 @@ private:
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem", meta = (AllowPrivateAccess = "true"))
 	UPlayerAttributeSet* PlayerAttributeSet;
+
 	
 	//동기식으로 데이터를 불러온다
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category = "StartupData", meta = (AllowPrivateAccess = "true"))
@@ -38,14 +40,13 @@ private:
 	TArray<TSoftObjectPtr<UPlayerCharacterStartup>> CharacterStartupData;
 
 private:
-	//캐릭터가 교체될 때의 델리게이트
-	FPawnChangedSignature OnPossessedPlayerCharacter;
-	void ChangedPlayerCharacter(APawn* NewPlayerCharacter);
+	UFUNCTION()
+	void ChangedPlayerCharacter(APlayerState* Player, APawn* NewPawn, APawn* OldPawn);
 
 
 public:
 	//Get ASC
-	FORCEINLINE UWWAbilitySystemComponent* GetWWAbilitySystemComponent() const;
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
 private:
 	UFUNCTION(BlueprintCallable)

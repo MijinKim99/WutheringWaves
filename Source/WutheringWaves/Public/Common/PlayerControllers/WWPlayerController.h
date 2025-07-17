@@ -21,6 +21,8 @@ class WUTHERINGWAVES_API AWWPlayerController : public APlayerController, public 
 public:
 	AWWPlayerController();
 	virtual FGenericTeamId GetGenericTeamId() const override;
+
+	APlayerCharacter* GetControlledPlayerCharacter() const;
 private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	UInputConfig* DataAsset_InputConfig;

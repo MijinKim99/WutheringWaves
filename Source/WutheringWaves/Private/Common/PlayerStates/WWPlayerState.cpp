@@ -4,6 +4,7 @@
 #include "Common/PlayerStates/WWPlayerState.h"
 #include "Common/WWDebugHelper.h"
 #include "YHG/AbilitySystem/PlayerAttributeSet.h"
+#include "YHG/PlayerCharacters/PlayerCharacter.h"
 
 AWWPlayerState::AWWPlayerState()
 {
@@ -14,20 +15,29 @@ AWWPlayerState::AWWPlayerState()
 void AWWPlayerState::BeginPlay()
 {
 	Super::BeginPlay();
-
-	OnPossessedPlayerCharacter.AddUObject(this, &ThisClass::ChangedPlayerCharacter);
+	OnPawnSet.AddUniqueDynamic(this, &ThisClass::ChangedPlayerCharacter);
 }
 
-
-void AWWPlayerState::ChangedPlayerCharacter(APawn* NewPlayerCharacter)
+void AWWPlayerState::ChangedPlayerCharacter(APlayerState* Player, APawn* NewPawn, APawn* OldPawn)
 {
-	WWAbilitySystemComponent->InitAbilityActorInfo(this, NewPlayerCharacter);
+	if (APlayerCharacter* OldPlayerCharacter =Cast<APlayerCharacter>(OldPawn))
+	{
+		WWAbilitySystemComponent->RemoveSpawnedAttribute(OldPlayerCharacter->GetResonatorAttributeSet());
+	}
+	WWAbilitySystemComponent->InitAbilityActorInfo(this, NewPawn);
+	
+	APlayerCharacter* PlayerCharacter = Cast<APlayerCharacter>(NewPawn);
+	if (PlayerCharacter)
+	{
+		WWAbilitySystemComponent->AddSpawnedAttribute(PlayerCharacter->GetResonatorAttributeSet());
+	}
 }
 
-UWWAbilitySystemComponent* AWWPlayerState::GetWWAbilitySystemComponent() const
+UAbilitySystemComponent* AWWPlayerState::GetAbilitySystemComponent() const
 {
 	return WWAbilitySystemComponent;
 }
+
 
 void AWWPlayerState::CancelPlayerActiveAbilities(UAbilitySystemComponent* ASC, FGameplayTag CancelTag)
 {
@@ -36,7 +46,7 @@ void AWWPlayerState::CancelPlayerActiveAbilities(UAbilitySystemComponent* ASC, F
 		Debug::Print(TEXT("WWPlayerState : CancelPlayerActiveAbilities, Can't find ASC or CancelTag"));
 		return;
 	}
-    
+
 	for (FGameplayAbilitySpec& Spec : ASC->GetActivatableAbilities())
 	{
 		if (!Spec.IsActive())
