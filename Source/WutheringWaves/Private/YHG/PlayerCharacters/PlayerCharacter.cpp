@@ -173,6 +173,11 @@ void APlayerCharacter::CancelPlayerAllActiveAbilities(UAbilitySystemComponent* A
 	}
 }
 
+UPlayerUIComponent* APlayerCharacter::GetPlayerUIComponent() const
+{
+	return PlayerUI;
+}
+
 bool APlayerCharacter::GetIsGrounded() const
 {
 	return bIsGrounded;

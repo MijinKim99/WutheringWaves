@@ -50,15 +50,6 @@ protected:
 	virtual void PossessedBy(AController* NewController) override;
 	virtual UPawnUIComponent* GetPawnUIComponent() const override;
 
-
-protected:
-	//AN이나, ANS같은 곳에서, 원하는 시점에 캔슬하기 위한 함수들 
-	UFUNCTION(BlueprintCallable)
-	void CancelPlayerActiveAbilities(UAbilitySystemComponent* ASC, FGameplayTag CancelTag);
-	
-	UFUNCTION(BlueprintCallable)
-	void CancelPlayerAllActiveAbilities(UAbilitySystemComponent* ASC);
-
 //StateControl
 protected:
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "StateControl")
