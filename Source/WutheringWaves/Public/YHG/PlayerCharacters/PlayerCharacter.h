@@ -6,6 +6,9 @@
 #include "Common/Characters/WWCharacter.h"
 #include "PlayerCharacter.generated.h"
 
+struct FGameplayTag;
+class UAbilitySystemComponent;
+class UResonatorAttributeSet;
 class AEnemyCharacter;
 class UCameraComponent;
 class USpringArmComponent;
@@ -23,23 +26,30 @@ public:
 	APlayerCharacter(const FObjectInitializer& ObjectInitializer);
 
 private:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
 	USpringArmComponent* CameraBoom;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FollowCamera;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	UPlayerCombatComponent* PlayerCombat;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
 	UPlayerUIComponent* PlayerUI;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem", meta = (AllowPrivateAccess = "true"))
+	UResonatorAttributeSet* ResonatorAttributeSet;
 
 protected:
 	virtual void Tick(float DeltaSeconds) override;
 	virtual void PossessedBy(AController* NewController) override;
 	virtual UPawnUIComponent* GetPawnUIComponent() const override;
-	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
+
+protected:
+	//AN이나, ANS같은 곳에서, 원하는 시점에 캔슬하기 위한 함수들 
+	UFUNCTION(BlueprintCallable)
+	void CancelPlayerActiveAbilities(UAbilitySystemComponent* ASC, FGameplayTag CancelTag);
+	
+	UFUNCTION(BlueprintCallable)
+	void CancelPlayerAllActiveAbilities(UAbilitySystemComponent* ASC);
 
 //StateControl
 protected:

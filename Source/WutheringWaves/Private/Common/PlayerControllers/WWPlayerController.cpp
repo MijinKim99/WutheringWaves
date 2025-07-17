@@ -7,6 +7,7 @@
 #include "Common/WWDebugHelper.h"
 #include "Common/WWGameplayTags.h"
 #include "Common/AbilitySystem/WWAbilitySystemComponent.h"
+#include "Common/PlayerStates/WWPlayerState.h"
 #include "YHG/Components/Input/WWEnhancedInputComponent.h"
 #include "GameFramework/Character.h"
 #include "YHG/PlayerCharacters/PlayerCharacter.h"
@@ -119,10 +120,11 @@ void AWWPlayerController::Input_Look(const FInputActionValue& InputActionValue)
 
 void AWWPlayerController::Input_AbilityInputPressed(FGameplayTag InputTag)
 {
-	ControlledPlayerCharacter->GetBaseAbilitySystemComponent()->OnAbilityInputPressed(InputTag);
+	
+	GetPlayerState<AWWPlayerState>()->GetWWAbilitySystemComponent()->OnAbilityInputPressed(InputTag);
 }
 
 void AWWPlayerController::Input_AbilityInputReleased(FGameplayTag InputTag)
 {
-	ControlledPlayerCharacter->GetBaseAbilitySystemComponent()->OnAbilityInputReleased(InputTag);
+	GetPlayerState<AWWPlayerState>()->GetWWAbilitySystemComponent()->OnAbilityInputReleased(InputTag);
 }

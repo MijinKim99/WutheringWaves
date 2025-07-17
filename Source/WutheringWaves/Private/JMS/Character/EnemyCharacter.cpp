@@ -64,6 +64,11 @@ UEnemyUIComponent* AEnemyCharacter::GetEnemyUIComponent() const
 	return EnemyUIComponent;
 }
 
+UAbilitySystemComponent* AEnemyCharacter::GetAbilitySystemComponent() const
+{
+	return WWAbilitySystemComponent;
+}
+
 void AEnemyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
@@ -111,4 +116,46 @@ void AEnemyCharacter::InitEnemyStartUpData()
 			}
 		)
 	);
+}
+
+void AEnemyCharacter::CancelEnemyActiveAbilities(UAbilitySystemComponent* ASC, FGameplayTag CancelTag)
+{
+	if (!ASC || !CancelTag.IsValid())
+	{
+		Debug::Print(TEXT("EnemyCharacter : CancelEnemyActiveAbilities, Can't find ASC or CancelTag"));
+		return;
+	}
+    
+	for (FGameplayAbilitySpec& Spec : ASC->GetActivatableAbilities())
+	{
+		if (!Spec.IsActive())
+			continue;
+
+		const UGameplayAbility* AbilityCDO = Spec.Ability;
+		if (!AbilityCDO)
+			continue;
+
+		// 어빌리티에 태그가 포함되어 있으면
+		if (AbilityCDO->AbilityTags.HasTagExact(CancelTag))
+		{
+			ASC->CancelAbilityHandle(Spec.Handle);
+		}
+	}
+}
+
+void AEnemyCharacter::CancelEnemyAllActiveAbilities(UAbilitySystemComponent* ASC)
+{
+	if (!ASC)
+	{
+		Debug::Print(TEXT("EnemyCharacter : CancelEnemyAllActiveAbilities, Can't find ASC"));
+		return;
+	}
+
+	for (FGameplayAbilitySpec& Spec : ASC->GetActivatableAbilities())
+	{
+		if (Spec.IsActive())
+		{
+			ASC->CancelAbilityHandle(Spec.Handle);
+		}
+	}
 }
