@@ -4,8 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "Common/Characters/WWCharacter.h"
+#include "AbilitySystemInterface.h"
 #include "PlayerCharacter.generated.h"
 
+class UAttributeSet;
+struct FGameplayTag;
+class UAbilitySystemComponent;
+class UResonatorAttributeSet;
 class AEnemyCharacter;
 class UCameraComponent;
 class USpringArmComponent;
@@ -15,31 +20,35 @@ class UPlayerCombatComponent;
  * 
  */
 UCLASS()
-class WUTHERINGWAVES_API APlayerCharacter : public AWWCharacter
+class WUTHERINGWAVES_API APlayerCharacter : public AWWCharacter , public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
 public:
 	APlayerCharacter(const FObjectInitializer& ObjectInitializer);
 
+	//IAbilitySystemInterface
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+
+	UAttributeSet* GetResonatorAttributeSet() const;
+
 private:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
 	USpringArmComponent* CameraBoom;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FollowCamera;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	UPlayerCombatComponent* PlayerCombat;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
 	UPlayerUIComponent* PlayerUI;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem", meta = (AllowPrivateAccess = "true"))
+	UResonatorAttributeSet* ResonatorAttributeSet;
 
 protected:
 	virtual void Tick(float DeltaSeconds) override;
 	virtual void PossessedBy(AController* NewController) override;
 	virtual UPawnUIComponent* GetPawnUIComponent() const override;
-	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
 
 //StateControl
 protected:

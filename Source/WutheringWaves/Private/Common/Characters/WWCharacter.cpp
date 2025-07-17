@@ -4,9 +4,6 @@
 #include "Common/Characters/WWCharacter.h"
 #include "MotionWarpingComponent.h"
 #include "Common/WWDebugHelper.h"
-#include "Common/AbilitySystem/WWAbilitySystemComponent.h"
-#include "Common/AbilitySystem/WWAttributeSet.h"
-#include "Common/AbilitySystem/Abilities/WWGameplayAbility.h"
 #include "Common/Components/WWCharacterMovementComponent.h"
 
 // Sets default values
@@ -19,8 +16,6 @@ AWWCharacter::AWWCharacter()
 	GetMesh()->bReceivesDecals = false;
 
 	//어빌리티 부착
-	WWAbilitySystemComponent = CreateDefaultSubobject<UWWAbilitySystemComponent>(TEXT("WWAbilitySystemComponent"));
-	WWAttributeSet = CreateDefaultSubobject<UWWAttributeSet>(TEXT("WWAttributeSet"));
 	MotionWarpingComponent = CreateDefaultSubobject<UMotionWarpingComponent>(TEXT("MotionWarpingComponent"));
 }
 
@@ -34,8 +29,6 @@ AWWCharacter::AWWCharacter(const FObjectInitializer& ObjectInitializer)
 	GetMesh()->bReceivesDecals = false;
 
 	//어빌리티 부착
-	WWAbilitySystemComponent = CreateDefaultSubobject<UWWAbilitySystemComponent>(TEXT("WWAbilitySystemComponent"));
-	WWAttributeSet = CreateDefaultSubobject<UWWAttributeSet>(TEXT("WWAttributeSet"));
 	MotionWarpingComponent = CreateDefaultSubobject<UMotionWarpingComponent>(TEXT("MotionWarpingComponent"));
 }
 
@@ -49,11 +42,6 @@ void AWWCharacter::BeginPlay()
 void AWWCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
-
-	if (WWAbilitySystemComponent)
-	{
-		WWAbilitySystemComponent->InitAbilityActorInfo(this, this);
-	}
 
 	if (StartupData.IsNull())
 	{
@@ -74,18 +62,13 @@ UPawnUIComponent* AWWCharacter::GetPawnUIComponent() const
 	// 자식에서 구현
 	return nullptr;
 }
-
-UAbilitySystemComponent* AWWCharacter::GetAbilitySystemComponent() const
-{
-	return WWAbilitySystemComponent;
-}
-
 UPawnCombatComponent* AWWCharacter::GetPawnCombatComponent() const
 {
 	// 자식에서 구현
 	return nullptr;
 }
 
+/*
 void AWWCharacter::CancelActiveAbilities(UAbilitySystemComponent* ASC, FGameplayTag CancelTag)
 {
 	if (!ASC || !CancelTag.IsValid())
@@ -125,7 +108,7 @@ void AWWCharacter::CancelAllActiveAbilities(UAbilitySystemComponent* ASC)
 			ASC->CancelAbilityHandle(Spec.Handle);
 		}
 	}
-}
+}*/
 
 /*
 // Called to bind functionality to input

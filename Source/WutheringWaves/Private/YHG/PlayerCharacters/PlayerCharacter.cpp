@@ -2,13 +2,15 @@
 
 #include "WutheringWaves/Public/YHG/PlayerCharacters/PlayerCharacter.h"
 
+#include "Common/WWDebugHelper.h"
+
 #include "Camera/CameraComponent.h"
-#include "Common/DataAssets/DataAsset_Startup.h"
+#include "Common/PlayerStates/WWPlayerState.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "KMJ/UIComponents/PlayerUIComponent.h"
-#include "YHG/Components/Combat/PlayerCombatComponent.h"
+#include "YHG/AbilitySystem/ResonatorAttributeSet.h"
 
 APlayerCharacter::APlayerCharacter(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
@@ -33,23 +35,33 @@ APlayerCharacter::APlayerCharacter(const FObjectInitializer& ObjectInitializer)
 	GetCharacterMovement()->MaxWalkSpeed = 450.0f;
 	GetCharacterMovement()->JumpZVelocity = 840.0f;
 	GetCharacterMovement()->GravityScale = 2.0f;
-	
-	//플레이어 Combat
-	PlayerCombat = CreateDefaultSubobject<UPlayerCombatComponent>(TEXT("PlayerCombat"));
-	
+
 	//플레이어 UI 세팅
 	PlayerUI = CreateDefaultSubobject<UPlayerUIComponent>(TEXT("PlayerUI"));;
 
+	//플레이어 AttributeSet
+	ResonatorAttributeSet = CreateDefaultSubobject<UResonatorAttributeSet>(TEXT("ResonatorAttributeSet"));
+
 	//메시 -90도 돌려놓아 정면으로 조정
 	GetMesh()->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
-	
+
 	LightAttackComboCount = 1;
+}
+
+UAbilitySystemComponent* APlayerCharacter::GetAbilitySystemComponent() const
+{
+	return Cast<AWWPlayerState>(GetPlayerState())->GetAbilitySystemComponent();
+}
+
+UAttributeSet* APlayerCharacter::GetResonatorAttributeSet() const
+{
+	return ResonatorAttributeSet;
 }
 
 void APlayerCharacter::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-	
+
 	if (GetCharacterMovement()->IsFalling())
 	{
 		GetCharacterMovement()->RotationRate = FRotator(0.0f, 180.0f, 0.0f);
@@ -83,43 +95,40 @@ void APlayerCharacter::Tick(float DeltaSeconds)
 			bIsRightMoving = true;
 		}
 	}
-	
+
 	//지상 움직임
 	bIsRun = GetCharacterMovement()->GetCurrentAcceleration().SizeSquared2D() > 0.f && bIsGrounded;
-	
-	bIsLeftJumping = bIsLeftMoving && ((GetCharacterMovement()->Velocity.Z) > (GetCharacterMovement()->JumpZVelocity / 2));
-	bIsRightJumping = bIsRightMoving && ((GetCharacterMovement()->Velocity.Z) > (GetCharacterMovement()->JumpZVelocity / 2));
+
+	bIsLeftJumping = bIsLeftMoving && ((GetCharacterMovement()->Velocity.Z) > (GetCharacterMovement()->JumpZVelocity /
+		2));
+	bIsRightJumping = bIsRightMoving && ((GetCharacterMovement()->Velocity.Z) > (GetCharacterMovement()->JumpZVelocity /
+		2));
 
 	if (bIsGrounded)
 	{
 		bCanAirDash = true;
 	}
-	
+
 	GetCharacterMovement()->MaxWalkSpeed = bSprintMode ? 600.0f : 450.0f;
 }
 
 void APlayerCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
-
-	if (!StartupData.IsNull())
+	
+	/*if (!StartupData.IsNull())
 	{
 		if (UDataAsset_Startup* LoadedData = StartupData.LoadSynchronous())
 		{
 			//Startup데이터가 Null이 아닌경우 StartupData는 동기화로드를 거쳐서 최종적으로 게임어빌리티시스템이 발동된다. 
 			LoadedData->GiveToAbilitySystemComponent(WWAbilitySystemComponent);
 		}
-	}
+	}*/
 }
 
 UPawnUIComponent* APlayerCharacter::GetPawnUIComponent() const
 {
 	return PlayerUI;
-}
-
-UPawnCombatComponent* APlayerCharacter::GetPawnCombatComponent() const
-{
-	return PlayerCombat;
 }
 
 bool APlayerCharacter::GetIsGrounded() const

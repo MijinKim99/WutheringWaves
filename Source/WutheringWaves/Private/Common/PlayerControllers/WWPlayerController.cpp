@@ -7,6 +7,7 @@
 #include "Common/WWDebugHelper.h"
 #include "Common/WWGameplayTags.h"
 #include "Common/AbilitySystem/WWAbilitySystemComponent.h"
+#include "Common/PlayerStates/WWPlayerState.h"
 #include "YHG/Components/Input/WWEnhancedInputComponent.h"
 #include "GameFramework/Character.h"
 #include "YHG/PlayerCharacters/PlayerCharacter.h"
@@ -27,11 +28,16 @@ FGenericTeamId AWWPlayerController::GetGenericTeamId() const
 	return HeroTeamID;
 }
 
+APlayerCharacter* AWWPlayerController::GetControlledPlayerCharacter() const
+{
+	return ControlledPlayerCharacter;
+}
+
 void AWWPlayerController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
 
-	ControlledPlayerCharacter = Cast<APlayerCharacter>(GetCharacter());
+	ControlledPlayerCharacter = Cast<APlayerCharacter>(InPawn);
 }
 
 void AWWPlayerController::SetupInputComponent()
@@ -119,10 +125,24 @@ void AWWPlayerController::Input_Look(const FInputActionValue& InputActionValue)
 
 void AWWPlayerController::Input_AbilityInputPressed(FGameplayTag InputTag)
 {
-	ControlledPlayerCharacter->GetBaseAbilitySystemComponent()->OnAbilityInputPressed(InputTag);
+	UWWAbilitySystemComponent* WWAbilitySystemComponent = Cast<UWWAbilitySystemComponent>(GetPlayerState<AWWPlayerState>()->GetAbilitySystemComponent());
+	if (!WWAbilitySystemComponent)
+	{
+		Debug::Print(TEXT("WWPlayerController : Failed Cast WWAbilitySystemComponent"));
+		return;
+	}
+	
+	WWAbilitySystemComponent->OnAbilityInputPressed(InputTag);
 }
 
 void AWWPlayerController::Input_AbilityInputReleased(FGameplayTag InputTag)
 {
-	ControlledPlayerCharacter->GetBaseAbilitySystemComponent()->OnAbilityInputReleased(InputTag);
+	UWWAbilitySystemComponent* WWAbilitySystemComponent = Cast<UWWAbilitySystemComponent>(GetPlayerState<AWWPlayerState>()->GetAbilitySystemComponent());
+	if (!WWAbilitySystemComponent)
+	{
+		Debug::Print(TEXT("WWPlayerController : Failed Cast WWAbilitySystemComponent"));
+		return;
+	}
+	
+	WWAbilitySystemComponent->OnAbilityInputReleased(InputTag);
 }

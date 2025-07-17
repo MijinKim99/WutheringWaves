@@ -50,6 +50,7 @@ void UWWAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModC
 		const float NewCurrentHp = FMath::Clamp(GetCurrentHp(), 0.0f, GetMaxHp());
 		SetCurrentHp(NewCurrentHp);
 
+		PawnUIComponent->OnCurrentHpValueChanged.Broadcast(GetCurrentHp(), GetMaxHp());
 		PawnUIComponent->OnCurrentHpChanged.Broadcast(GetCurrentHp()/GetMaxHp());
 	}
 
@@ -66,7 +67,7 @@ void UWWAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModC
 
 		Debug::Print(DebugString, FColor::Green);
 		
-		
+		PawnUIComponent->OnCurrentHpValueChanged.Broadcast(GetCurrentHp(), GetMaxHp());
 		PawnUIComponent->OnCurrentHpChanged.Broadcast(GetCurrentHp()/GetMaxHp());
 
 		//Character Death Process

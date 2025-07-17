@@ -58,28 +58,34 @@ void UEliteAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectM
 		// PawnUIComponent->OnCurrentStaggerChanged.Broadcast(GetCurrentStagger()/GetMaxStagger());
 		if (NewCurrentStagger == 0.0f)
 		{
-			UWWBlueprintFunctionLibrary::AddTagToActor(Data.Target.GetAvatarActor(),WWGameplayTags::Enemy_Status_Staggered);
+			UWWBlueprintFunctionLibrary::AddTagToActor(Data.Target.GetAvatarActor(),
+			                                           WWGameplayTags::Enemy_Status_Staggered);
 		}
 	}
 	if (Data.EvaluatedData.Attribute == GetParryDamageTakenAttribute())
 	{
-		UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(Data.Target.GetAvatarActor(),
-																 WWGameplayTags::Enemy_Event_Parried,
-																 FGameplayEventData());
-		const float ParryDamage = GetParryDamageTaken();
-		const float BeforeStagger = GetCurrentStagger();
-		const float NewCurrentStagger = FMath::Clamp(BeforeStagger - ParryDamage, 0.0f, GetMaxStagger());
-		SetCurrentStagger(NewCurrentStagger);
-		const FString DebugString =
-			FString::Printf(
-				TEXT("Before Stagger: %f, Parry Damage: %f, NewCurrentStagger : %f"), BeforeStagger, ParryDamage,
-				NewCurrentStagger);
-		Debug::Print(DebugString, FColor::Green);
-		//공진 UI 업데이트
-		// PawnUIComponent->OnCurrentStaggerChanged.Broadcast(GetCurrentStagger()/GetMaxStagger());
-		if (NewCurrentStagger == 0.0f)
+		if (UWWBlueprintFunctionLibrary::NativeActorHasTag(Data.Target.GetOwnerActor(),
+		                                                    WWGameplayTags::Enemy_Status_ParryEnabled))
 		{
-			UWWBlueprintFunctionLibrary::AddTagToActor(Data.Target.GetAvatarActor(),WWGameplayTags::Enemy_Status_Staggered);
+			UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(Data.Target.GetAvatarActor(),
+			                                                         WWGameplayTags::Enemy_Event_Parried,
+			                                                         FGameplayEventData());
+			const float ParryDamage = GetParryDamageTaken();
+			const float BeforeStagger = GetCurrentStagger();
+			const float NewCurrentStagger = FMath::Clamp(BeforeStagger - ParryDamage, 0.0f, GetMaxStagger());
+			SetCurrentStagger(NewCurrentStagger);
+			const FString DebugString =
+				FString::Printf(
+					TEXT("Before Stagger: %f, Parry Damage: %f, NewCurrentStagger : %f"), BeforeStagger, ParryDamage,
+					NewCurrentStagger);
+			Debug::Print(DebugString, FColor::Green);
+			//공진 UI 업데이트
+			// PawnUIComponent->OnCurrentStaggerChanged.Broadcast(GetCurrentStagger()/GetMaxStagger());
+			if (NewCurrentStagger == 0.0f)
+			{
+				UWWBlueprintFunctionLibrary::AddTagToActor(Data.Target.GetAvatarActor(),
+				                                           WWGameplayTags::Enemy_Status_Staggered);
+			}
 		}
 	}
 }
