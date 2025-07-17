@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Common/AbilitySystem/Abilities/WWGameplayAbility.h"
 #include "YHG/PlayerCharacters/PlayerCharacter.h"
-#include "ResonatorGameplayAbility.generated.h"
+#include "PlayerGameplayAbility.generated.h"
 
 class APlayerCharacter;
 class AWWPlayerController;
@@ -15,7 +15,7 @@ class UPlayerCombatComponent;
  * 
  */
 UCLASS()
-class WUTHERINGWAVES_API UResonatorGameplayAbility : public UWWGameplayAbility
+class WUTHERINGWAVES_API UPlayerGameplayAbility : public UWWGameplayAbility
 {
 	GENERATED_BODY()
 

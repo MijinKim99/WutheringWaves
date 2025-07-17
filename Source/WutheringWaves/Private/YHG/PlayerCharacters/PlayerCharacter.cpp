@@ -10,7 +10,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "KMJ/UIComponents/PlayerUIComponent.h"
-#include "YHG/AbilitySystem/ResonatorAttributeSet.h"
+#include "YHG/AbilitySystem/PlayerCharacterAttributeSet.h"
 
 APlayerCharacter::APlayerCharacter(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
@@ -40,7 +40,7 @@ APlayerCharacter::APlayerCharacter(const FObjectInitializer& ObjectInitializer)
 	PlayerUI = CreateDefaultSubobject<UPlayerUIComponent>(TEXT("PlayerUI"));;
 
 	//플레이어 AttributeSet
-	ResonatorAttributeSet = CreateDefaultSubobject<UResonatorAttributeSet>(TEXT("ResonatorAttributeSet"));
+	ResonatorAttributeSet = CreateDefaultSubobject<UPlayerCharacterAttributeSet>(TEXT("ResonatorAttributeSet"));
 
 	//메시 -90도 돌려놓아 정면으로 조정
 	GetMesh()->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));

@@ -3,23 +3,27 @@
 
 #include "Common/PlayerStates/WWPlayerState.h"
 #include "Common/WWDebugHelper.h"
-#include "YHG/AbilitySystem/PlayerAttributeSet.h"
+#include "YHG/AbilitySystem/PlayerStateAttributeSet.h"
 #include "YHG/PlayerCharacters/PlayerCharacter.h"
 
 AWWPlayerState::AWWPlayerState()
 {
 	WWAbilitySystemComponent = CreateDefaultSubobject<UWWAbilitySystemComponent>("WWAbilitySystemComponent");
-	PlayerAttributeSet = CreateDefaultSubobject<UPlayerAttributeSet>(TEXT("PlayerAttributeSet"));
+	PlayerAttributeSet = CreateDefaultSubobject<UPlayerStateAttributeSet>(TEXT("PlayerAttributeSet"));
 }
 
 void AWWPlayerState::BeginPlay()
 {
 	Super::BeginPlay();
-	OnPawnSet.AddUniqueDynamic(this, &ThisClass::ChangedPlayerCharacter);
+	
+	OnPawnSetCustom.AddDynamic(this, &ThisClass::ChangedPlayerCharacter);
 }
 
 void AWWPlayerState::ChangedPlayerCharacter(APlayerState* Player, APawn* NewPawn, APawn* OldPawn)
 {
+	Debug::Print(TEXT("AWWPlayerState::ChangedPlayerCharacter"));
+
+	
 	if (APlayerCharacter* OldPlayerCharacter =Cast<APlayerCharacter>(OldPawn))
 	{
 		WWAbilitySystemComponent->RemoveSpawnedAttribute(OldPlayerCharacter->GetResonatorAttributeSet());

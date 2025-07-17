@@ -10,7 +10,7 @@
 class UAttributeSet;
 struct FGameplayTag;
 class UAbilitySystemComponent;
-class UResonatorAttributeSet;
+class UPlayerCharacterAttributeSet;
 class AEnemyCharacter;
 class UCameraComponent;
 class USpringArmComponent;
@@ -43,7 +43,7 @@ private:
 	UPlayerUIComponent* PlayerUI;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem", meta = (AllowPrivateAccess = "true"))
-	UResonatorAttributeSet* ResonatorAttributeSet;
+	UPlayerCharacterAttributeSet* ResonatorAttributeSet;
 
 protected:
 	virtual void Tick(float DeltaSeconds) override;

@@ -5,6 +5,7 @@
 
 #include "Common/PlayerControllers/WWPlayerController.h"
 #include "Common/WWDebugHelper.h"
+#include "Common/PlayerStates/WWPlayerState.h"
 #include "YHG/PlayerCharacters/PlayerCharacter.h"
 
 void UPlayerAnimNotifyState::NotifyBegin(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation,
@@ -17,6 +18,14 @@ void UPlayerAnimNotifyState::NotifyBegin(USkeletalMeshComponent* MeshComp, UAnim
 	if (!PlayerCharacter)
 	{
 		Debug::Print(TEXT("PlayerAnimNotifyState : Failed Cast PlayerCharacter"));
+		return;
+	}
+
+	PlayerState = Controller->GetPlayerState<AWWPlayerState>();
+
+	if (!PlayerState)
+	{
+		Debug::Print(TEXT("PlayerAnimNotifyState : Can't get PlayerState by Controller"));
 		return;
 	}
 	

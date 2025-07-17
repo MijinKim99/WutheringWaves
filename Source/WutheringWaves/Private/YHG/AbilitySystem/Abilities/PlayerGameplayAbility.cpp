@@ -1,13 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "YHG/AbilitySystem/Abilities/ResonatorGameplayAbility.h"
+#include "YHG/AbilitySystem/Abilities/PlayerGameplayAbility.h"
 
 #include "Common/WWGameplayTags.h"
 #include "Common/AbilitySystem/WWAbilitySystemComponent.h"
 #include "Common/PlayerControllers/WWPlayerController.h"
 #include "YHG/PlayerCharacters/PlayerCharacter.h"
 
-APlayerCharacter* UResonatorGameplayAbility::GetPlayerCharacterFromActorInfo()
+APlayerCharacter* UPlayerGameplayAbility::GetPlayerCharacterFromActorInfo()
 {
 	if (!CachedPlayerCharacter.IsValid())
 	{
@@ -17,7 +17,7 @@ APlayerCharacter* UResonatorGameplayAbility::GetPlayerCharacterFromActorInfo()
 	return CachedPlayerCharacter.IsValid() ? CachedPlayerCharacter.Get() : nullptr;
 }
 
-AWWPlayerController* UResonatorGameplayAbility::GetPlayerControllerFromActorInfo()
+AWWPlayerController* UPlayerGameplayAbility::GetPlayerControllerFromActorInfo()
 {
 	if (!CachedPlayerController.IsValid())
 	{
@@ -27,7 +27,7 @@ AWWPlayerController* UResonatorGameplayAbility::GetPlayerControllerFromActorInfo
 	return CachedPlayerController.IsValid() ? CachedPlayerController.Get() : nullptr;
 }
 
-FGameplayEffectSpecHandle UResonatorGameplayAbility::MakePlayerDamageGameplayEffectSpecHandle(
+FGameplayEffectSpecHandle UPlayerGameplayAbility::MakePlayerDamageGameplayEffectSpecHandle(
 	TSubclassOf<UGameplayEffect> Effect, float WeaponWWDamage, FGameplayTag AttackTypeTag, int32 ComboCount)
 {
 	check(Effect);

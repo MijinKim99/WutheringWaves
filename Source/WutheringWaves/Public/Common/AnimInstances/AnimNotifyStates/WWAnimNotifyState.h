@@ -19,7 +19,7 @@ class WUTHERINGWAVES_API UWWAnimNotifyState : public UAnimNotifyState
 protected:
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
 	USkeletalMeshComponent* SkeletalMeshComponent;
-	
+
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
 	AWWCharacter* WWCharacter;
 	
