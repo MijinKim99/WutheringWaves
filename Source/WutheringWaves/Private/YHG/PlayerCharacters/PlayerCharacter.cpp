@@ -2,13 +2,14 @@
 
 #include "WutheringWaves/Public/YHG/PlayerCharacters/PlayerCharacter.h"
 
+#include "Common/WWDebugHelper.h"
+
 #include "Camera/CameraComponent.h"
-#include "Common/DataAssets/DataAsset_Startup.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "KMJ/UIComponents/PlayerUIComponent.h"
-#include "YHG/Components/Combat/PlayerCombatComponent.h"
+#include "YHG/AbilitySystem/ResonatorAttributeSet.h"
 
 APlayerCharacter::APlayerCharacter(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
@@ -34,11 +35,11 @@ APlayerCharacter::APlayerCharacter(const FObjectInitializer& ObjectInitializer)
 	GetCharacterMovement()->JumpZVelocity = 840.0f;
 	GetCharacterMovement()->GravityScale = 2.0f;
 	
-	//플레이어 Combat
-	PlayerCombat = CreateDefaultSubobject<UPlayerCombatComponent>(TEXT("PlayerCombat"));
-	
 	//플레이어 UI 세팅
 	PlayerUI = CreateDefaultSubobject<UPlayerUIComponent>(TEXT("PlayerUI"));;
+
+	//플레이어 AttributeSet
+	ResonatorAttributeSet = CreateDefaultSubobject<UResonatorAttributeSet>(TEXT("ResonatorAttributeSet"));
 
 	//메시 -90도 돌려놓아 정면으로 조정
 	GetMesh()->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
@@ -102,14 +103,14 @@ void APlayerCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 
-	if (!StartupData.IsNull())
+	/*if (!StartupData.IsNull())
 	{
 		if (UDataAsset_Startup* LoadedData = StartupData.LoadSynchronous())
 		{
 			//Startup데이터가 Null이 아닌경우 StartupData는 동기화로드를 거쳐서 최종적으로 게임어빌리티시스템이 발동된다. 
 			LoadedData->GiveToAbilitySystemComponent(WWAbilitySystemComponent);
 		}
-	}
+	}*/
 }
 
 UPawnUIComponent* APlayerCharacter::GetPawnUIComponent() const
@@ -117,9 +118,46 @@ UPawnUIComponent* APlayerCharacter::GetPawnUIComponent() const
 	return PlayerUI;
 }
 
-UPawnCombatComponent* APlayerCharacter::GetPawnCombatComponent() const
+void APlayerCharacter::CancelPlayerActiveAbilities(UAbilitySystemComponent* ASC, FGameplayTag CancelTag)
 {
-	return PlayerCombat;
+	if (!ASC || !CancelTag.IsValid())
+	{
+		Debug::Print(TEXT("EnemyCharacter : CancelEnemyActiveAbilities, Can't find ASC or CancelTag"));
+		return;
+	}
+    
+	for (FGameplayAbilitySpec& Spec : ASC->GetActivatableAbilities())
+	{
+		if (!Spec.IsActive())
+			continue;
+
+		const UGameplayAbility* AbilityCDO = Spec.Ability;
+		if (!AbilityCDO)
+			continue;
+
+		// 어빌리티에 태그가 포함되어 있으면
+		if (AbilityCDO->AbilityTags.HasTagExact(CancelTag))
+		{
+			ASC->CancelAbilityHandle(Spec.Handle);
+		}
+	}
+}
+
+void APlayerCharacter::CancelPlayerAllActiveAbilities(UAbilitySystemComponent* ASC)
+{
+	if (!ASC)
+	{
+		Debug::Print(TEXT("WWCharacter : CancelAllActiveAbilities, Can't find ASC"));
+		return;
+	}
+
+	for (FGameplayAbilitySpec& Spec : ASC->GetActivatableAbilities())
+	{
+		if (Spec.IsActive())
+		{
+			ASC->CancelAbilityHandle(Spec.Handle);
+		}
+	}
 }
 
 bool APlayerCharacter::GetIsGrounded() const

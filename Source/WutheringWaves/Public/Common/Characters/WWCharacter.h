@@ -5,17 +5,14 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Common/Interfaces/PawnUIInterface.h"
-#include "AbilitySystemInterface.h"
 #include "Common/Interfaces/PawnCombatInterface.h"
 #include "WWCharacter.generated.h"
 
 class UMotionWarpingComponent;
-class UWWAbilitySystemComponent;
-class UWWAttributeSet;
 class UDataAsset_Startup;
 
 UCLASS()
-class WUTHERINGWAVES_API AWWCharacter : public ACharacter , public IPawnUIInterface, public IPawnCombatInterface, public IAbilitySystemInterface
+class WUTHERINGWAVES_API AWWCharacter : public ACharacter , public IPawnUIInterface, public IPawnCombatInterface
 {
 	GENERATED_BODY()
 
@@ -39,12 +36,6 @@ public:
 	*/
 
 protected:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem")
-	UWWAbilitySystemComponent* WWAbilitySystemComponent;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem")
-	UWWAttributeSet* WWAttributeSet;
-
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="MotionWarping")
 	UMotionWarpingComponent* MotionWarpingComponent;
 
@@ -54,22 +45,5 @@ protected:
 
 	//IPawnUIInterface
 	virtual UPawnUIComponent* GetPawnUIComponent() const override;
-
-	//IPawnCombatInterface
-
-	//IAbilitySystemInterface
-	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
-	
-public:
 	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
-	FORCEINLINE UWWAbilitySystemComponent* GetBaseAbilitySystemComponent() const { return WWAbilitySystemComponent; }
-	FORCEINLINE UWWAttributeSet* GetBaseAttributeSet() const { return WWAttributeSet; }
-
-//어빌리티 제어
-public:
-	UFUNCTION(BlueprintCallable)
-	void CancelActiveAbilities(UAbilitySystemComponent* ASC, FGameplayTag CancelTag);
-	
-	UFUNCTION(BlueprintCallable)
-	void CancelAllActiveAbilities(UAbilitySystemComponent* ASC);
 };

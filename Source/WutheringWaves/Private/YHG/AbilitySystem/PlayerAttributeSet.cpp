@@ -2,18 +2,35 @@
 
 
 #include "YHG/AbilitySystem/PlayerAttributeSet.h"
+#include "GameplayEffectExtension.h"
+#include "Common/Interfaces/PawnUIInterface.h"
+#include "KMJ/UIComponents/PawnUIComponent.h"
 
 UPlayerAttributeSet::UPlayerAttributeSet()
 {
 	InitCurrentStamina(1.f);
 	InitMaxStamina(1.f);
+}
+
+void UPlayerAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data)
+{
+	Super::PostGameplayEffectExecute(Data);
 	
-	InitApplyEnergyRegen(1.f);
-	InitBasicEnergyRegen(1.f);
+	if (!CachedUIInterface.IsValid())
+	{
+		CachedUIInterface = TWeakInterfacePtr<IPawnUIInterface>(Data.Target.GetAvatarActor());
+	}
+
+	checkf(CachedUIInterface.IsValid(), TEXT("%s does not Implementation IPawnUIInterface."), *Data.Target.GetAvatarActor()->GetActorLabel());
 	
-	InitApplyCriticalRate(1.f);
-	InitBasicCriticalRate(1.f);
+	UPawnUIComponent* PawnUIComponent = CachedUIInterface->GetPawnUIComponent();
+
+	//TODO: 플레이어에 UICOmponent 달고 삭제
+	if (PawnUIComponent == nullptr)
+	{
+		return;
+	}
+	//
 	
-	InitApplyCriticalDamage(1.f);
-	InitBasicCriticalDamage(1.f);
+	checkf(PawnUIComponent, TEXT("Can not Load PawnUIComponent from %s"), *Data.Target.GetAvatarActor()->GetActorLabel());
 }
