@@ -40,6 +40,7 @@ protected:
 	virtual void PossessedBy(AController* NewController) override;
 	virtual UPawnUIComponent* GetPawnUIComponent() const override;
 	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
+	virtual UPlayerUIComponent* GetPlayerUIComponent() const override;
 
 //StateControl
 protected:

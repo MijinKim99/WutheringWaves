@@ -122,6 +122,11 @@ UPawnCombatComponent* APlayerCharacter::GetPawnCombatComponent() const
 	return PlayerCombat;
 }
 
+UPlayerUIComponent* APlayerCharacter::GetPlayerUIComponent() const
+{
+	return PlayerUI;
+}
+
 bool APlayerCharacter::GetIsGrounded() const
 {
 	return bIsGrounded;

@@ -7,6 +7,7 @@
 #include "PawnUIComponent.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPercentChangeDelegate, float, NewPercent);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnValueChangeForPlayerDelegate, float, CurrentHP, float, MaxHP);
 /**
  * 
  */
@@ -17,4 +18,7 @@ class WUTHERINGWAVES_API UPawnUIComponent : public UWWPawnExtensionComponent
 public:
 	UPROPERTY(BlueprintAssignable)
 	FOnPercentChangeDelegate OnCurrentHpChanged;
+
+	UPROPERTY(BlueprintAssignable)
+	FOnValueChangeForPlayerDelegate OnCurrentHpValueChanged;
 };
