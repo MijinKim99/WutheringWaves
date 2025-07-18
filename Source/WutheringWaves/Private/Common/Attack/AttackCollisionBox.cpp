@@ -42,6 +42,7 @@ void AAttackCollisionBox::Deactivate()
 	HitTargetSet.Empty();
 	BoxComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	UGameplayCueFunctionLibrary::RemoveGameplayCueOnActor(this, FXGameplayCueTag, FGameplayCueParameters());
+	bIsAttached = false;
 }
 
 void AAttackCollisionBox::OnHitTargetActor(AActor* HitActor)
@@ -65,7 +66,8 @@ void AAttackCollisionBox::OnHitTargetActor(AActor* HitActor)
 }
 
 void AAttackCollisionBox::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+                                         UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep,
+                                         const FHitResult& SweepResult)
 {
 	Debug::Print(FString::Printf(TEXT("Collision Begin Overlap : %s"), *OtherActor->GetActorNameOrLabel()));
 	APawn* OtherPawn = Cast<APawn>(OtherActor);
@@ -87,13 +89,15 @@ void AAttackCollisionBox::OnBeginOverlap(UPrimitiveComponent* OverlappedComponen
 }
 
 void AAttackCollisionBox::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
-	FVector NormalImpulse, const FHitResult& Hit)
+                                FVector NormalImpulse, const FHitResult& Hit)
 {
 }
 
 void AAttackCollisionBox::InitializeAndAttackWithBox(float Duration, FVector BoxExtent, FVector Location,
-                                                      FRotator Rotation, const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle, FGameplayTag InFXGameplayCueTag,
-                                                      FGameplayTag InHitReactEventTag)
+                                                     FRotator Rotation,
+                                                     const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle,
+                                                     FGameplayTag InFXGameplayCueTag,
+                                                     FGameplayTag InHitReactEventTag)
 {
 	BoxComponent->SetBoxExtent(BoxExtent);
 	SetActorLocation(Location);
@@ -103,6 +107,31 @@ void AAttackCollisionBox::InitializeAndAttackWithBox(float Duration, FVector Box
 	HitReactEventTag = InHitReactEventTag;
 	UGameplayCueFunctionLibrary::AddGameplayCueOnActor(this, FXGameplayCueTag, FGameplayCueParameters());
 	FTimerHandle DeactivateTimerHandle;
-	GetWorld()->GetTimerManager().SetTimer(DeactivateTimerHandle,this,&AAttackCollisionBox::Deactivate,Duration, false);
+	GetWorld()->GetTimerManager().SetTimer(DeactivateTimerHandle, this, &AAttackCollisionBox::Deactivate, Duration,
+	                                       false);
 	BoxComponent->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+}
+
+void AAttackCollisionBox::InitializeAttachedBoxAndAttack(float Duration, FVector BoxExtent,
+                                                         USkeletalMeshComponent* InstigatorMesh, FName AttachSocketName,
+                                                         const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle,
+                                                         FGameplayTag InFXGameplayCueTag,
+                                                         FGameplayTag InHitReactEventTag)
+{
+	BoxComponent->SetBoxExtent(BoxExtent);
+	FVector Location;
+	FRotator Rotation;
+	InstigatorMesh->GetSocketWorldLocationAndRotation(AttachSocketName, Location, Rotation);
+	SetActorLocation(Location);
+	SetActorRotation(Rotation);
+	AttachToActor(GetInstigator(), FAttachmentTransformRules::KeepRelativeTransform, AttachSocketName);
+	GameplayEffectSpecHandle = InGameplayEffectSpecHandle;
+	FXGameplayCueTag = InFXGameplayCueTag;
+	HitReactEventTag = InHitReactEventTag;
+	UGameplayCueFunctionLibrary::AddGameplayCueOnActor(this, FXGameplayCueTag, FGameplayCueParameters());
+	FTimerHandle DeactivateTimerHandle;
+	GetWorld()->GetTimerManager().SetTimer(DeactivateTimerHandle, this, &AAttackCollisionBox::Deactivate, Duration,
+	                                       false);
+	BoxComponent->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	bIsAttached = true;
 }

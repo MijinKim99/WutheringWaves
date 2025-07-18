@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "AttributeSet.h"
 #include "Common/AbilitySystem/WWAbilitySystemComponent.h"
-#include "PlayerAttributeSet.generated.h"
+#include "PlayerStateAttributeSet.generated.h"
 
 #define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
 GAMEPLAYATTRIBUTE_PROPERTY_GETTER(ClassName, PropertyName) \
@@ -19,21 +19,21 @@ class IPawnUIInterface;
  * 
  */
 UCLASS()
-class WUTHERINGWAVES_API UPlayerAttributeSet : public UAttributeSet
+class WUTHERINGWAVES_API UPlayerStateAttributeSet : public UAttributeSet
 {
 	GENERATED_BODY()
 
 public:
-	UPlayerAttributeSet();
+	UPlayerStateAttributeSet();
 	
 	//현재 스테미나
 	UPROPERTY(BlueprintReadOnly, Category="Status")
 	FGameplayAttributeData CurrentStamina;
-	ATTRIBUTE_ACCESSORS(UPlayerAttributeSet, CurrentStamina)
+	ATTRIBUTE_ACCESSORS(UPlayerStateAttributeSet, CurrentStamina)
 	//최대 스테미나
 	UPROPERTY(BlueprintReadOnly, Category="Status")
 	FGameplayAttributeData MaxStamina;
-	ATTRIBUTE_ACCESSORS(UPlayerAttributeSet, MaxStamina)
+	ATTRIBUTE_ACCESSORS(UPlayerStateAttributeSet, MaxStamina)
 
 protected:
 	TWeakInterfacePtr<IPawnUIInterface> CachedUIInterface;

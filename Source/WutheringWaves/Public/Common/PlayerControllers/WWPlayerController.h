@@ -7,10 +7,12 @@
 #include "GameFramework/PlayerController.h"
 #include "WWPlayerController.generated.h"
 
+class AWWPlayerState;
 class APlayerCharacter;
 struct FGameplayTag;
 struct FInputActionValue;
 class UInputConfig;
+
 /**
  * 
  */
@@ -26,7 +28,7 @@ public:
 private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	UInputConfig* DataAsset_InputConfig;
-
+	
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	APlayerCharacter* ControlledPlayerCharacter;
 

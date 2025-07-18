@@ -6,6 +6,7 @@
 #include "Common/AnimInstances/AnimNotifyStates/WWAnimNotifyState.h"
 #include "PlayerAnimNotifyState.generated.h"
 
+class AWWPlayerState;
 class APlayerCharacter;
 class AWWPlayerController;
 /**
@@ -19,6 +20,9 @@ class WUTHERINGWAVES_API UPlayerAnimNotifyState : public UWWAnimNotifyState
 protected:
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
 	APlayerCharacter* PlayerCharacter;
+
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
+	AWWPlayerState* PlayerState;
 	
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
 	AWWPlayerController* WWPlayerController;

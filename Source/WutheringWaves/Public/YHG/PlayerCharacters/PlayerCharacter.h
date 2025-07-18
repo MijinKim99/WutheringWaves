@@ -5,12 +5,14 @@
 #include "CoreMinimal.h"
 #include "Common/Characters/WWCharacter.h"
 #include "AbilitySystemInterface.h"
+#include "Common/AbilitySystem/WWAbilitySystemComponent.h"
 #include "PlayerCharacter.generated.h"
 
+class UPlayerCharacterStartup;
 class UAttributeSet;
 struct FGameplayTag;
 class UAbilitySystemComponent;
-class UResonatorAttributeSet;
+class UPlayerCharacterAttributeSet;
 class AEnemyCharacter;
 class UCameraComponent;
 class USpringArmComponent;
@@ -43,9 +45,10 @@ private:
 	UPlayerUIComponent* PlayerUI;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem", meta = (AllowPrivateAccess = "true"))
-	UResonatorAttributeSet* ResonatorAttributeSet;
+	UPlayerCharacterAttributeSet* ResonatorAttributeSet;
 
 protected:
+	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
 	virtual void PossessedBy(AController* NewController) override;
 	virtual UPawnUIComponent* GetPawnUIComponent() const override;

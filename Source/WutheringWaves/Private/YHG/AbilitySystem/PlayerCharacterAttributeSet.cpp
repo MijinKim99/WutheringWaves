@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "YHG/AbilitySystem/ResonatorAttributeSet.h"
+#include "YHG/AbilitySystem/PlayerCharacterAttributeSet.h"
 #include "Common/WWDebugHelper.h"
 #include "GameplayEffectExtension.h"
 #include "Common/WWBlueprintFunctionLibrary.h"
@@ -9,7 +9,7 @@
 #include "Common/Interfaces/PawnUIInterface.h"
 #include "KMJ/UIComponents/PawnUIComponent.h"
 
-UResonatorAttributeSet::UResonatorAttributeSet()
+UPlayerCharacterAttributeSet::UPlayerCharacterAttributeSet()
 {
 	InitCurrentHp(1.f);
 	InitMaxHp(1.f);
@@ -50,7 +50,7 @@ UResonatorAttributeSet::UResonatorAttributeSet()
 	InitBasicDarkDamage(1.f);
 }
 
-void UResonatorAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data)
+void UPlayerCharacterAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data)
 {
 	Super::PostGameplayEffectExecute(Data);
 	

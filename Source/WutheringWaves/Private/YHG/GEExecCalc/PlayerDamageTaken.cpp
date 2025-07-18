@@ -7,7 +7,7 @@
 
 #include "Common/WWDebugHelper.h"	
 #include "Common/WWGameplayTags.h"
-#include "YHG/AbilitySystem/ResonatorAttributeSet.h"
+#include "YHG/AbilitySystem/PlayerCharacterAttributeSet.h"
 
 struct FEnemyDamageCapture
 {
@@ -20,8 +20,8 @@ struct FEnemyDamageCapture
 	{
 		//Source GE - 생성주체, Target GE - 적용대상
 		//DEFINE_ATTRIBUTE_CAPTUREDEF(UWWAttributeSet, ApplyAttack, Source, false);
-		DEFINE_ATTRIBUTE_CAPTUREDEF(UResonatorAttributeSet, ApplyDefense, Target, false);
-		DEFINE_ATTRIBUTE_CAPTUREDEF(UResonatorAttributeSet, DamageTaken, Target, false);
+		DEFINE_ATTRIBUTE_CAPTUREDEF(UPlayerCharacterAttributeSet, ApplyDefense, Target, false);
+		DEFINE_ATTRIBUTE_CAPTUREDEF(UPlayerCharacterAttributeSet, DamageTaken, Target, false);
 		
 	}
 };
