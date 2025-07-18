@@ -19,6 +19,9 @@ class WUTHERINGWAVES_API AAttackCollisionBox : public AWWPooledObject
 	
 	AAttackCollisionBox();
 
+private:
+	bool bIsAttached = false;
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -50,6 +53,10 @@ protected:
 	FGameplayTag HitReactEventTag;
 	UFUNCTION(BlueprintCallable, Category = "Attack Box")
 	void InitializeAndAttackWithBox(float Duration, FVector BoxExtent, FVector Location, FRotator Rotation,
+	                                const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle, FGameplayTag InFXGameplayCueTag,
+	                                FGameplayTag InHitReactEventTag);
+	UFUNCTION(BlueprintCallable, Category = "Attack Box")
+	void InitializeAttachedBoxAndAttack(float Duration, FVector BoxExtent, USkeletalMeshComponent* InstigatorMesh, FName AttachSocketName,
 	                                const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle, FGameplayTag InFXGameplayCueTag,
 	                                FGameplayTag InHitReactEventTag);
 };

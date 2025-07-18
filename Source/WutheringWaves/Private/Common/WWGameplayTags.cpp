@@ -10,7 +10,11 @@ namespace WWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Look, "InputTag.Look")
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Dash, "InputTag.Dash")
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Jump, "InputTag.Jump")
+	
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_LightAttack, "InputTag.LightAttack")
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_LightAttack_LightRover, "InputTag.LightAttack.LightRover")
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_LightAttack_Chixia, "InputTag.LightAttack.Chixia")
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_LightAttack_Verina, "InputTag.LightAttack.Verina")
 	
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Hold, "InputTag.Hold")
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Toggle, "InputTag.Toggle")
@@ -27,18 +31,14 @@ namespace WWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Player_Event_HitEnemy, "Player.Event.HitEnemy")
 
 	//Player Ability
-	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_GroundDash, "Player.Ability.GroundDash")
-	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_AirDash, "Player.Ability.AirDash")
+	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Dash, "Player.Ability.Dash")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Jump, "Player.Ability.Jump")
-	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Attack_Light, "Player.Ability.Attack.Light")
+	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_LightAttack, "Player.Ability.LightAttack")
 
 	//Player Status
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_Dashing, "Player.Status.Dashing")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_Jumping, "Player.Status.Jumping")
-	UE_DEFINE_GAMEPLAY_TAG(Player_Status_Attacking_Light, "Player.Status.Attacking.Light")
-
-	//Player SetByCaller
-	UE_DEFINE_GAMEPLAY_TAG(Player_SetByCaller_AttackType_Light, "Player.SetByCaller.AttackType.Light")
+	UE_DEFINE_GAMEPLAY_TAG(Player_Status_LightAttacking, "Player.Status.LightAttacking")
 
 	//Shared SetByCaller
 	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_Damage_Physical, "Shared.SetByCaller.Damage.Physical")
@@ -48,6 +48,7 @@ namespace WWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_Damage_Wind, "Shared.SetByCaller.Damage.Wind")
 	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_Damage_Light, "Shared.SetByCaller.Damage.Light")
 	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_Damage_Dark, "Shared.SetByCaller.Damage.Dark")
+	
 	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_Damage_Stagger, "Shared.SetByCaller.Damage.Stagger")
 	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_Damage_Parry, "Shared.SetByCaller.Damage.Parry")
 

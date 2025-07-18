@@ -27,7 +27,7 @@ public:
 	int PoolSize = 20;
 	
 	UPROPERTY(EditAnywhere, Category = "Object Pool")
-	float PooledObjectLifeTime = 0.0f;
+	float PooledObjectLifeTime = 20.0f;
 
 	UFUNCTION()
 	void OnPooledObjectDespawn(AWWPooledObject* PoolActor);

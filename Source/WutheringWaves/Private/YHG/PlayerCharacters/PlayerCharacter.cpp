@@ -10,7 +10,8 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "KMJ/UIComponents/PlayerUIComponent.h"
-#include "YHG/AbilitySystem/ResonatorAttributeSet.h"
+#include "YHG/AbilitySystem/PlayerCharacterAttributeSet.h"
+#include "YHG/DataAssets/Startup/PlayerCharacterStartup.h"
 
 APlayerCharacter::APlayerCharacter(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
@@ -40,7 +41,7 @@ APlayerCharacter::APlayerCharacter(const FObjectInitializer& ObjectInitializer)
 	PlayerUI = CreateDefaultSubobject<UPlayerUIComponent>(TEXT("PlayerUI"));;
 
 	//플레이어 AttributeSet
-	ResonatorAttributeSet = CreateDefaultSubobject<UResonatorAttributeSet>(TEXT("ResonatorAttributeSet"));
+	ResonatorAttributeSet = CreateDefaultSubobject<UPlayerCharacterAttributeSet>(TEXT("ResonatorAttributeSet"));
 
 	//메시 -90도 돌려놓아 정면으로 조정
 	GetMesh()->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
@@ -56,6 +57,11 @@ UAbilitySystemComponent* APlayerCharacter::GetAbilitySystemComponent() const
 UAttributeSet* APlayerCharacter::GetResonatorAttributeSet() const
 {
 	return ResonatorAttributeSet;
+}
+
+void APlayerCharacter::BeginPlay()
+{
+	Super::BeginPlay();
 }
 
 void APlayerCharacter::Tick(float DeltaSeconds)
@@ -115,13 +121,13 @@ void APlayerCharacter::Tick(float DeltaSeconds)
 void APlayerCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
-	
-	/*if (!StartupData.IsNull())
+	/*
+	if (!StartupData.IsNull())
 	{
 		if (UDataAsset_Startup* LoadedData = StartupData.LoadSynchronous())
 		{
 			//Startup데이터가 Null이 아닌경우 StartupData는 동기화로드를 거쳐서 최종적으로 게임어빌리티시스템이 발동된다. 
-			LoadedData->GiveToAbilitySystemComponent(WWAbilitySystemComponent);
+			LoadedData->GiveToAbilitySystemComponent(GetAbilitySystemComponent());
 		}
 	}*/
 }
