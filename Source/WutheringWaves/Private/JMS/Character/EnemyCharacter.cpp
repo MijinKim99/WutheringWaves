@@ -10,6 +10,7 @@
 #include "Abilities/GameplayAbilityTypes.h"
 #include "Common/WWDebugHelper.h"
 #include "Common/WWGameplayTags.h"
+#include "Common/AbilitySystem/WWAttributeSet.h"
 #include "Common/DataAssets/DataAsset_Startup.h"
 #include "Common/Widget/WWUserWidget.h"
 #include "Components/BoxComponent.h"
@@ -26,6 +27,7 @@ AEnemyCharacter::AEnemyCharacter()
 	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 
 	EnemyAttributeSet = CreateDefaultSubobject<UEnemyAttributeSet>("EnemyAttributeSet");
+	WWAttributeSet = CreateDefaultSubobject<UWWAttributeSet>("WWAttributeSet");
 	WWAbilitySystemComponent = CreateDefaultSubobject<UWWAbilitySystemComponent>(TEXT("WWAbilitySystemComponent"));
 	
 	bUseControllerRotationPitch = false;

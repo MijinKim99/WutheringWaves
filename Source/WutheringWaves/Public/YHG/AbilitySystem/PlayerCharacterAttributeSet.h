@@ -81,7 +81,7 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category="Status")
 	FGameplayAttributeData BasicCriticalDamage;
 	ATTRIBUTE_ACCESSORS(UPlayerCharacterAttributeSet, BasicCriticalDamage)
-	
+/*	
 	//속성별 피해
 	UPROPERTY(BlueprintReadOnly, Category="Status")
 	FGameplayAttributeData ApplyFireDamage;
@@ -124,7 +124,7 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category="Status")
 	FGameplayAttributeData BasicDarkDamage;
 	ATTRIBUTE_ACCESSORS(UPlayerCharacterAttributeSet, BasicDarkDamage)
-
+*/
 protected:
 	TWeakInterfacePtr<IPawnUIInterface> CachedUIInterface;
 	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) override;

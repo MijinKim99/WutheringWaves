@@ -11,6 +11,7 @@
 #include "AbilitySystemInterface.h"
 #include "EnemyCharacter.generated.h"
 
+class UWWAttributeSet;
 class UWWAbilitySystemComponent;
 class UEnemyAttributeSet;
 class UWidgetComponent;
@@ -37,7 +38,10 @@ protected:
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem")
 	UEnemyAttributeSet* EnemyAttributeSet;
-
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem")
+	UWWAttributeSet* WWAttributeSet;
+	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UEnemyCombatComponent* EnemyCombatComponent;
 

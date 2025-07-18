@@ -28,7 +28,7 @@ public:
 
 	UFUNCTION(BlueprintPure, Category="Ability")
 	FGameplayEffectSpecHandle MakePlayerDamageGameplayEffectSpecHandle(TSubclassOf<UGameplayEffect> Effect
-		,float WeaponBaseDamage, FGameplayTag AttackTypeTag, int32 ComboCount
+		,float PlayerDamage, FGameplayTag AttackTypeTag, int32 ComboCount
 	);
 	
 private:

@@ -30,7 +30,7 @@ UPlayerCharacterAttributeSet::UPlayerCharacterAttributeSet()
 	
 	InitApplyCriticalDamage(1.f);
 	InitBasicCriticalDamage(1.f);
-
+/*
 	InitApplyFireDamage(1.f);
 	InitBasicFireDamage(1.f);
 
@@ -47,7 +47,7 @@ UPlayerCharacterAttributeSet::UPlayerCharacterAttributeSet()
 	InitBasicLightDamage(1.f);
 
 	InitApplyDarkDamage(1.f);
-	InitBasicDarkDamage(1.f);
+	InitBasicDarkDamage(1.f);*/
 }
 
 void UPlayerCharacterAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data)
