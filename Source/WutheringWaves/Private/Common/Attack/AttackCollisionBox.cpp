@@ -42,6 +42,7 @@ void AAttackCollisionBox::Deactivate()
 	HitTargetSet.Empty();
 	BoxComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	UGameplayCueFunctionLibrary::RemoveGameplayCueOnActor(this, FXGameplayCueTag, FGameplayCueParameters());
+	bIsAttached = false;
 }
 
 void AAttackCollisionBox::OnHitTargetActor(AActor* HitActor)
@@ -105,4 +106,20 @@ void AAttackCollisionBox::InitializeAndAttackWithBox(float Duration, FVector Box
 	FTimerHandle DeactivateTimerHandle;
 	GetWorld()->GetTimerManager().SetTimer(DeactivateTimerHandle,this,&AAttackCollisionBox::Deactivate,Duration, false);
 	BoxComponent->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+}
+
+void AAttackCollisionBox::InitializeAttachedBoxAndAttack(float Duration, FVector BoxExtent, FName AttachSocketName,
+	const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle, FGameplayTag InFXGameplayCueTag,
+	FGameplayTag InHitReactEventTag)
+{
+	BoxComponent->SetBoxExtent(BoxExtent);
+	AttachToActor(GetInstigator(),FAttachmentTransformRules::SnapToTargetNotIncludingScale, AttachSocketName);
+	GameplayEffectSpecHandle = InGameplayEffectSpecHandle;
+	FXGameplayCueTag = InFXGameplayCueTag;
+	HitReactEventTag = InHitReactEventTag;
+	UGameplayCueFunctionLibrary::AddGameplayCueOnActor(this, FXGameplayCueTag, FGameplayCueParameters());
+	FTimerHandle DeactivateTimerHandle;
+	GetWorld()->GetTimerManager().SetTimer(DeactivateTimerHandle,this,&AAttackCollisionBox::Deactivate,Duration, false);
+	BoxComponent->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	bIsAttached = true;
 }
