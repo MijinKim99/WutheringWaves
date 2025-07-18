@@ -29,7 +29,7 @@ class WUTHERINGWAVES_API UPlayerCharacterStartup : public UDataAsset_Startup
 {
 	GENERATED_BODY()
 
-protected:
+public:
 	virtual void GiveToAbilitySystemComponent(UWWAbilitySystemComponent* ASC, int32 Level = 1) override;
 	 
 private:

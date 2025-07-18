@@ -3,7 +3,9 @@
 
 #include "Common/PlayerStates/WWPlayerState.h"
 #include "Common/WWDebugHelper.h"
+#include "GameFramework/GameModeBase.h"
 #include "YHG/AbilitySystem/PlayerStateAttributeSet.h"
+#include "YHG/DataAssets/Startup/PlayerCharacterStartup.h"
 #include "YHG/PlayerCharacters/PlayerCharacter.h"
 
 AWWPlayerState::AWWPlayerState()
@@ -15,15 +17,65 @@ AWWPlayerState::AWWPlayerState()
 void AWWPlayerState::BeginPlay()
 {
 	Super::BeginPlay();
+
+	OnPawnSet.AddDynamic(this, &ThisClass::ChangedPlayerCharacter);
+
+	//초기설정
+	WWAbilitySystemComponent->InitAbilityActorInfo(this, GetPawn());
 	
-	OnPawnSetCustom.AddDynamic(this, &ThisClass::ChangedPlayerCharacter);
+	APlayerCharacter* PlayerCharacter = Cast<APlayerCharacter>(GetPawn());
+	if (PlayerCharacter)
+	{
+		WWAbilitySystemComponent->AddSpawnedAttribute(PlayerCharacter->GetResonatorAttributeSet());
+	}
+
+
+	//DataAsset으로 어빌리티 부여
+	if (CommonStartupData.IsNull())
+	{
+		Debug::Print(TEXT("WWPlayerState : Can't find StartupData"));
+		return;
+	}
+	else
+	{
+		if (UPlayerCharacterStartup* LoadedData = CommonStartupData.LoadSynchronous())
+		{
+			//Startup데이터가 Null이 아닌경우 StartupData는 동기화로드를 거쳐서 최종적으로 게임어빌리티시스템이 발동된다. 
+			LoadedData->GiveToAbilitySystemComponent(WWAbilitySystemComponent);
+		}
+	}
+	//여기다 for문 돌려서 다른 캐릭터들 능력 전부 부여
+	for (TSoftObjectPtr<UPlayerCharacterStartup> PlayerCharacterStartup : CharacterStartupData)
+	{
+		if (PlayerCharacterStartup.IsNull())
+		{
+			Debug::Print(TEXT("WWPlayerState : Can't find StartupData"));
+			return;
+		}
+		else
+		{
+			if (UPlayerCharacterStartup* LoadedData = PlayerCharacterStartup.LoadSynchronous())
+			{
+				//Startup데이터가 Null이 아닌경우 StartupData는 동기화로드를 거쳐서 최종적으로 게임어빌리티시스템이 발동된다. 
+				LoadedData->GiveToAbilitySystemComponent(WWAbilitySystemComponent);
+			}
+		}
+	}
+	
 }
 
 void AWWPlayerState::ChangedPlayerCharacter(APlayerState* Player, APawn* NewPawn, APawn* OldPawn)
 {
-	Debug::Print(TEXT("AWWPlayerState::ChangedPlayerCharacter"));
+	if (!IsValid(NewPawn) || !IsValid(OldPawn))
+	{
+		Debug::Print(TEXT("WWPlayerState : InValid NewPawn or OldPawn"));
+		return;
+	}
 
+	WWAbilitySystemComponent->InitAbilityActorInfo(this, NewPawn);
+	// 필요한 경우 AttributeSet 재등록, Input 재바인딩 등도 여기서 처리
 	
+	Debug::Print(TEXT("AWWPlayerState::ChangedPlayerCharacter"));
 	if (APlayerCharacter* OldPlayerCharacter =Cast<APlayerCharacter>(OldPawn))
 	{
 		WWAbilitySystemComponent->RemoveSpawnedAttribute(OldPlayerCharacter->GetResonatorAttributeSet());

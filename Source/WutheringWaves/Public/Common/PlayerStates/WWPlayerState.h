@@ -34,15 +34,11 @@ private:
 	//동기식으로 데이터를 불러온다
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category = "StartupData", meta = (AllowPrivateAccess = "true"))
 	TSoftObjectPtr<UPlayerCharacterStartup> CommonStartupData;
-
-	//캐릭터 데이터
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category = "StartupData", meta = (AllowPrivateAccess = "true"))
 	TArray<TSoftObjectPtr<UPlayerCharacterStartup>> CharacterStartupData;
 
-	FOnPlayerStatePawnSet OnPawnSetCustom;
-
 private:
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void ChangedPlayerCharacter(APlayerState* Player, APawn* NewPawn, APawn* OldPawn);
 
 

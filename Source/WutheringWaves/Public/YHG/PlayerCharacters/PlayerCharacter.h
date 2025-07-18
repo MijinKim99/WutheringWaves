@@ -5,8 +5,10 @@
 #include "CoreMinimal.h"
 #include "Common/Characters/WWCharacter.h"
 #include "AbilitySystemInterface.h"
+#include "Common/AbilitySystem/WWAbilitySystemComponent.h"
 #include "PlayerCharacter.generated.h"
 
+class UPlayerCharacterStartup;
 class UAttributeSet;
 struct FGameplayTag;
 class UAbilitySystemComponent;
@@ -28,7 +30,7 @@ public:
 	APlayerCharacter(const FObjectInitializer& ObjectInitializer);
 
 	//IAbilitySystemInterface
-	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	virtual UWWAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
 	UAttributeSet* GetResonatorAttributeSet() const;
 
@@ -46,6 +48,7 @@ private:
 	UPlayerCharacterAttributeSet* ResonatorAttributeSet;
 
 protected:
+	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
 	virtual void PossessedBy(AController* NewController) override;
 	virtual UPawnUIComponent* GetPawnUIComponent() const override;
