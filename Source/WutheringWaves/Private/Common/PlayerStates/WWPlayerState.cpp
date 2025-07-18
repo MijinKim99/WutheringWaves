@@ -6,6 +6,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "YHG/AbilitySystem/PlayerStateAttributeSet.h"
 #include "YHG/DataAssets/Startup/PlayerCharacterStartup.h"
+#include "GameplayAbilitySpec.h"
 #include "YHG/PlayerCharacters/PlayerCharacter.h"
 
 AWWPlayerState::AWWPlayerState()
@@ -127,6 +128,7 @@ void AWWPlayerState::CancelAllPlayerActiveAbilities(UAbilitySystemComponent* ASC
 		Debug::Print(TEXT("WWPlayerState : CancelAllActiveAbilities, Can't find ASC"));
 		return;
 	}
+	FScopedAbilityListLock ActiveScopeLock(*GetAbilitySystemComponent());
 
 	for (FGameplayAbilitySpec& Spec : ASC->GetActivatableAbilities())
 	{

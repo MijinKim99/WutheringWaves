@@ -49,9 +49,9 @@ APlayerCharacter::APlayerCharacter(const FObjectInitializer& ObjectInitializer)
 	LightAttackComboCount = 1;
 }
 
-UWWAbilitySystemComponent* APlayerCharacter::GetAbilitySystemComponent() const
+UAbilitySystemComponent* APlayerCharacter::GetAbilitySystemComponent() const
 {
-	return Cast<UWWAbilitySystemComponent>(Cast<AWWPlayerState>(GetPlayerState())->GetAbilitySystemComponent());
+	return Cast<AWWPlayerState>(GetPlayerState())->GetAbilitySystemComponent();
 }
 
 UAttributeSet* APlayerCharacter::GetResonatorAttributeSet() const

@@ -30,7 +30,7 @@ public:
 	APlayerCharacter(const FObjectInitializer& ObjectInitializer);
 
 	//IAbilitySystemInterface
-	virtual UWWAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
 	UAttributeSet* GetResonatorAttributeSet() const;
 
