@@ -1,18 +1,18 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "YHG/AbilitySystem/PlayerAttributeSet.h"
+#include "YHG/AbilitySystem/PlayerStateAttributeSet.h"
 #include "GameplayEffectExtension.h"
 #include "Common/Interfaces/PawnUIInterface.h"
 #include "KMJ/UIComponents/PawnUIComponent.h"
 
-UPlayerAttributeSet::UPlayerAttributeSet()
+UPlayerStateAttributeSet::UPlayerStateAttributeSet()
 {
 	InitCurrentStamina(1.f);
 	InitMaxStamina(1.f);
 }
 
-void UPlayerAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data)
+void UPlayerStateAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data)
 {
 	Super::PostGameplayEffectExecute(Data);
 	

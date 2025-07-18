@@ -36,7 +36,7 @@ APlayerCharacter* AWWPlayerController::GetControlledPlayerCharacter() const
 void AWWPlayerController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
-
+	
 	ControlledPlayerCharacter = Cast<APlayerCharacter>(InPawn);
 }
 

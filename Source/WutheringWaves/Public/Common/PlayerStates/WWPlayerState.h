@@ -7,10 +7,10 @@
 #include "AbilitySystemInterface.h"
 #include "WWPlayerState.generated.h"
 
-class UResonatorAttributeSet;
+class UPlayerCharacterAttributeSet;
 class UPlayerCharacterStartup;
 class UWWAbilitySystemComponent;
-class UPlayerAttributeSet;
+class UPlayerStateAttributeSet;
 /**
  * 
  */
@@ -28,19 +28,17 @@ private:
 	UWWAbilitySystemComponent* WWAbilitySystemComponent;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem", meta = (AllowPrivateAccess = "true"))
-	UPlayerAttributeSet* PlayerAttributeSet;
+	UPlayerStateAttributeSet* PlayerAttributeSet;
 
 	
 	//동기식으로 데이터를 불러온다
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category = "StartupData", meta = (AllowPrivateAccess = "true"))
 	TSoftObjectPtr<UPlayerCharacterStartup> CommonStartupData;
-
-	//캐릭터 데이터
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category = "StartupData", meta = (AllowPrivateAccess = "true"))
 	TArray<TSoftObjectPtr<UPlayerCharacterStartup>> CharacterStartupData;
 
 private:
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void ChangedPlayerCharacter(APlayerState* Player, APawn* NewPawn, APawn* OldPawn);
 
 
