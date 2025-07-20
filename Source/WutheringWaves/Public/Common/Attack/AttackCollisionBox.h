@@ -56,7 +56,9 @@ protected:
 	                                const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle, FGameplayTag InFXGameplayCueTag,
 	                                FGameplayTag InHitReactEventTag);
 	UFUNCTION(BlueprintCallable, Category = "Attack Box")
-	void InitializeAttachedBoxAndAttack(float Duration, FVector BoxExtent, USkeletalMeshComponent* InstigatorMesh, FName AttachSocketName,
+	void InitializeAttachedBoxAndAttack(FVector BoxExtent, USkeletalMeshComponent* InstigatorMesh, FName AttachSocketName,
 	                                const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle, FGameplayTag InFXGameplayCueTag,
 	                                FGameplayTag InHitReactEventTag);
+	UFUNCTION(BlueprintCallable, Category = "Attack Box")
+	void DeactivateIfActivated();
 };

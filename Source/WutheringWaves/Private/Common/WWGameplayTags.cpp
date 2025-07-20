@@ -75,7 +75,8 @@ namespace WWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_Parried, "Enemy.Ability.Parried")
 
 	//Enemy Event
-	UE_DEFINE_GAMEPLAY_TAG(Enemy_Event_SpawnHitCollision, "Enemy.Event.SpawnHitCollision")
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Event_HitStart, "Enemy.Event.HitStart")
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Event_HitEnd, "Enemy.Event.HitEnd")
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Event_Parried, "Enemy.Event.Parried")
 
 	//Enemy Status

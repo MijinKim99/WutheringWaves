@@ -39,8 +39,7 @@ void AAttackCollisionSphereProjectile::BeginPlay()
 {
 	Super::BeginPlay();
 	SphereComponent->OnComponentBeginOverlap.AddUniqueDynamic(this, &AAttackCollisionSphereProjectile::OnBeginOverlap);
-	SphereComponent->OnComponentHit.AddUniqueDynamic(this,&AAttackCollisionSphereProjectile::OnHit);
-
+	SphereComponent->OnComponentHit.AddUniqueDynamic(this, &AAttackCollisionSphereProjectile::OnHit);
 }
 
 void AAttackCollisionSphereProjectile::OnHitTargetActor(AActor* HitActor)
@@ -54,8 +53,13 @@ void AAttackCollisionSphereProjectile::OnHitTargetActor(AActor* HitActor)
 	HitTargetSet.Add(HitActor);
 
 	// GameplayEffectSpecHandle 적용
-	UWWBlueprintFunctionLibrary::ApplyGameplayEffectSpecHandleToTarget(HitActor, GameplayEffectSpecHandle);
+	if (!GameplayEffectSpecHandle.IsValid())
+	{
+		Debug::Print(FString::Printf(TEXT("%s : GameplayEffectSpecHandle is not valid"), *GetNameSafe(this)));
+		return;
+	}
 
+	UWWBlueprintFunctionLibrary::ApplyGameplayEffectSpecHandleToTarget(HitActor, GameplayEffectSpecHandle);
 	// Gameplay Event 전달
 	FGameplayEventData Data;
 	Data.Instigator = GetInstigator();
@@ -65,29 +69,9 @@ void AAttackCollisionSphereProjectile::OnHitTargetActor(AActor* HitActor)
 	Deactivate();
 }
 
-void AAttackCollisionSphereProjectile::SetDamageEffect(const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle)
-{
-	GameplayEffectSpecHandle = InGameplayEffectSpecHandle;
-}
-
-void AAttackCollisionSphereProjectile::SetProjectileGameplayCueTag(FGameplayTag InGameplayCueTag)
-{
-	ProjectileGameplayCueTag = InGameplayCueTag;
-}
-
-void AAttackCollisionSphereProjectile::SetExplosionGameplayCueTag(FGameplayTag InGameplayCueTag)
-{
-	ExplosionGameplayCueTag = InGameplayCueTag;
-}
-
-void AAttackCollisionSphereProjectile::SetHitReactEventTag(FGameplayTag InGameplayEventTag)
-{
-	HitReactEventTag = InGameplayEventTag;
-}
-
 void AAttackCollisionSphereProjectile::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-                                                       UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,
-                                                       bool bFromSweep, const FHitResult& SweepResult)
+                                                      UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,
+                                                      bool bFromSweep, const FHitResult& SweepResult)
 {
 	Debug::Print(FString::Printf(TEXT("Collision Begin Overlap : %s"), *OtherActor->GetActorNameOrLabel()));
 	APawn* OtherPawn = Cast<APawn>(OtherActor);
@@ -113,17 +97,31 @@ void AAttackCollisionSphereProjectile::OnBeginOverlap(UPrimitiveComponent* Overl
 }
 
 void AAttackCollisionSphereProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor,
-                                              UPrimitiveComponent* OtherComp, FVector NormalImpulse,
-                                              const FHitResult& Hit)
+                                             UPrimitiveComponent* OtherComp, FVector NormalImpulse,
+                                             const FHitResult& Hit)
 {
 	UGameplayCueFunctionLibrary::ExecuteGameplayCueOnActor(this, ExplosionGameplayCueTag, FGameplayCueParameters());
 	Deactivate();
 }
 
-
-void AAttackCollisionSphereProjectile::LaunchProjectile(const FVector& TargetLocation, float Power)
+void AAttackCollisionSphereProjectile::InitializeProjectileAndShoot(float InRadius,
+                                                                    const FGameplayEffectSpecHandle&
+                                                                    InGameplayEffectSpecHandle,
+                                                                    FVector StartRelativeLocation,
+                                                                    FVector TargetLocation, float Power,
+                                                                    FGameplayTag InProjectileGameplayCueTag,
+                                                                    FGameplayTag InExplosionGameplayCueTag,
+                                                                    FGameplayTag InHitReactEventTag)
 {
-	// ProjectileMovementComponent 세팅
+	// Sphere 세팅
+	SphereComponent->SetSphereRadius(InRadius);
+	SetActorLocation(StartRelativeLocation);
+	GameplayEffectSpecHandle = InGameplayEffectSpecHandle;
+	ProjectileGameplayCueTag = InProjectileGameplayCueTag;
+	ExplosionGameplayCueTag = InExplosionGameplayCueTag;
+	HitReactEventTag = InHitReactEventTag;
+
+	// ProjectileMovementComponent 활성화
 	ProjectileMovementComponent->Activate();
 	ProjectileMovementComponent->SetUpdatedComponent(GetRootComponent());
 	ProjectileMovementComponent->SetComponentTickEnabled(true);
@@ -136,10 +134,6 @@ void AAttackCollisionSphereProjectile::LaunchProjectile(const FVector& TargetLoc
 	UGameplayCueFunctionLibrary::AddGameplayCueOnActor(this, ProjectileGameplayCueTag, FGameplayCueParameters());
 }
 
-void AAttackCollisionSphereProjectile::SetSphereRadius(float InRadius)
-{
-	SphereComponent->SetSphereRadius(InRadius);
-}
 
 void AAttackCollisionSphereProjectile::SetActive(bool IsActive, APawn* InInstigator)
 {

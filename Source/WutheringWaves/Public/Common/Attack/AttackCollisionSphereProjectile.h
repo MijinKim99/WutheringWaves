@@ -28,6 +28,7 @@ public:
 	AAttackCollisionSphereProjectile();
 	UFUNCTION(BlueprintCallable)
 	UProjectileMovementComponent* GetProjectileMovementComponent() const;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -64,15 +65,11 @@ protected:
 public:
 	// 콜리전 크기, 위치, GameplayCue 지정해준 후에 호출해야함
 	UFUNCTION(BlueprintCallable, Category = "SphereProjectile")
-	void LaunchProjectile(const FVector& TargetLocation, float Power);
-	UFUNCTION(BlueprintCallable, Category = "SphereProjectile")
-	void SetSphereRadius(float InRadius);
-	UFUNCTION(BlueprintCallable, Category = "SphereProjectile")
-	void SetDamageEffect(const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle);
-	UFUNCTION(BlueprintCallable, Category = "SphereProjectile")
-	void SetProjectileGameplayCueTag(FGameplayTag InGameplayCueTag);
-	UFUNCTION(BlueprintCallable, Category = "SphereProjectile")
-	void SetExplosionGameplayCueTag(FGameplayTag InGameplayCueTag);
-	UFUNCTION(BlueprintCallable, Category = "SphereProjectile")
-	void SetHitReactEventTag(FGameplayTag InGameplayEventTag);
+	void InitializeProjectileAndShoot(float InRadius,
+	                                  const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle,
+	                                  FVector StartRelativeLocation,
+	                                  FVector TargetLocation, float Power,
+	                                  FGameplayTag InProjectileGameplayCueTag, FGameplayTag InExplosionGameplayCueTag,
+	                                  FGameplayTag InHitReactEventTag
+	);
 };
