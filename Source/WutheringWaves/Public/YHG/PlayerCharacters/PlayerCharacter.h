@@ -88,10 +88,6 @@ protected:
 	
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "AbilityStateControl")
 	int32 LightAttackComboCount;
-
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "Attack")
-	TSet<AEnemyCharacter*> LightAttackTargets;
-	
 public:
 	UFUNCTION()
 	bool GetIsGrounded() const;
