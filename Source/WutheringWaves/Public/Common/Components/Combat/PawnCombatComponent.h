@@ -48,6 +48,9 @@ public:
 	virtual AAttackCollisionBox* EnableAttackCollisionBoxFromPool() override;
 	virtual AAttackCollisionSphereProjectile* EnableAttackCollisionSphereProjectileFromPool() override;
 
+	UFUNCTION(BlueprintCallable, Category = "Attack Collision Pool")
+	void DeactivateAllPooledObjects();
+
 protected:
 	//중복방지를 위한 배열
 	TArray<AActor*> OverlappedActors;

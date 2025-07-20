@@ -53,3 +53,15 @@ AAttackCollisionSphereProjectile* UPawnCombatComponent::EnableAttackCollisionSph
 {
 	return Cast<AAttackCollisionSphereProjectile>(AttackCollisionSphereProjectilePool->SpawnPooledObject(GetOwningPawn()));
 }
+
+void UPawnCombatComponent::DeactivateAllPooledObjects()
+{
+	if (AttackCollisionBoxPool)
+	{
+		AttackCollisionBoxPool->DeactivateAllPooledObjects();
+	}
+	if (AttackCollisionSphereProjectilePool)
+	{
+		AttackCollisionSphereProjectilePool->DeactivateAllPooledObjects();
+	}
+}
