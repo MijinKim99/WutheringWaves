@@ -79,7 +79,7 @@ void APlayerCharacter::Tick(float DeltaSeconds)
 
 	//상태 정의 코드
 	bIsGrounded = GetCharacterMovement()->IsMovingOnGround();
-	bIsFalling = GetCharacterMovement()->IsFalling() && (GetCharacterMovement()->Velocity.Z < 0);
+	bIsFalling = GetCharacterMovement()->IsFalling();
 	//아무런 움직임이 없고, 지상일 때
 	bIsIdle = GetCharacterMovement()->Velocity.IsZero() && bIsGrounded;
 

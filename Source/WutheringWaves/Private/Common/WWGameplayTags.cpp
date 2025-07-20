@@ -15,6 +15,16 @@ namespace WWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_LightAttack_LightRover, "InputTag.LightAttack.LightRover")
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_LightAttack_Chixia, "InputTag.LightAttack.Chixia")
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_LightAttack_Verina, "InputTag.LightAttack.Verina")
+
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_Skill, "InputTag.LightAttack")
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_Skill_LightRover, "InputTag.Skill.LightRover")
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_Skill_Chixia, "InputTag.Skill.Chixia")
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_Skill_Verina, "InputTag.Skill.Verina")
+
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_Burst, "InputTag.Burst")
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_Burst_LightRover, "InputTag.Burst.LightRover")
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_Burst_Chixia, "InputTag.Burst.Chixia")
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_Burst_Verina, "InputTag.Burst.Verina")
 	
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Hold, "InputTag.Hold")
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Toggle, "InputTag.Toggle")
@@ -34,11 +44,15 @@ namespace WWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Dash, "Player.Ability.Dash")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Jump, "Player.Ability.Jump")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_LightAttack, "Player.Ability.LightAttack")
+	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Skill, "Player.Ability.Skill")
+	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Burst, "Player.Ability.Burst")
 
 	//Player Status
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_Dashing, "Player.Status.Dashing")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_Jumping, "Player.Status.Jumping")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_LightAttacking, "Player.Status.LightAttacking")
+	UE_DEFINE_GAMEPLAY_TAG(Player_Status_UseSkill, "Player.Status.UseSkill")
+	UE_DEFINE_GAMEPLAY_TAG(Player_Status_UseBurst, "Player.Status.UseBurst")
 
 	//Shared SetByCaller
 	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_Damage_Physical, "Shared.SetByCaller.Damage.Physical")
