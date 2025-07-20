@@ -25,8 +25,7 @@ AAttackCollisionSphereProjectile::AAttackCollisionSphereProjectile()
 		TEXT("ProjectileMovementComponent"));
 	SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComponent"));
 	SphereComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	SphereComponent->SetCollisionResponseToAllChannels(ECR_Block);
-	SphereComponent->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
+	SphereComponent->SetCollisionResponseToAllChannels(ECR_Overlap);
 }
 
 UProjectileMovementComponent* AAttackCollisionSphereProjectile::GetProjectileMovementComponent() const
@@ -39,7 +38,6 @@ void AAttackCollisionSphereProjectile::BeginPlay()
 {
 	Super::BeginPlay();
 	SphereComponent->OnComponentBeginOverlap.AddUniqueDynamic(this, &AAttackCollisionSphereProjectile::OnBeginOverlap);
-	SphereComponent->OnComponentHit.AddUniqueDynamic(this, &AAttackCollisionSphereProjectile::OnHit);
 }
 
 void AAttackCollisionSphereProjectile::OnHitTargetActor(AActor* HitActor)
@@ -65,8 +63,11 @@ void AAttackCollisionSphereProjectile::OnHitTargetActor(AActor* HitActor)
 	Data.Instigator = GetInstigator();
 	Data.Target = HitActor;
 	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(HitActor, HitReactEventTag, Data);
-	UGameplayCueFunctionLibrary::ExecuteGameplayCueOnActor(this, ExplosionGameplayCueTag, FGameplayCueParameters());
-	Deactivate();
+	if (bExplodeOnHit)
+	{
+		UGameplayCueFunctionLibrary::ExecuteGameplayCueOnActor(this, ExplosionGameplayCueTag, FGameplayCueParameters());
+		Deactivate();
+	}
 }
 
 void AAttackCollisionSphereProjectile::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
@@ -77,16 +78,26 @@ void AAttackCollisionSphereProjectile::OnBeginOverlap(UPrimitiveComponent* Overl
 	APawn* OtherPawn = Cast<APawn>(OtherActor);
 	if (!OtherPawn)
 	{
-		UGameplayCueFunctionLibrary::ExecuteGameplayCueOnActor(this, ExplosionGameplayCueTag, FGameplayCueParameters());
-		Deactivate();
+		if (bExplodeOnHit)
+		{
+			UGameplayCueFunctionLibrary::ExecuteGameplayCueOnActor(this, ExplosionGameplayCueTag,
+			                                                       FGameplayCueParameters());
+			Deactivate();
+			return;
+		}
 		return;
 	}
 
 	IGenericTeamAgentInterface* OtherTeamAgent = Cast<IGenericTeamAgentInterface>(OtherPawn->GetController());
 	if (!OtherTeamAgent)
 	{
-		UGameplayCueFunctionLibrary::ExecuteGameplayCueOnActor(this, ExplosionGameplayCueTag, FGameplayCueParameters());
-		Deactivate();
+		if (bExplodeOnHit)
+		{
+			UGameplayCueFunctionLibrary::ExecuteGameplayCueOnActor(this, ExplosionGameplayCueTag,
+			                                                       FGameplayCueParameters());
+			Deactivate();
+			return;
+		}
 		return;
 	}
 
@@ -108,10 +119,14 @@ void AAttackCollisionSphereProjectile::InitializeProjectileAndShoot(float InRadi
                                                                     const FGameplayEffectSpecHandle&
                                                                     InGameplayEffectSpecHandle,
                                                                     FVector StartRelativeLocation,
-                                                                    FVector TargetLocation, float Power,
+                                                                    FVector TargetLocation, float ProjectileSpeed,
                                                                     FGameplayTag InProjectileGameplayCueTag,
                                                                     FGameplayTag InExplosionGameplayCueTag,
-                                                                    FGameplayTag InHitReactEventTag)
+                                                                    FGameplayTag InHitReactEventTag,
+                                                                    bool bShowCollisionInGame, float LineThickness,
+                                                                    float InProjectileGravityScale,
+                                                                    bool InbExplodeOnHit,
+                                                                    float DurationForNotExplodingProjectile)
 {
 	// Sphere 세팅
 	SphereComponent->SetSphereRadius(InRadius);
@@ -121,17 +136,38 @@ void AAttackCollisionSphereProjectile::InitializeProjectileAndShoot(float InRadi
 	ExplosionGameplayCueTag = InExplosionGameplayCueTag;
 	HitReactEventTag = InHitReactEventTag;
 
+	// Explosion 세팅
+	bExplodeOnHit = InbExplodeOnHit;
+
 	// ProjectileMovementComponent 활성화
 	ProjectileMovementComponent->Activate();
 	ProjectileMovementComponent->SetUpdatedComponent(GetRootComponent());
 	ProjectileMovementComponent->SetComponentTickEnabled(true);
-	float Distance = (TargetLocation - GetActorLocation()).Size();
-	ProjectileMovementComponent->InitialSpeed = Distance * Power;
-	ProjectileMovementComponent->MaxSpeed = Distance * Power;
-	ProjectileMovementComponent->AddForce(Power * (TargetLocation - GetActorLocation()));
-
+	ProjectileMovementComponent->ProjectileGravityScale = InProjectileGravityScale;
+	ProjectileMovementComponent->InitialSpeed = ProjectileSpeed;
+	ProjectileMovementComponent->MaxSpeed = ProjectileSpeed;
+	ProjectileMovementComponent->Friction = 0.0f;
+	ProjectileMovementComponent->AddForce(ProjectileSpeed * (GetInstigator()->GetActorForwardVector()));
+	if (bShowCollisionInGame)
+	{
+		SphereComponent->SetLineThickness(LineThickness);
+		SphereComponent->SetHiddenInGame(false);
+	}
 	// GameplayCue 적용
 	UGameplayCueFunctionLibrary::AddGameplayCueOnActor(this, ProjectileGameplayCueTag, FGameplayCueParameters());
+	if (bExplodeOnHit)
+	{
+		SphereComponent->OnComponentHit.AddUniqueDynamic(this, &AAttackCollisionSphereProjectile::OnHit);
+		SphereComponent->SetCollisionResponseToAllChannels(ECR_Block);
+		SphereComponent->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
+	}
+	else
+	{
+		FTimerHandle DeactivateTimerHandle;
+		GetWorld()->GetTimerManager().SetTimer(DeactivateTimerHandle, this,
+		                                       &AAttackCollisionSphereProjectile::Deactivate,
+		                                       DurationForNotExplodingProjectile, false);
+	}
 }
 
 
@@ -162,5 +198,9 @@ void AAttackCollisionSphereProjectile::Deactivate()
 {
 	Super::Deactivate();
 	HitTargetSet.Empty();
+	SphereComponent->SetHiddenInGame(true);
+	SphereComponent->SetLineThickness(0.f);
 	UGameplayCueFunctionLibrary::RemoveGameplayCueOnActor(this, ProjectileGameplayCueTag, FGameplayCueParameters());
+	SphereComponent->OnComponentHit.RemoveAll(this);
+	SphereComponent->SetCollisionResponseToAllChannels(ECR_Overlap);
 }

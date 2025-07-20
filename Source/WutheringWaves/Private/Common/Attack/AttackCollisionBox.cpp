@@ -43,6 +43,8 @@ void AAttackCollisionBox::Deactivate()
 	BoxComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	UGameplayCueFunctionLibrary::RemoveGameplayCueOnActor(this, FXGameplayCueTag, FGameplayCueParameters());
 	bIsAttached = false;
+	BoxComponent->SetHiddenInGame(true);
+	BoxComponent->SetLineThickness(0.0f);
 }
 
 void AAttackCollisionBox::OnHitTargetActor(AActor* HitActor)
@@ -116,7 +118,7 @@ void AAttackCollisionBox::InitializeAttachedBoxAndAttack(FVector BoxExtent,
                                                          USkeletalMeshComponent* InstigatorMesh, FName AttachSocketName,
                                                          const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle,
                                                          FGameplayTag InFXGameplayCueTag,
-                                                         FGameplayTag InHitReactEventTag)
+                                                         FGameplayTag InHitReactEventTag,bool bShowCollisionInGame,float LineThickness)
 {
 	BoxComponent->SetBoxExtent(BoxExtent);
 	FVector Location;
@@ -134,6 +136,11 @@ void AAttackCollisionBox::InitializeAttachedBoxAndAttack(FVector BoxExtent,
 	UGameplayCueFunctionLibrary::AddGameplayCueOnActor(this, FXGameplayCueTag, FGameplayCueParameters());
 	BoxComponent->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	bIsAttached = true;
+	if (bShowCollisionInGame)
+	{
+		BoxComponent->SetHiddenInGame(false);
+		BoxComponent->SetLineThickness(LineThickness);
+	}
 }
 
 void AAttackCollisionBox::DeactivateIfActivated()

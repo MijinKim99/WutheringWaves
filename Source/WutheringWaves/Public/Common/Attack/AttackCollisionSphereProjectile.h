@@ -68,8 +68,11 @@ public:
 	void InitializeProjectileAndShoot(float InRadius,
 	                                  const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle,
 	                                  FVector StartRelativeLocation,
-	                                  FVector TargetLocation, float Power,
+	                                  FVector TargetLocation, float ProjectileSpeed,
 	                                  FGameplayTag InProjectileGameplayCueTag, FGameplayTag InExplosionGameplayCueTag,
-	                                  FGameplayTag InHitReactEventTag
+	                                  FGameplayTag InHitReactEventTag, bool bShowCollisionInGame, float LineThickness, float InProjectileGravityScale, bool
+	                                  InbExplodeOnHit, float DurationForNotExplodingProjectile
 	);
+public:
+	bool bExplodeOnHit = false;
 };
