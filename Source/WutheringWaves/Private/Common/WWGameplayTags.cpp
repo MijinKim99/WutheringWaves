@@ -83,13 +83,16 @@ namespace WWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Ability_Death, "Shared.Ability.Death")
 
 	//Enemy Ability
-	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_Attack, "Enemy.Ability.Attack")
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_Attack_Melee, "Enemy.Ability.Attack.Melee")
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_Attack_Moving, "Enemy.Ability.Attack.Moving")
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_Attack_Ranged, "Enemy.Ability.Attack.Ranged")
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_StepBack, "Enemy.Ability.StepBack")
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_Staggered, "Enemy.Ability.Staggered")
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_Parried, "Enemy.Ability.Parried")
 
 	//Enemy Event
-	UE_DEFINE_GAMEPLAY_TAG(Enemy_Event_SpawnHitCollision, "Enemy.Event.SpawnHitCollision")
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Event_HitStart, "Enemy.Event.HitStart")
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Event_HitEnd, "Enemy.Event.HitEnd")
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Event_Parried, "Enemy.Event.Parried")
 
 	//Enemy Status

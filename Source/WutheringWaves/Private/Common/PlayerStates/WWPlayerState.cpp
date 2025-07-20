@@ -123,12 +123,12 @@ void AWWPlayerState::CancelPlayerActiveAbilities(UAbilitySystemComponent* ASC, F
 
 void AWWPlayerState::CancelAllPlayerActiveAbilities(UAbilitySystemComponent* ASC)
 {
+	FScopedAbilityListLock ActiveScopeLock(*GetAbilitySystemComponent());
 	if (!ASC)
 	{
 		Debug::Print(TEXT("WWPlayerState : CancelAllActiveAbilities, Can't find ASC"));
 		return;
 	}
-	FScopedAbilityListLock ActiveScopeLock(*GetAbilitySystemComponent());
 
 	for (FGameplayAbilitySpec& Spec : ASC->GetActivatableAbilities())
 	{

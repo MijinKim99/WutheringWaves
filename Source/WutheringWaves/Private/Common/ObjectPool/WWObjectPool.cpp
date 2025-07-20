@@ -20,7 +20,7 @@ AWWPooledObject* AWWObjectPool::SpawnPooledObject(APawn* InInstigator)
 		{
 			PoolableActor->TeleportTo(FVector::ZeroVector, FRotator::ZeroRotator);
 			PoolableActor->SetLifeTime(PooledObjectLifeTime);
-			PoolableActor->SetActive(true,InInstigator);
+			PoolableActor->SetActive(true, InInstigator);
 			SpawnedPoolIndexes.Add(PoolableActor->GetPoolIndex());
 			return PoolableActor;
 		}
@@ -35,18 +35,26 @@ AWWPooledObject* AWWObjectPool::SpawnPooledObject(APawn* InInstigator)
 		{
 			PoolableActor->TeleportTo(FVector::ZeroVector, FRotator::ZeroRotator);
 			PoolableActor->SetLifeTime(PooledObjectLifeTime);
-			PoolableActor->SetActive(true,InInstigator);
+			PoolableActor->SetActive(true, InInstigator);
 			SpawnedPoolIndexes.Add(PoolableActor->GetPoolIndex());
 			return PoolableActor;
 		}
 	}
-	
+
 	return nullptr;
 }
 
 void AWWObjectPool::OnPooledObjectDespawn(AWWPooledObject* PoolActor)
 {
 	SpawnedPoolIndexes.Remove(PoolActor->GetPoolIndex());
+}
+
+void AWWObjectPool::DeactivateAllPooledObjects()
+{
+	while (SpawnedPoolIndexes.Num() > 0)
+	{
+		ObjectPool[SpawnedPoolIndexes[0]]->Deactivate();
+	}
 }
 
 // Called when the game starts or when spawned
@@ -64,7 +72,7 @@ void AWWObjectPool::BeginPlay()
 					PooledObjectClass, FVector::ZeroVector, FRotator::ZeroRotator);
 				if (PoolableActor != nullptr)
 				{
-					PoolableActor->SetActive(false,nullptr);
+					PoolableActor->SetActive(false, nullptr);
 					PoolableActor->SetPoolIndex(i);
 					PoolableActor->OnPooledObjectDespawn.AddDynamic(this, &AWWObjectPool::OnPooledObjectDespawn);
 					ObjectPool.Add(PoolableActor);

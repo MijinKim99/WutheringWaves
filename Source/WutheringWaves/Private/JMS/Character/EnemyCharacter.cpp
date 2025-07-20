@@ -15,6 +15,7 @@
 #include "Common/Widget/WWUserWidget.h"
 #include "Components/BoxComponent.h"
 #include "Components/WidgetComponent.h"
+#include "DynamicMesh/DynamicMesh3.h"
 #include "Engine/AssetManager.h"
 #include "Engine/StreamableManager.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -29,7 +30,7 @@ AEnemyCharacter::AEnemyCharacter()
 	EnemyAttributeSet = CreateDefaultSubobject<UEnemyAttributeSet>("EnemyAttributeSet");
 	WWAttributeSet = CreateDefaultSubobject<UWWAttributeSet>("WWAttributeSet");
 	WWAbilitySystemComponent = CreateDefaultSubobject<UWWAbilitySystemComponent>(TEXT("WWAbilitySystemComponent"));
-	
+
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationRoll = false;
 	bUseControllerRotationYaw = false;
@@ -44,19 +45,27 @@ AEnemyCharacter::AEnemyCharacter()
 	EnemyUIComponent = CreateDefaultSubobject<UEnemyUIComponent>(TEXT("EnemyUIComponent"));
 	WidgetComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("WidgetComponent"));
 	WidgetComponent->SetupAttachment(GetMesh());
-	
 }
 
 void AEnemyCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
-	InitEnemyStartUpData();
+	if (WWAbilitySystemComponent)
+	{
+		WWAbilitySystemComponent->InitAbilityActorInfo(this, this);
+		InitEnemyStartUpData();
+	}
+	else
+	{
+		Debug::Print(FString::Printf(TEXT("%s : WWAbilitySystemComponent is Null"),*GetNameSafe(this)), FColor::Red);
+	}
 }
 
 UPawnCombatComponent* AEnemyCharacter::GetPawnCombatComponent() const
 {
 	return EnemyCombatComponent;
 }
+
 UPawnUIComponent* AEnemyCharacter::GetPawnUIComponent() const
 {
 	return EnemyUIComponent;
@@ -75,6 +84,7 @@ UAbilitySystemComponent* AEnemyCharacter::GetAbilitySystemComponent() const
 void AEnemyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
 	if (UWWUserWidget* HealthWidget = Cast<UWWUserWidget>(WidgetComponent->GetUserWidgetObject()))
 	{
 		HealthWidget->InitEnemyCreateWidget(this);
@@ -87,8 +97,8 @@ void AEnemyCharacter::SetAttackTransformFromMotionWarpingTarget(FName WarpTarget
 	if (Target)
 	{
 		EnemyCombatComponent->SetAttackTransform(FTransform(FRotator(0.f, GetActorRotation().Yaw, 0.f),
-															Target->GetLocation(),
-															FVector(1.f, 1.f, 1.f)));
+		                                                    Target->GetLocation(),
+		                                                    FVector(1.f, 1.f, 1.f)));
 	}
 	else
 	{
@@ -128,7 +138,7 @@ void AEnemyCharacter::CancelEnemyActiveAbilities(UAbilitySystemComponent* ASC, F
 		Debug::Print(TEXT("EnemyCharacter : CancelEnemyActiveAbilities, Can't find ASC or CancelTag"));
 		return;
 	}
-    
+
 	for (FGameplayAbilitySpec& Spec : ASC->GetActivatableAbilities())
 	{
 		if (!Spec.IsActive())
