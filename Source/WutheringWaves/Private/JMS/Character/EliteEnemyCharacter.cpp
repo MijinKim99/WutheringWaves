@@ -52,3 +52,8 @@ void AEliteEnemyCharacter::UpdateEnableDuration()
 	ParryEnableDurationCounter += UpdateInterval;
 	Debug::Print(FString::Printf(TEXT("Parry Enable Duration : %f"), ParryEnableDurationCounter), FColor::Red, 10);
 }
+
+TSubclassOf<UWWUserWidget> AEliteEnemyCharacter::GetEnemyUIForHUD()
+{
+	return EnemyUIForHUD;
+}

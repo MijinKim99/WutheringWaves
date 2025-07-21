@@ -20,7 +20,11 @@ void UPlayerAnimNotifyState::NotifyBegin(USkeletalMeshComponent* MeshComp, UAnim
 		Debug::Print(TEXT("PlayerAnimNotifyState : Failed Cast PlayerCharacter"));
 		return;
 	}
-
+	if (!Controller)
+	{
+		Debug::Print(TEXT("PlayerAnimNotifyState : Failed Cast Controller"));
+		return;
+	}
 	PlayerState = Controller->GetPlayerState<AWWPlayerState>();
 
 	if (!PlayerState)

@@ -19,7 +19,7 @@ void UPlayerCharacterStartup::GiveToAbilitySystemComponent(UWWAbilitySystemCompo
 		if (!AbilitySet.IsValid()) continue;
         
 		FGameplayAbilitySpec Spec(AbilitySet.AbilityToGrant);
-		Spec.SourceObject = ASC->GetAvatarActor();
+		Spec.SourceObject = ASC->GetOwnerActor();
 		Spec.Level = Level;
 		//동적태그 생성 
 		Spec.DynamicAbilityTags.AddTag(AbilitySet.InputTag);

@@ -31,7 +31,12 @@ void AAttackCollisionBox::SetActive(bool IsActive, APawn* InInstigator)
 	{
 		if (InInstigator)
 		{
-			InstigatorTeamId = Cast<IGenericTeamAgentInterface>(InInstigator->GetController())->GetGenericTeamId();
+			IGenericTeamAgentInterface* GenericTeamAgentInterface = Cast<IGenericTeamAgentInterface>(
+				InInstigator->GetController());
+			if (GenericTeamAgentInterface)
+			{
+				InstigatorTeamId = GenericTeamAgentInterface->GetGenericTeamId();
+			}
 		}
 	}
 }
@@ -58,7 +63,10 @@ void AAttackCollisionBox::OnHitTargetActor(AActor* HitActor)
 	HitTargetSet.Add(HitActor);
 
 	// GameplayEffectSpecHandle 적용
-	UWWBlueprintFunctionLibrary::ApplyGameplayEffectSpecHandleToTarget(HitActor, GameplayEffectSpecHandle);
+	for (FGameplayEffectSpecHandle GESpecHandle : MultipleGameplayEffectSpecHandles)
+	{
+		UWWBlueprintFunctionLibrary::ApplyGameplayEffectSpecHandleToTarget(HitActor, GESpecHandle);
+	}
 
 	// Gameplay Event 전달
 	FGameplayEventData Data;
@@ -95,16 +103,18 @@ void AAttackCollisionBox::OnHit(UPrimitiveComponent* HitComponent, AActor* Other
 {
 }
 
-void AAttackCollisionBox::InitializeAndAttackWithBox(float Duration, FVector BoxExtent, FVector Location,
-                                                     FRotator Rotation,
-                                                     const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle,
-                                                     FGameplayTag InFXGameplayCueTag,
-                                                     FGameplayTag InHitReactEventTag)
+void AAttackCollisionBox::InitializeAndAttackWithBox_Internal(float Duration, FVector BoxExtent, FVector Location,
+                                                              FRotator Rotation,
+                                                              const TArray<FGameplayEffectSpecHandle>&
+                                                              InGameplayEffectSpecHandles,
+                                                              FGameplayTag InFXGameplayCueTag,
+                                                              FGameplayTag InHitReactEventTag)
 {
 	BoxComponent->SetBoxExtent(BoxExtent);
 	SetActorLocation(Location);
 	SetActorRotation(Rotation);
-	GameplayEffectSpecHandle = InGameplayEffectSpecHandle;
+	MultipleGameplayEffectSpecHandles.Empty();
+	MultipleGameplayEffectSpecHandles = InGameplayEffectSpecHandles;
 	FXGameplayCueTag = InFXGameplayCueTag;
 	HitReactEventTag = InHitReactEventTag;
 	UGameplayCueFunctionLibrary::AddGameplayCueOnActor(this, FXGameplayCueTag, FGameplayCueParameters());
@@ -114,11 +124,14 @@ void AAttackCollisionBox::InitializeAndAttackWithBox(float Duration, FVector Box
 	BoxComponent->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 }
 
-void AAttackCollisionBox::InitializeAttachedBoxAndAttack(FVector BoxExtent,
-                                                         USkeletalMeshComponent* InstigatorMesh, FName AttachSocketName,
-                                                         const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle,
-                                                         FGameplayTag InFXGameplayCueTag,
-                                                         FGameplayTag InHitReactEventTag,bool bShowCollisionInGame,float LineThickness)
+void AAttackCollisionBox::InitializeAttachedBoxAndAttack_Internal(FVector BoxExtent,
+                                                                  USkeletalMeshComponent* InstigatorMesh,
+                                                                  FName AttachSocketName,
+                                                                  const TArray<FGameplayEffectSpecHandle>&
+                                                                  InGameplayEffectSpecHandles,
+                                                                  FGameplayTag InFXGameplayCueTag,
+                                                                  FGameplayTag InHitReactEventTag,
+                                                                  bool bShowCollisionInGame, float LineThickness)
 {
 	BoxComponent->SetBoxExtent(BoxExtent);
 	FVector Location;
@@ -130,7 +143,7 @@ void AAttackCollisionBox::InitializeAttachedBoxAndAttack(FVector BoxExtent,
 	SetActorLocation(Location);
 	SetActorRotation(Rotation);
 	AttachToActor(GetInstigator(), FAttachmentTransformRules::KeepRelativeTransform, AttachSocketName);
-	GameplayEffectSpecHandle = InGameplayEffectSpecHandle;
+	MultipleGameplayEffectSpecHandles = InGameplayEffectSpecHandles;
 	FXGameplayCueTag = InFXGameplayCueTag;
 	HitReactEventTag = InHitReactEventTag;
 	UGameplayCueFunctionLibrary::AddGameplayCueOnActor(this, FXGameplayCueTag, FGameplayCueParameters());
@@ -141,6 +154,57 @@ void AAttackCollisionBox::InitializeAttachedBoxAndAttack(FVector BoxExtent,
 		BoxComponent->SetHiddenInGame(false);
 		BoxComponent->SetLineThickness(LineThickness);
 	}
+}
+
+void AAttackCollisionBox::InitializeAndAttackWithBox(float Duration, FVector BoxExtent, FVector Location,
+                                                     FRotator Rotation,
+                                                     const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle,
+                                                     FGameplayTag InFXGameplayCueTag,
+                                                     FGameplayTag InHitReactEventTag)
+{
+	TArray<FGameplayEffectSpecHandle> GameplayEffectSpecHandles;
+	GameplayEffectSpecHandles.Add(InGameplayEffectSpecHandle);
+	InitializeAndAttackWithBox_Internal(Duration, BoxExtent, Location, Rotation, GameplayEffectSpecHandles,
+	                                    InFXGameplayCueTag, InHitReactEventTag);
+}
+
+void AAttackCollisionBox::InitializeAttachedBoxAndAttack(FVector BoxExtent,
+                                                         USkeletalMeshComponent* InstigatorMesh, FName AttachSocketName,
+                                                         const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle,
+                                                         FGameplayTag InFXGameplayCueTag,
+                                                         FGameplayTag InHitReactEventTag, bool bShowCollisionInGame,
+                                                         float LineThickness)
+{
+	TArray<FGameplayEffectSpecHandle> GameplayEffectSpecHandles;
+	GameplayEffectSpecHandles.Add(InGameplayEffectSpecHandle);
+	InitializeAttachedBoxAndAttack_Internal(BoxExtent, InstigatorMesh, AttachSocketName, GameplayEffectSpecHandles,
+	                                        InFXGameplayCueTag, InHitReactEventTag, bShowCollisionInGame,
+	                                        LineThickness);
+}
+
+void AAttackCollisionBox::InitializeAndAttackWithBoxMultipleEffects(float Duration, FVector BoxExtent, FVector Location,
+                                                                    FRotator Rotation,
+                                                                    const TArray<FGameplayEffectSpecHandle>&
+                                                                    InGameplayEffectSpecHandles,
+                                                                    FGameplayTag InFXGameplayCueTag,
+                                                                    FGameplayTag InHitReactEventTag)
+{
+	InitializeAndAttackWithBox_Internal(Duration, BoxExtent, Location, Rotation, InGameplayEffectSpecHandles,
+	                                    InFXGameplayCueTag, InHitReactEventTag);
+}
+
+void AAttackCollisionBox::InitializeAttachedBoxAndAttackMultipleEffects(FVector BoxExtent,
+                                                                        USkeletalMeshComponent* InstigatorMesh,
+                                                                        FName AttachSocketName,
+                                                                        const TArray<FGameplayEffectSpecHandle>&
+                                                                        InGameplayEffectSpecHandles,
+                                                                        FGameplayTag InFXGameplayCueTag,
+                                                                        FGameplayTag InHitReactEventTag,
+                                                                        bool bShowCollisionInGame, float LineThickness)
+{
+	InitializeAttachedBoxAndAttack_Internal(BoxExtent, InstigatorMesh, AttachSocketName, InGameplayEffectSpecHandles,
+	                                        InFXGameplayCueTag, InHitReactEventTag, bShowCollisionInGame,
+	                                        LineThickness);
 }
 
 void AAttackCollisionBox::DeactivateIfActivated()

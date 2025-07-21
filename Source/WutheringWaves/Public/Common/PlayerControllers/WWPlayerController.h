@@ -31,7 +31,7 @@ private:
 	
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	APlayerCharacter* ControlledPlayerCharacter;
-
+	
 	virtual void OnPossess(APawn* InPawn) override;
 	virtual void SetupInputComponent() override;
 	
@@ -54,8 +54,6 @@ private:
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "AbilityInputControl")
 	bool bIsInputLightAttack;
 
-	
-	
 private:
 	FGenericTeamId HeroTeamID;
 };
