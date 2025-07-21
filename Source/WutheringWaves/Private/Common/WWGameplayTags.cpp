@@ -48,6 +48,10 @@ namespace WWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Burst, "Player.Ability.Burst")
 
 	//Player Status
+	UE_DEFINE_GAMEPLAY_TAG(Player_Status_PlayingCharacter, "Player.Status.PlayingCharacter")
+	UE_DEFINE_GAMEPLAY_TAG(Player_Status_PlayingCharacter_LightRover, "Player.Status.PlayingCharacter.LightRover")
+	UE_DEFINE_GAMEPLAY_TAG(Player_Status_PlayingCharacter_Chixia, "Player.Status.PlayingCharacter.Chixia")
+	UE_DEFINE_GAMEPLAY_TAG(Player_Status_PlayingCharacter_Verina, "Player.Status.PlayingCharacter.Verina")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_Dashing, "Player.Status.Dashing")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_Jumping, "Player.Status.Jumping")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_LightAttacking, "Player.Status.LightAttacking")
