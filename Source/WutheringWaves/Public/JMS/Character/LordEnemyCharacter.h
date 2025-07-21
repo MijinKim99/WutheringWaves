@@ -6,6 +6,7 @@
 #include "JMS/Character/EliteEnemyCharacter.h"
 #include "LordEnemyCharacter.generated.h"
 
+class UWWUserWidget;
 class ULordAttributeSet;
 /**
  * 
@@ -14,12 +15,5 @@ UCLASS()
 class WUTHERINGWAVES_API ALordEnemyCharacter : public AEliteEnemyCharacter
 {
 	GENERATED_BODY()
-
-public:
-
-	
-
-protected:
-	
 
 };
