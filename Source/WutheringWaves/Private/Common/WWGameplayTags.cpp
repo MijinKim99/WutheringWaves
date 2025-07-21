@@ -52,7 +52,9 @@ namespace WWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_Jumping, "Player.Status.Jumping")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_LightAttacking, "Player.Status.LightAttacking")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_UseSkill, "Player.Status.UseSkill")
+	UE_DEFINE_GAMEPLAY_TAG(Player_Status_SkillCoolTime, "Player.Status.SkillCoolTime")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_UseBurst, "Player.Status.UseBurst")
+	UE_DEFINE_GAMEPLAY_TAG(Player_Status_BurstCoolTime, "Player.Status.BurstCoolTime")
 
 	//Shared SetByCaller
 	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_Damage_Physical, "Shared.SetByCaller.Damage.Physical")
