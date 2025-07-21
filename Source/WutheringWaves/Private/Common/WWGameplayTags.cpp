@@ -15,6 +15,16 @@ namespace WWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_LightAttack_LightRover, "InputTag.LightAttack.LightRover")
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_LightAttack_Chixia, "InputTag.LightAttack.Chixia")
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_LightAttack_Verina, "InputTag.LightAttack.Verina")
+
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_Skill, "InputTag.LightAttack")
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_Skill_LightRover, "InputTag.Skill.LightRover")
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_Skill_Chixia, "InputTag.Skill.Chixia")
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_Skill_Verina, "InputTag.Skill.Verina")
+
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_Burst, "InputTag.Burst")
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_Burst_LightRover, "InputTag.Burst.LightRover")
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_Burst_Chixia, "InputTag.Burst.Chixia")
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_Burst_Verina, "InputTag.Burst.Verina")
 	
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Hold, "InputTag.Hold")
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Toggle, "InputTag.Toggle")
@@ -34,11 +44,17 @@ namespace WWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Dash, "Player.Ability.Dash")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Jump, "Player.Ability.Jump")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_LightAttack, "Player.Ability.LightAttack")
+	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Skill, "Player.Ability.Skill")
+	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Burst, "Player.Ability.Burst")
 
 	//Player Status
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_Dashing, "Player.Status.Dashing")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_Jumping, "Player.Status.Jumping")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_LightAttacking, "Player.Status.LightAttacking")
+	UE_DEFINE_GAMEPLAY_TAG(Player_Status_UseSkill, "Player.Status.UseSkill")
+	UE_DEFINE_GAMEPLAY_TAG(Player_Status_SkillCoolTime, "Player.Status.SkillCoolTime")
+	UE_DEFINE_GAMEPLAY_TAG(Player_Status_UseBurst, "Player.Status.UseBurst")
+	UE_DEFINE_GAMEPLAY_TAG(Player_Status_BurstCoolTime, "Player.Status.BurstCoolTime")
 
 	//Shared SetByCaller
 	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_Damage_Physical, "Shared.SetByCaller.Damage.Physical")
@@ -69,14 +85,19 @@ namespace WWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Ability_Death, "Shared.Ability.Death")
 
 	//Enemy Ability
-	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_Attack, "Enemy.Ability.Attack")
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_Start, "Enemy.Ability.Start")
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_Attack_Melee, "Enemy.Ability.Attack.Melee")
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_Attack_Moving, "Enemy.Ability.Attack.Moving")
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_Attack_Ranged, "Enemy.Ability.Attack.Ranged")
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_StepBack, "Enemy.Ability.StepBack")
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_Staggered, "Enemy.Ability.Staggered")
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_Parried, "Enemy.Ability.Parried")
 
 	//Enemy Event
-	UE_DEFINE_GAMEPLAY_TAG(Enemy_Event_SpawnHitCollision, "Enemy.Event.SpawnHitCollision")
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Event_HitStart, "Enemy.Event.HitStart")
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Event_HitEnd, "Enemy.Event.HitEnd")
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Event_Parried, "Enemy.Event.Parried")
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Event_Start, "Enemy.Event.Start")
 
 	//Enemy Status
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Status_Staggered, "Enemy.Status.Staggered")

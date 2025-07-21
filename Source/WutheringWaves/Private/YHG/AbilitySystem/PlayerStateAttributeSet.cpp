@@ -33,4 +33,13 @@ void UPlayerStateAttributeSet::PostGameplayEffectExecute(const struct FGameplayE
 	//
 	
 	checkf(PawnUIComponent, TEXT("Can not Load PawnUIComponent from %s"), *Data.Target.GetAvatarActor()->GetActorLabel());
+
+	if (Data.EvaluatedData.Attribute == GetCurrentStaminaAttribute())
+	{
+		if (GetCurrentStamina() > 100.f)
+		{
+			SetCurrentStamina(100.f);
+		}
+		
+	}
 }

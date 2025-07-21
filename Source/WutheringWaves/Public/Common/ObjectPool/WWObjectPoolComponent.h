@@ -32,6 +32,8 @@ public:
 
 	UFUNCTION()
 	void OnPooledObjectDespawn(AWWPooledObject* PoolActor);
+
+	void DeactivateAllPooledObjects();
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

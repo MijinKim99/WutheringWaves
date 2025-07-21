@@ -27,8 +27,9 @@ AWWPlayerController* UPlayerGameplayAbility::GetPlayerControllerFromActorInfo()
 	return CachedPlayerController.IsValid() ? CachedPlayerController.Get() : nullptr;
 }
 
-FGameplayEffectSpecHandle UPlayerGameplayAbility::MakePlayerDamageGameplayEffectSpecHandle(
-	TSubclassOf<UGameplayEffect> Effect, float WeaponWWDamage, FGameplayTag AttackTypeTag, int32 ComboCount)
+//TODO :: 패링데미지 추가
+FGameplayEffectSpecHandle UPlayerGameplayAbility::MakePlayerDamageGameplayEffectSpecHandle(TSubclassOf<UGameplayEffect> Effect
+		,float PlayerDamage, FGameplayTag AttackTypeTag, int32 ComboCount)
 {
 	check(Effect);
 
@@ -42,14 +43,14 @@ FGameplayEffectSpecHandle UPlayerGameplayAbility::MakePlayerDamageGameplayEffect
 	FGameplayEffectSpecHandle SpecHandle = GetWWAbilitySystemComponentFromActorInfo()->MakeOutgoingSpec(Effect, GetAbilityLevel(), ContextHandle);
 
 	//연산에 필요한 정보 주입
-	SpecHandle.Data->SetSetByCallerMagnitude(
+	/*SpecHandle.Data->SetSetByCallerMagnitude(
 		WWGameplayTags::Shared_SetByCaller_Damage_Physical,
-		WeaponWWDamage
-		);
+		PlayerDamage
+		);*/
 
 	if (AttackTypeTag.IsValid())
 	{
-		SpecHandle.Data->SetSetByCallerMagnitude(AttackTypeTag, ComboCount);
+		SpecHandle.Data->SetSetByCallerMagnitude(AttackTypeTag, PlayerDamage);
 	}
 
 	return SpecHandle;

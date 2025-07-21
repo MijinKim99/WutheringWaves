@@ -49,6 +49,14 @@ void UWWObjectPoolComponent::OnPooledObjectDespawn(AWWPooledObject* PoolActor)
 	SpawnedPoolIndexes.Remove(PoolActor->GetPoolIndex());
 }
 
+void UWWObjectPoolComponent::DeactivateAllPooledObjects()
+{
+	while (SpawnedPoolIndexes.Num() > 0)
+	{
+		ObjectPool[SpawnedPoolIndexes[0]]->Deactivate();
+	}
+}
+
 // Called when the game starts or when spawned
 void UWWObjectPoolComponent::BeginPlay()
 {

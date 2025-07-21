@@ -81,7 +81,55 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category="Status")
 	FGameplayAttributeData BasicCriticalDamage;
 	ATTRIBUTE_ACCESSORS(UPlayerCharacterAttributeSet, BasicCriticalDamage)
+
+	//공명스킬 현재 재사용 대기시간
+	UPROPERTY(BlueprintReadOnly, Category="Status")
+	FGameplayAttributeData CurrentSkillCoolTime;
+	ATTRIBUTE_ACCESSORS(UPlayerCharacterAttributeSet, CurrentSkillCoolTime)
+	//공명스킬 기본 재사용 대기시간
+	UPROPERTY(BlueprintReadOnly, Category="Status")
+	FGameplayAttributeData MaxSkillCoolTime;
+	ATTRIBUTE_ACCESSORS(UPlayerCharacterAttributeSet, MaxSkillCoolTime)
+
+	//공명해방 현재 재사용 대기시간
+	UPROPERTY(BlueprintReadOnly, Category="Status")
+	FGameplayAttributeData CurrentBurstCoolTime;
+	ATTRIBUTE_ACCESSORS(UPlayerCharacterAttributeSet, CurrentBurstCoolTime)
+	//공명해방 기본 재사용 대기시간
+	UPROPERTY(BlueprintReadOnly, Category="Status")
+	FGameplayAttributeData MaxBurstCoolTime;
+	ATTRIBUTE_ACCESSORS(UPlayerCharacterAttributeSet, MaxBurstCoolTime)
+
+	//공명해방 현재 에너지
+	UPROPERTY(BlueprintReadOnly, Category="Status")
+	FGameplayAttributeData CurrentBurstEnergy;
+	ATTRIBUTE_ACCESSORS(UPlayerCharacterAttributeSet, CurrentBurstEnergy)
+	//공명해방 기본 에너지
+	UPROPERTY(BlueprintReadOnly, Category="Status")
+	FGameplayAttributeData MaxBurstEnergy;
+	ATTRIBUTE_ACCESSORS(UPlayerCharacterAttributeSet, MaxBurstEnergy)
+
+	//현재 공명회로 에너지
+	UPROPERTY(BlueprintReadOnly, Category="Status")
+	FGameplayAttributeData CurrentForteCircuitEnergy;
+	ATTRIBUTE_ACCESSORS(UPlayerCharacterAttributeSet, CurrentForteCircuitEnergy)
+	//최대 공명회로 에너지
+	UPROPERTY(BlueprintReadOnly, Category="Status")
+	FGameplayAttributeData MaxForteCircuitEnergy;
+	ATTRIBUTE_ACCESSORS(UPlayerCharacterAttributeSet, MaxForteCircuitEnergy)
+
+	//현재 합주 게이지
+	UPROPERTY(BlueprintReadOnly, Category="Status")
+	FGameplayAttributeData CurrentConcertoEnergy;
+	ATTRIBUTE_ACCESSORS(UPlayerCharacterAttributeSet, CurrentConcertoEnergy)
+	//최대 합주 게이지
+	UPROPERTY(BlueprintReadOnly, Category="Status")
+	FGameplayAttributeData MaxConcertoEnergy;
+	ATTRIBUTE_ACCESSORS(UPlayerCharacterAttributeSet, MaxConcertoEnergy)
+
 	
+
+	/*
 	//속성별 피해
 	UPROPERTY(BlueprintReadOnly, Category="Status")
 	FGameplayAttributeData ApplyFireDamage;
@@ -124,7 +172,7 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category="Status")
 	FGameplayAttributeData BasicDarkDamage;
 	ATTRIBUTE_ACCESSORS(UPlayerCharacterAttributeSet, BasicDarkDamage)
-
+*/
 protected:
 	TWeakInterfacePtr<IPawnUIInterface> CachedUIInterface;
 	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) override;

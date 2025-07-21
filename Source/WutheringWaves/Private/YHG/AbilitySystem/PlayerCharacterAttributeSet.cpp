@@ -31,6 +31,21 @@ UPlayerCharacterAttributeSet::UPlayerCharacterAttributeSet()
 	InitApplyCriticalDamage(1.f);
 	InitBasicCriticalDamage(1.f);
 
+	InitCurrentSkillCoolTime(1.f);
+	InitMaxSkillCoolTime(1.f);
+
+	InitCurrentBurstCoolTime(1.f);
+	InitMaxBurstCoolTime(1.f);
+
+	InitCurrentBurstEnergy(1.f);
+	InitMaxBurstEnergy(1.f);
+
+	InitCurrentForteCircuitEnergy(1.f);
+	InitCurrentForteCircuitEnergy(1.f);
+
+	InitCurrentConcertoEnergy(1.f);
+	InitMaxConcertoEnergy(1.f);
+/*
 	InitApplyFireDamage(1.f);
 	InitBasicFireDamage(1.f);
 
@@ -47,7 +62,7 @@ UPlayerCharacterAttributeSet::UPlayerCharacterAttributeSet()
 	InitBasicLightDamage(1.f);
 
 	InitApplyDarkDamage(1.f);
-	InitBasicDarkDamage(1.f);
+	InitBasicDarkDamage(1.f);*/
 }
 
 void UPlayerCharacterAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data)
