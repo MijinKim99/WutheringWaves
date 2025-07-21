@@ -31,7 +31,12 @@ void AAttackCollisionBox::SetActive(bool IsActive, APawn* InInstigator)
 	{
 		if (InInstigator)
 		{
-			InstigatorTeamId = Cast<IGenericTeamAgentInterface>(InInstigator->GetController())->GetGenericTeamId();
+			IGenericTeamAgentInterface* GenericTeamAgentInterface = Cast<IGenericTeamAgentInterface>(
+				InInstigator->GetController());
+			if (GenericTeamAgentInterface)
+			{
+				InstigatorTeamId = GenericTeamAgentInterface->GetGenericTeamId();
+			}
 		}
 	}
 }
@@ -118,7 +123,8 @@ void AAttackCollisionBox::InitializeAttachedBoxAndAttack(FVector BoxExtent,
                                                          USkeletalMeshComponent* InstigatorMesh, FName AttachSocketName,
                                                          const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle,
                                                          FGameplayTag InFXGameplayCueTag,
-                                                         FGameplayTag InHitReactEventTag,bool bShowCollisionInGame,float LineThickness)
+                                                         FGameplayTag InHitReactEventTag, bool bShowCollisionInGame,
+                                                         float LineThickness)
 {
 	BoxComponent->SetBoxExtent(BoxExtent);
 	FVector Location;

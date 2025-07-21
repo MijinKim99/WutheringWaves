@@ -41,7 +41,7 @@ APlayerCharacter::APlayerCharacter(const FObjectInitializer& ObjectInitializer)
 	PlayerUI = CreateDefaultSubobject<UPlayerUIComponent>(TEXT("PlayerUI"));;
 
 	//플레이어 AttributeSet
-	ResonatorAttributeSet = CreateDefaultSubobject<UPlayerCharacterAttributeSet>(TEXT("ResonatorAttributeSet"));
+	PlayerCharacterAttributeSet = CreateDefaultSubobject<UPlayerCharacterAttributeSet>(TEXT("ResonatorAttributeSet"));
 
 	//메시 -90도 돌려놓아 정면으로 조정
 	GetMesh()->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
@@ -51,12 +51,17 @@ APlayerCharacter::APlayerCharacter(const FObjectInitializer& ObjectInitializer)
 
 UAbilitySystemComponent* APlayerCharacter::GetAbilitySystemComponent() const
 {
+	if (!GetPlayerState())
+	{
+		Debug::Print(TEXT("aC!"));
+		return nullptr;
+	}
 	return Cast<AWWPlayerState>(GetPlayerState())->GetAbilitySystemComponent();
 }
 
-UAttributeSet* APlayerCharacter::GetResonatorAttributeSet() const
+UPlayerCharacterAttributeSet* APlayerCharacter::GetPlayerCharacterAttributeSet() const
 {
-	return ResonatorAttributeSet;
+	return PlayerCharacterAttributeSet;
 }
 
 void APlayerCharacter::BeginPlay()
@@ -121,13 +126,15 @@ void APlayerCharacter::Tick(float DeltaSeconds)
 void APlayerCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
-	/*
+
+	/*WWAbilitySystemComponent = Cast<UWWAbilitySystemComponent>(GetAbilitySystemComponent());
+	
 	if (!StartupData.IsNull())
 	{
 		if (UDataAsset_Startup* LoadedData = StartupData.LoadSynchronous())
 		{
 			//Startup데이터가 Null이 아닌경우 StartupData는 동기화로드를 거쳐서 최종적으로 게임어빌리티시스템이 발동된다. 
-			LoadedData->GiveToAbilitySystemComponent(GetAbilitySystemComponent());
+			LoadedData->GiveToAbilitySystemComponent(WWAbilitySystemComponent);
 		}
 	}*/
 }
@@ -135,6 +142,53 @@ void APlayerCharacter::PossessedBy(AController* NewController)
 UPawnUIComponent* APlayerCharacter::GetPawnUIComponent() const
 {
 	return PlayerUI;
+}
+
+void APlayerCharacter::InitializeAttributeSet(
+	float CurrentHp, float MaxHp,
+	float ApplyAttack, float BasicAttack,
+	float ApplyDefense, float BasicDefense,
+	float ApplyEnergyRegen, float BasicEnergyRegen,
+	float ApplyCriticalRate, float BasicCriticalRate,
+	float ApplyCriticalDamage, float BasicCriticalDamage,
+	float CurrentSkillCoolTime, float MaxSkillCoolTime,
+	float CurrentBurstCoolTime, float MaxBurstCoolTime,
+	float CurrentBurstEnergy, float MaxBurstEnergy,
+	float CurrentForteCircuitEnergy, float MaxForteCircuitEnergy,
+	float CurrentConcertoEnergy, float MaxConcertoEnergy)
+{
+	PlayerCharacterAttributeSet->SetCurrentHp(CurrentHp);
+	PlayerCharacterAttributeSet->SetMaxHp(MaxHp);
+	
+	PlayerCharacterAttributeSet->SetApplyAttack(ApplyAttack);
+	PlayerCharacterAttributeSet->SetBasicAttack(BasicAttack);
+	
+	PlayerCharacterAttributeSet->SetApplyDefense(ApplyDefense);
+	PlayerCharacterAttributeSet->SetBasicDefense(BasicDefense);
+	
+	PlayerCharacterAttributeSet->SetApplyEnergyRegen(ApplyEnergyRegen);
+	PlayerCharacterAttributeSet->SetBasicEnergyRegen(BasicEnergyRegen);
+	
+	PlayerCharacterAttributeSet->SetApplyCriticalRate(ApplyCriticalRate);
+	PlayerCharacterAttributeSet->SetBasicCriticalRate(BasicCriticalRate);
+	
+	PlayerCharacterAttributeSet->SetApplyCriticalDamage(ApplyCriticalDamage);
+	PlayerCharacterAttributeSet->SetBasicCriticalDamage(BasicCriticalDamage);
+	
+	PlayerCharacterAttributeSet->SetCurrentSkillCoolTime(CurrentSkillCoolTime);
+	PlayerCharacterAttributeSet->SetMaxSkillCoolTime(MaxSkillCoolTime);
+	
+	PlayerCharacterAttributeSet->SetCurrentBurstCoolTime(CurrentBurstCoolTime);
+	PlayerCharacterAttributeSet->SetMaxBurstCoolTime(MaxBurstCoolTime);
+	
+	PlayerCharacterAttributeSet->SetCurrentBurstEnergy(CurrentBurstEnergy);
+	PlayerCharacterAttributeSet->SetMaxBurstEnergy(MaxBurstEnergy);
+
+	PlayerCharacterAttributeSet->SetCurrentForteCircuitEnergy(CurrentForteCircuitEnergy);
+	PlayerCharacterAttributeSet->SetMaxForteCircuitEnergy(MaxForteCircuitEnergy);
+
+	PlayerCharacterAttributeSet->SetCurrentConcertoEnergy(CurrentConcertoEnergy);
+	PlayerCharacterAttributeSet->SetMaxConcertoEnergy(MaxConcertoEnergy);
 }
 
 bool APlayerCharacter::GetIsGrounded() const
