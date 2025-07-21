@@ -9,12 +9,13 @@
 
 APlayerCharacter* UPlayerGameplayAbility::GetPlayerCharacterFromActorInfo()
 {
-	if (!CachedPlayerCharacter.IsValid())
-	{
-		CachedPlayerCharacter = Cast<APlayerCharacter>(CurrentActorInfo->AvatarActor);
-	}
-
-	return CachedPlayerCharacter.IsValid() ? CachedPlayerCharacter.Get() : nullptr;
+	// if (!CachedPlayerCharacter.IsValid())
+	// {
+	// 	CachedPlayerCharacter = Cast<APlayerCharacter>(CurrentActorInfo->AvatarActor);
+	// }
+	//
+	// return CachedPlayerCharacter.IsValid() ? CachedPlayerCharacter.Get() : nullptr;
+	return Cast<APlayerCharacter>(CurrentActorInfo->AvatarActor);
 }
 
 AWWPlayerController* UPlayerGameplayAbility::GetPlayerControllerFromActorInfo()

@@ -10,7 +10,7 @@ void UWWAnimNotifyState::NotifyBegin(USkeletalMeshComponent* MeshComp, UAnimSequ
                                      float TotalDuration, const FAnimNotifyEventReference& EventReference)
 {
 	Super::NotifyBegin(MeshComp, Animation, TotalDuration, EventReference);
-
+	
 	SkeletalMeshComponent = MeshComp;
 
 	if (!SkeletalMeshComponent)

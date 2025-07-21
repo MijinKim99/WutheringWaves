@@ -7,6 +7,7 @@
 #include "AbilitySystemInterface.h"
 #include "WWPlayerState.generated.h"
 
+class UPlayerUIComponent;
 class UPlayerCharacterAttributeSet;
 class UPlayerCharacterStartup;
 class UWWAbilitySystemComponent;
@@ -29,7 +30,6 @@ private:
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem", meta = (AllowPrivateAccess = "true"))
 	UPlayerStateAttributeSet* PlayerAttributeSet;
-
 	
 	//동기식으로 데이터를 불러온다
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category = "StartupData", meta = (AllowPrivateAccess = "true"))

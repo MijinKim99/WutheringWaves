@@ -3,10 +3,10 @@
 
 #include "Common/PlayerStates/WWPlayerState.h"
 #include "Common/WWDebugHelper.h"
-#include "GameFramework/GameModeBase.h"
 #include "YHG/AbilitySystem/PlayerStateAttributeSet.h"
 #include "YHG/DataAssets/Startup/PlayerCharacterStartup.h"
 #include "GameplayAbilitySpec.h"
+#include "YHG/AbilitySystem/PlayerCharacterAttributeSet.h"
 #include "YHG/PlayerCharacters/PlayerCharacter.h"
 
 AWWPlayerState::AWWPlayerState()
@@ -23,13 +23,14 @@ void AWWPlayerState::BeginPlay()
 
 	//초기설정
 	WWAbilitySystemComponent->InitAbilityActorInfo(this, GetPawn());
-	
+
 	APlayerCharacter* PlayerCharacter = Cast<APlayerCharacter>(GetPawn());
 	if (PlayerCharacter)
 	{
-		WWAbilitySystemComponent->AddSpawnedAttribute(PlayerCharacter->GetResonatorAttributeSet());
+		WWAbilitySystemComponent->AddSpawnedAttribute(PlayerCharacter->GetPlayerCharacterAttributeSet());
 	}
 
+	//교안 DA_ApplYEffecttoSelf
 
 	//DataAsset으로 어빌리티 부여
 	if (CommonStartupData.IsNull())
@@ -62,31 +63,27 @@ void AWWPlayerState::BeginPlay()
 			}
 		}
 	}
-	
 }
 
 void AWWPlayerState::ChangedPlayerCharacter(APlayerState* Player, APawn* NewPawn, APawn* OldPawn)
 {
-	if (!IsValid(NewPawn) || !IsValid(OldPawn))
-	{
-		Debug::Print(TEXT("WWPlayerState : InValid NewPawn or OldPawn"));
-		return;
-	}
+	// if (!IsValid(NewPawn) || !IsValid(OldPawn))
+	// {
+	// 	Debug::Print(TEXT("WWPlayerState : InValid NewPawn or OldPawn"));
+	// 	return;
+	// }
 
-	WWAbilitySystemComponent->InitAbilityActorInfo(this, NewPawn);
-	// 필요한 경우 AttributeSet 재등록, Input 재바인딩 등도 여기서 처리
-	
 	Debug::Print(TEXT("AWWPlayerState::ChangedPlayerCharacter"));
-	if (APlayerCharacter* OldPlayerCharacter =Cast<APlayerCharacter>(OldPawn))
+	if (APlayerCharacter* OldPlayerCharacter = Cast<APlayerCharacter>(OldPawn))
 	{
-		WWAbilitySystemComponent->RemoveSpawnedAttribute(OldPlayerCharacter->GetResonatorAttributeSet());
+		WWAbilitySystemComponent->RemoveSpawnedAttribute(OldPlayerCharacter->GetPlayerCharacterAttributeSet());
 	}
-	WWAbilitySystemComponent->InitAbilityActorInfo(this, NewPawn);
-	
-	APlayerCharacter* PlayerCharacter = Cast<APlayerCharacter>(NewPawn);
-	if (PlayerCharacter)
+	//WWAbilitySystemComponent->SetAvatarActor(NewPawn);
+
+	if (APlayerCharacter* PlayerCharacter = Cast<APlayerCharacter>(NewPawn))
 	{
-		WWAbilitySystemComponent->AddSpawnedAttribute(PlayerCharacter->GetResonatorAttributeSet());
+		WWAbilitySystemComponent->AddSpawnedAttribute(PlayerCharacter->GetPlayerCharacterAttributeSet());
+		WWAbilitySystemComponent->InitAbilityActorInfo(this, PlayerCharacter);
 	}
 }
 

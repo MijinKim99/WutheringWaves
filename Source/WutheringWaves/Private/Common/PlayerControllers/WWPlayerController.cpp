@@ -19,7 +19,6 @@ AWWPlayerController::AWWPlayerController()
 	bIsInputJump = false;
 	bIsInputLightAttack = false;
 	
-	
 	HeroTeamID = FGenericTeamId(0);
 }
 

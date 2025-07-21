@@ -32,7 +32,7 @@ public:
 	//IAbilitySystemInterface
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
-	UAttributeSet* GetResonatorAttributeSet() const;
+	UPlayerCharacterAttributeSet* GetPlayerCharacterAttributeSet() const;
 
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
@@ -43,16 +43,33 @@ private:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
 	UPlayerUIComponent* PlayerUI;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem", meta = (AllowPrivateAccess = "true"))
+	UWWAbilitySystemComponent* WWAbilitySystemComponent;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem", meta = (AllowPrivateAccess = "true"))
-	UPlayerCharacterAttributeSet* ResonatorAttributeSet;
+	UPlayerCharacterAttributeSet* PlayerCharacterAttributeSet;
 
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
 	virtual void PossessedBy(AController* NewController) override;
 	virtual UPawnUIComponent* GetPawnUIComponent() const override;
-
+	
+	UFUNCTION(BlueprintCallable)
+	void InitializeAttributeSet(
+		float CurrentHp, float MaxHp,
+		float ApplyAttack, float BasicAttack,
+		float ApplyDefense, float BasicDefense,
+		float ApplyEnergyRegen, float BasicEnergyRegen,
+		float ApplyCriticalRate, float BasicCriticalRate,
+		float ApplyCriticalDamage, float BasicCriticalDamage,
+		float CurrentSkillCoolTime, float MaxSkillCoolTime,
+		float CurrentBurstCoolTime, float MaxBurstCoolTime,
+		float CurrentBurstEnergy, float MaxBurstEnergy,
+		float CurrentForteCircuitEnergy, float MaxForteCircuitEnergy,
+		float CurrentConcertoEnergy, float MaxConcertoEnergy);
+	
 //StateControl
 protected:
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "StateControl")

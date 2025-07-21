@@ -31,7 +31,12 @@ void AAttackCollisionBox::SetActive(bool IsActive, APawn* InInstigator)
 	{
 		if (InInstigator)
 		{
-			InstigatorTeamId = Cast<IGenericTeamAgentInterface>(InInstigator->GetController())->GetGenericTeamId();
+			IGenericTeamAgentInterface* GenericTeamAgentInterface = Cast<IGenericTeamAgentInterface>(
+				InInstigator->GetController());
+			if (GenericTeamAgentInterface)
+			{
+				InstigatorTeamId = GenericTeamAgentInterface->GetGenericTeamId();
+			}
 		}
 	}
 }
