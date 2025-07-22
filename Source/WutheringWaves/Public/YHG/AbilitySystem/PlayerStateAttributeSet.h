@@ -35,6 +35,10 @@ public:
 	FGameplayAttributeData MaxStamina;
 	ATTRIBUTE_ACCESSORS(UPlayerStateAttributeSet, MaxStamina)
 
+	//KMJ 0722
+	UFUNCTION(BlueprintCallable, Category="Status")
+	float GetStaminaPercent();
+
 protected:
 	TWeakInterfacePtr<IPawnUIInterface> CachedUIInterface;
 	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) override;

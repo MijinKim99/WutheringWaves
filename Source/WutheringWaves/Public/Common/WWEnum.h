@@ -80,6 +80,18 @@ enum class ECharacterSettingMenu : uint8
 	Echo
 };
 
+UENUM(BlueprintType)
+enum class ECharacterStats : uint8
+{
+	HP,
+	Attack,
+	Defense,
+	EnergyRegen,
+	CriticalRate,
+	CriticalDamage,
+	Stamina
+};
+
 class WWEnum
 {
 public:

@@ -43,3 +43,8 @@ void UPlayerStateAttributeSet::PostGameplayEffectExecute(const struct FGameplayE
 		
 	}
 }
+
+float UPlayerStateAttributeSet::GetStaminaPercent()
+{
+	return GetCurrentStamina()/GetMaxStamina();
+}
