@@ -4,6 +4,7 @@
 #include "Common/Components/Combat/PawnCombatComponent.h"
 
 #include "Common/Attack/AttackCollisionBox.h"
+#include "Common/Attack/AttackCollisionBoxProjectile.h"
 #include "Common/Attack/AttackCollisionSphereProjectile.h"
 #include "Common/ObjectPool/WWObjectPoolComponent.h"
 
@@ -52,6 +53,11 @@ AAttackCollisionBox* UPawnCombatComponent::EnableAttackCollisionBoxFromPool()
 AAttackCollisionSphereProjectile* UPawnCombatComponent::EnableAttackCollisionSphereProjectileFromPool()
 {
 	return Cast<AAttackCollisionSphereProjectile>(AttackCollisionSphereProjectilePool->SpawnPooledObject(GetOwningPawn()));
+}
+
+AAttackCollisionBoxProjectile* UPawnCombatComponent::EnableAttackCollisionBoxProjectileFromPool()
+{
+	return Cast<AAttackCollisionBoxProjectile>(AttackCollisionBoxProjectilePool->SpawnPooledObject(GetOwningPawn()));
 }
 
 void UPawnCombatComponent::DeactivateAllPooledObjects()
