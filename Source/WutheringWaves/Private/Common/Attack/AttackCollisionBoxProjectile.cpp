@@ -162,6 +162,72 @@ void AAttackCollisionBoxProjectile::InitializeProjectileAndShoot_Internal(FVecto
 	}
 }
 
+void AAttackCollisionBoxProjectile::InitializeAttachedProjectileAndShoot_Internal(FVector BoxExtent,
+																		  USkeletalMeshComponent* InstigatorMesh,
+																		  FName AttachSocketName,
+																		  const TArray<FGameplayEffectSpecHandle>&
+																		  InGameplayEffectSpecHandles,
+																		  FVector StartRelativeLocation,
+																		  FVector TargetLocation, float ProjectileSpeed,
+																		  FGameplayTag InProjectileGameplayCueTag,
+																		  FGameplayTag InExplosionGameplayCueTag,
+																		  FGameplayTag InHitReactEventTag,
+																		  bool bShowCollisionInGame,
+																		  float LineThickness,
+																		  float InProjectileGravityScale,
+																		  bool InbExplodeOnHit,
+																		  float DurationForNotExplodingProjectile)
+{
+	// Box 세팅
+	BoxComponent->SetBoxExtent(BoxExtent);
+	FVector Location;
+	FRotator Rotation;
+	if (InstigatorMesh)
+	{
+		InstigatorMesh->GetSocketWorldLocationAndRotation(AttachSocketName, Location, Rotation);
+	}
+	SetActorLocation(Location);
+	SetActorRotation(Rotation);
+	AttachToActor(GetInstigator(), FAttachmentTransformRules::KeepRelativeTransform, AttachSocketName);
+	MultipleGameplayEffectSpecHandles = InGameplayEffectSpecHandles;
+	ProjectileGameplayCueTag = InProjectileGameplayCueTag;
+	ExplosionGameplayCueTag = InExplosionGameplayCueTag;
+	HitReactEventTag = InHitReactEventTag;
+
+	// Explosion 세팅
+	bExplodeOnHit = InbExplodeOnHit;
+
+	// ProjectileMovementComponent 활성화
+	ProjectileMovementComponent->Activate();
+	ProjectileMovementComponent->SetUpdatedComponent(GetRootComponent());
+	ProjectileMovementComponent->SetComponentTickEnabled(true);
+	ProjectileMovementComponent->ProjectileGravityScale = InProjectileGravityScale;
+	ProjectileMovementComponent->InitialSpeed = ProjectileSpeed;
+	ProjectileMovementComponent->MaxSpeed = ProjectileSpeed;
+	ProjectileMovementComponent->Friction = 0.0f;
+	ProjectileMovementComponent->AddForce(ProjectileSpeed * (GetInstigator()->GetActorForwardVector()));
+	if (bShowCollisionInGame)
+	{
+		BoxComponent->SetLineThickness(LineThickness);
+		BoxComponent->SetHiddenInGame(false);
+	}
+	// GameplayCue 적용
+	UGameplayCueFunctionLibrary::AddGameplayCueOnActor(this, ProjectileGameplayCueTag, FGameplayCueParameters());
+	if (bExplodeOnHit)
+	{
+		BoxComponent->OnComponentHit.AddUniqueDynamic(this, &AAttackCollisionBoxProjectile::OnHit);
+		BoxComponent->SetCollisionResponseToAllChannels(ECR_Block);
+		BoxComponent->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
+	}
+	else
+	{
+		FTimerHandle DeactivateTimerHandle;
+		GetWorld()->GetTimerManager().SetTimer(DeactivateTimerHandle, this,
+											   &AAttackCollisionBoxProjectile::Deactivate,
+											   DurationForNotExplodingProjectile, false);
+	}
+}
+
 void AAttackCollisionBoxProjectile::InitializeProjectileAndShoot(FVector BoxExtent,
                                                                  const FGameplayEffectSpecHandle&
                                                                  InGameplayEffectSpecHandle,
@@ -183,17 +249,49 @@ void AAttackCollisionBoxProjectile::InitializeProjectileAndShoot(FVector BoxExte
 	                                      InProjectileGravityScale, InbExplodeOnHit, DurationForNotExplodingProjectile);
 }
 
-void AAttackCollisionBoxProjectile::InitializeProjectileAndShootMultipleEffects(FVector BoxExtent,
-	const TArray<FGameplayEffectSpecHandle>& InGameplayEffectSpecHandles, FVector StartRelativeLocation,
+void AAttackCollisionBoxProjectile::InitializeAttachedProjectileAndShoot(FVector BoxExtent,
+	USkeletalMeshComponent* InstigatorMesh, FName AttachSocketName,
+	const FGameplayEffectSpecHandle& InGameplayEffectSpecHandles, FVector StartRelativeLocation,
 	FVector TargetLocation, float ProjectileSpeed, FGameplayTag InProjectileGameplayCueTag,
 	FGameplayTag InExplosionGameplayCueTag, FGameplayTag InHitReactEventTag, bool bShowCollisionInGame,
 	float LineThickness, float InProjectileGravityScale, bool InbExplodeOnHit, float DurationForNotExplodingProjectile)
+{
+	TArray<FGameplayEffectSpecHandle> GameplayEffectSpecHandles;
+	GameplayEffectSpecHandles.Add(InGameplayEffectSpecHandles);
+	InitializeAttachedProjectileAndShoot_Internal(BoxExtent, InstigatorMesh, AttachSocketName, GameplayEffectSpecHandles, StartRelativeLocation, TargetLocation,
+										  ProjectileSpeed, InProjectileGameplayCueTag, InExplosionGameplayCueTag,
+										  InHitReactEventTag, bShowCollisionInGame, LineThickness,
+										  InProjectileGravityScale, InbExplodeOnHit, DurationForNotExplodingProjectile);
+}
+
+
+void AAttackCollisionBoxProjectile::InitializeProjectileAndShootMultipleEffects(FVector BoxExtent,
+                                                                                const TArray<FGameplayEffectSpecHandle>& InGameplayEffectSpecHandles, FVector StartRelativeLocation,
+                                                                                FVector TargetLocation, float ProjectileSpeed, FGameplayTag InProjectileGameplayCueTag,
+                                                                                FGameplayTag InExplosionGameplayCueTag, FGameplayTag InHitReactEventTag, bool bShowCollisionInGame,
+                                                                                float LineThickness, float InProjectileGravityScale, bool InbExplodeOnHit, float DurationForNotExplodingProjectile)
 {
 	InitializeProjectileAndShoot_Internal(BoxExtent, InGameplayEffectSpecHandles, StartRelativeLocation, TargetLocation,
 									  ProjectileSpeed, InProjectileGameplayCueTag, InExplosionGameplayCueTag,
 									  InHitReactEventTag, bShowCollisionInGame, LineThickness,
 									  InProjectileGravityScale, InbExplodeOnHit, DurationForNotExplodingProjectile);
 }
+
+void AAttackCollisionBoxProjectile::InitializeAttachedProjectileAndShootMultipleEffects(FVector BoxExtent,
+	USkeletalMeshComponent* InstigatorMesh, FName AttachSocketName,
+	const TArray<FGameplayEffectSpecHandle>& InGameplayEffectSpecHandles, FVector StartRelativeLocation,
+	FVector TargetLocation, float ProjectileSpeed, FGameplayTag InProjectileGameplayCueTag,
+	FGameplayTag InExplosionGameplayCueTag, FGameplayTag InHitReactEventTag, bool bShowCollisionInGame,
+	float LineThickness, float InProjectileGravityScale, bool InbExplodeOnHit, float DurationForNotExplodingProjectile)
+{
+	InitializeAttachedProjectileAndShoot_Internal(BoxExtent, InstigatorMesh, AttachSocketName, InGameplayEffectSpecHandles, StartRelativeLocation, TargetLocation,
+										  ProjectileSpeed, InProjectileGameplayCueTag, InExplosionGameplayCueTag,
+										  InHitReactEventTag, bShowCollisionInGame, LineThickness,
+										  InProjectileGravityScale, InbExplodeOnHit, DurationForNotExplodingProjectile);
+}
+
+
+
 
 void AAttackCollisionBoxProjectile::SetActive(bool IsActive, APawn* InInstigator)
 {
