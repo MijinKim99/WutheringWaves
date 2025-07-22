@@ -74,6 +74,23 @@ public:
 	                                           InbExplodeOnHit, float DurationForNotExplodingProjectile
 	);
 
+	// Bone Socket에 붙여서 콜리전 활성화
+	void InitializeAttachedProjectileAndShoot_Internal(FVector BoxExtent,
+														USkeletalMeshComponent* InstigatorMesh,
+														FName AttachSocketName,
+														const TArray<FGameplayEffectSpecHandle>&
+														InGameplayEffectSpecHandles,
+														FVector StartRelativeLocation,
+														FVector TargetLocation, float ProjectileSpeed,
+														FGameplayTag InProjectileGameplayCueTag,
+														FGameplayTag InExplosionGameplayCueTag,
+														FGameplayTag InHitReactEventTag,
+														bool bShowCollisionInGame,
+														float LineThickness,
+														float InProjectileGravityScale,
+														bool InbExplodeOnHit,
+														float DurationForNotExplodingProjectile);
+
 	// BP 호출용
 	UFUNCTION(BlueprintCallable, Category = "SphereProjectile")
 	void InitializeProjectileAndShoot(FVector BoxExtent,
@@ -85,6 +102,24 @@ public:
 	                                  float InProjectileGravityScale, bool
 	                                  InbExplodeOnHit, float DurationForNotExplodingProjectile
 	);
+	// BP 호출용
+	UFUNCTION(BlueprintCallable, Category = "Attack Box")
+	void InitializeAttachedProjectileAndShoot(FVector BoxExtent,
+																		  USkeletalMeshComponent* InstigatorMesh,
+																		  FName AttachSocketName,
+																		  const FGameplayEffectSpecHandle& InGameplayEffectSpecHandles,
+																		  FVector StartRelativeLocation,
+																		  FVector TargetLocation, float ProjectileSpeed,
+																		  FGameplayTag InProjectileGameplayCueTag,
+																		  FGameplayTag InExplosionGameplayCueTag,
+																		  FGameplayTag InHitReactEventTag,
+																		  bool bShowCollisionInGame,
+																		  float LineThickness,
+																		  float InProjectileGravityScale,
+																		  bool InbExplodeOnHit,
+																		  float DurationForNotExplodingProjectile);
+
+	
 	// BP 호출용
 	UFUNCTION(BlueprintCallable, Category = "SphereProjectile")
 	void InitializeProjectileAndShootMultipleEffects(FVector BoxExtent,
@@ -98,6 +133,24 @@ public:
 	                                                 float LineThickness, float InProjectileGravityScale, bool
 	                                                 InbExplodeOnHit, float DurationForNotExplodingProjectile
 	);
+
+	// BP 호출용
+	UFUNCTION(BlueprintCallable, Category = "Attack Box")
+	void InitializeAttachedProjectileAndShootMultipleEffects(FVector BoxExtent,
+																		  USkeletalMeshComponent* InstigatorMesh,
+																		  FName AttachSocketName,
+																		  const TArray<FGameplayEffectSpecHandle>&
+																		  InGameplayEffectSpecHandles,
+																		  FVector StartRelativeLocation,
+																		  FVector TargetLocation, float ProjectileSpeed,
+																		  FGameplayTag InProjectileGameplayCueTag,
+																		  FGameplayTag InExplosionGameplayCueTag,
+																		  FGameplayTag InHitReactEventTag,
+																		  bool bShowCollisionInGame,
+																		  float LineThickness,
+																		  float InProjectileGravityScale,
+																		  bool InbExplodeOnHit,
+																		  float DurationForNotExplodingProjectile);
 public:
 	bool bExplodeOnHit = false;
 };

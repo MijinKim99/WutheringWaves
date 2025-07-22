@@ -15,8 +15,9 @@ UPlayerStateAttributeSet::UPlayerStateAttributeSet()
 void UPlayerStateAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data)
 {
 	Super::PostGameplayEffectExecute(Data);
-	
-	if (!CachedUIInterface.IsValid())
+
+	//UI컴포넌트를 어떻게 해야할까...
+	/*if (!CachedUIInterface.IsValid())
 	{
 		CachedUIInterface = TWeakInterfacePtr<IPawnUIInterface>(Data.Target.GetAvatarActor());
 	}
@@ -32,7 +33,7 @@ void UPlayerStateAttributeSet::PostGameplayEffectExecute(const struct FGameplayE
 	}
 	//
 	
-	checkf(PawnUIComponent, TEXT("Can not Load PawnUIComponent from %s"), *Data.Target.GetAvatarActor()->GetActorLabel());
+	checkf(PawnUIComponent, TEXT("Can not Load PawnUIComponent from %s"), *Data.Target.GetAvatarActor()->GetActorLabel());*/
 
 	if (Data.EvaluatedData.Attribute == GetCurrentStaminaAttribute())
 	{
