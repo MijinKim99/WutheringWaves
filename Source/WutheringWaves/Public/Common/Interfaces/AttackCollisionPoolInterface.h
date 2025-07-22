@@ -6,6 +6,7 @@
 #include "UObject/Interface.h"
 #include "AttackCollisionPoolInterface.generated.h"
 
+class AAttackCollisionBoxProjectile;
 class AAttackCollisionSphereProjectile;
 class AAttackCollisionBox;
 // This class does not need to be modified.
@@ -28,4 +29,6 @@ public:
 	virtual AAttackCollisionBox* EnableAttackCollisionBoxFromPool() = 0;
 	UFUNCTION(BlueprintCallable, Category="Attack Collision Pool Interface")
 	virtual AAttackCollisionSphereProjectile* EnableAttackCollisionSphereProjectileFromPool() = 0;
+	UFUNCTION(BlueprintCallable, Category="Attack Collision Pool Interface")
+	virtual AAttackCollisionBoxProjectile* EnableAttackCollisionBoxProjectileFromPool() =0;
 };

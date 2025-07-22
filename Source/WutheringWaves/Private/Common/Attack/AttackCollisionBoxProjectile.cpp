@@ -139,7 +139,8 @@ void AAttackCollisionBoxProjectile::InitializeProjectileAndShoot_Internal(FVecto
 	ProjectileMovementComponent->InitialSpeed = ProjectileSpeed;
 	ProjectileMovementComponent->MaxSpeed = ProjectileSpeed;
 	ProjectileMovementComponent->Friction = 0.0f;
-	ProjectileMovementComponent->AddForce(ProjectileSpeed * (GetInstigator()->GetActorForwardVector()));
+	FVector Direction = GetInstigator() ? GetInstigator()->GetActorForwardVector() : GetActorForwardVector();
+	ProjectileMovementComponent->AddForce(ProjectileSpeed * Direction);
 	if (bShowCollisionInGame)
 	{
 		BoxComponent->SetLineThickness(LineThickness);

@@ -21,6 +21,7 @@ enum class EAttackCollisionType:uint8
 {
 	Box,
 	SphereProjectile,
+	BoxProjectile,
 };
 
 USTRUCT()
@@ -47,6 +48,7 @@ public:
 	//IAttackCollisionPoolInterface;
 	virtual AAttackCollisionBox* EnableAttackCollisionBoxFromPool() override;
 	virtual AAttackCollisionSphereProjectile* EnableAttackCollisionSphereProjectileFromPool() override;
+	virtual AAttackCollisionBoxProjectile* EnableAttackCollisionBoxProjectileFromPool() override;
 
 	UFUNCTION(BlueprintCallable, Category = "Attack Collision Pool")
 	void DeactivateAllPooledObjects();
@@ -61,4 +63,6 @@ private:
 	UWWObjectPoolComponent* AttackCollisionBoxPool;
 	UPROPERTY(VisibleAnywhere)
 	UWWObjectPoolComponent* AttackCollisionSphereProjectilePool;
+	UPROPERTY(VisibleAnywhere)
+	UWWObjectPoolComponent* AttackCollisionBoxProjectilePool;
 };
