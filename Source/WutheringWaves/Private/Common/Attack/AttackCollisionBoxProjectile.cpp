@@ -5,6 +5,7 @@
 #include "Common/WWDebugHelper.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "GameplayCueFunctionLibrary.h"
+#include "IMessageTracer.h"
 #include "Common/WWBlueprintFunctionLibrary.h"
 #include "Components/BoxComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
@@ -168,7 +169,7 @@ void AAttackCollisionBoxProjectile::InitializeAttachedProjectileAndShoot_Interna
 																		  FName AttachSocketName,
 																		  const TArray<FGameplayEffectSpecHandle>&
 																		  InGameplayEffectSpecHandles,
-																		  AActor* TargetActor, float ProjectileSpeed,
+																		  FVector TargetLocation, float ProjectileSpeed,
 																		  FGameplayTag InProjectileGameplayCueTag,
 																		  FGameplayTag InExplosionGameplayCueTag,
 																		  FGameplayTag InHitReactEventTag,
@@ -206,7 +207,19 @@ void AAttackCollisionBoxProjectile::InitializeAttachedProjectileAndShoot_Interna
 	ProjectileMovementComponent->InitialSpeed = ProjectileSpeed;
 	ProjectileMovementComponent->MaxSpeed = ProjectileSpeed;
 	ProjectileMovementComponent->Friction = 0.0f;
-	ProjectileMovementComponent->AddForce(ProjectileSpeed * (GetInstigator()->GetActorForwardVector()));
+
+	FVector Direction;
+	if (TargetLocation.IsZero())
+	{
+		Direction = GetInstigator()->GetActorForwardVector();
+	}
+	else
+	{
+		Direction = (TargetLocation - GetActorLocation()).GetSafeNormal();
+	}
+
+	
+	ProjectileMovementComponent->AddForce(ProjectileSpeed * Direction);
 	if (bShowCollisionInGame)
 	{
 		BoxComponent->SetLineThickness(LineThickness);
@@ -253,13 +266,13 @@ void AAttackCollisionBoxProjectile::InitializeProjectileAndShoot(FVector BoxExte
 void AAttackCollisionBoxProjectile::InitializeAttachedProjectileAndShoot(FVector BoxExtent,
 	USkeletalMeshComponent* InstigatorMesh, FName AttachSocketName,
 	const FGameplayEffectSpecHandle& InGameplayEffectSpecHandles, 
-	AActor* TargetActor, float ProjectileSpeed, FGameplayTag InProjectileGameplayCueTag,
+	FVector TargetLocation, float ProjectileSpeed, FGameplayTag InProjectileGameplayCueTag,
 	FGameplayTag InExplosionGameplayCueTag, FGameplayTag InHitReactEventTag, bool bShowCollisionInGame,
 	float LineThickness, float InProjectileGravityScale, bool InbExplodeOnHit, float DurationForNotExplodingProjectile)
 {
 	TArray<FGameplayEffectSpecHandle> GameplayEffectSpecHandles;
 	GameplayEffectSpecHandles.Add(InGameplayEffectSpecHandles);
-	InitializeAttachedProjectileAndShoot_Internal(BoxExtent, InstigatorMesh, AttachSocketName, GameplayEffectSpecHandles, TargetActor,
+	InitializeAttachedProjectileAndShoot_Internal(BoxExtent, InstigatorMesh, AttachSocketName, GameplayEffectSpecHandles, TargetLocation,
 										  ProjectileSpeed, InProjectileGameplayCueTag, InExplosionGameplayCueTag,
 										  InHitReactEventTag, bShowCollisionInGame, LineThickness,
 										  InProjectileGravityScale, InbExplodeOnHit, DurationForNotExplodingProjectile);
@@ -281,11 +294,11 @@ void AAttackCollisionBoxProjectile::InitializeProjectileAndShootMultipleEffects(
 void AAttackCollisionBoxProjectile::InitializeAttachedProjectileAndShootMultipleEffects(FVector BoxExtent,
 	USkeletalMeshComponent* InstigatorMesh, FName AttachSocketName,
 	const TArray<FGameplayEffectSpecHandle>& InGameplayEffectSpecHandles, 
-	AActor* TargetActor, float ProjectileSpeed, FGameplayTag InProjectileGameplayCueTag,
+	FVector TargetLocation, float ProjectileSpeed, FGameplayTag InProjectileGameplayCueTag,
 	FGameplayTag InExplosionGameplayCueTag, FGameplayTag InHitReactEventTag, bool bShowCollisionInGame,
 	float LineThickness, float InProjectileGravityScale, bool InbExplodeOnHit, float DurationForNotExplodingProjectile)
 {
-	InitializeAttachedProjectileAndShoot_Internal(BoxExtent, InstigatorMesh, AttachSocketName, InGameplayEffectSpecHandles, TargetActor,
+	InitializeAttachedProjectileAndShoot_Internal(BoxExtent, InstigatorMesh, AttachSocketName, InGameplayEffectSpecHandles, TargetLocation,
 										  ProjectileSpeed, InProjectileGameplayCueTag, InExplosionGameplayCueTag,
 										  InHitReactEventTag, bShowCollisionInGame, LineThickness,
 										  InProjectileGravityScale, InbExplodeOnHit, DurationForNotExplodingProjectile);
