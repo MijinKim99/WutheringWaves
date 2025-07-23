@@ -21,6 +21,7 @@ class UPlayerCombatComponent;
 /**
  * 
  */
+
 UCLASS()
 class WUTHERINGWAVES_API APlayerCharacter : public AWWCharacter , public IAbilitySystemInterface
 {

@@ -3,12 +3,15 @@
 
 #include "JMS/Controller/WWAIController.h"
 
+#include "BehaviorTree/BehaviorTree.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Common/WWDebugHelper.h"
 #include "Common/PlayerControllers/WWPlayerController.h"
+#include "Kismet/GameplayStatics.h"
 #include "Navigation/CrowdFollowingComponent.h"
 #include "Perception/AIPerceptionComponent.h"
 #include "Perception/AISenseConfig_Sight.h"
+#include "YHG/PlayerCharacters/PlayerCharacter.h"
 
 AWWAIController::AWWAIController(const FObjectInitializer& ObjectInitializer)
 {
@@ -25,7 +28,7 @@ AWWAIController::AWWAIController(const FObjectInitializer& ObjectInitializer)
 	AISenseConfig_Sight->DetectionByAffiliation.bDetectEnemies = true;
 
 	//아군 감지
-	AISenseConfig_Sight->DetectionByAffiliation.bDetectFriendlies = false;
+	AISenseConfig_Sight->DetectionByAffiliation.bDetectFriendlies = true;
 
 	//중립 감지
 	AISenseConfig_Sight->DetectionByAffiliation.bDetectNeutrals = false;
@@ -53,17 +56,26 @@ AWWAIController::AWWAIController(const FObjectInitializer& ObjectInitializer)
 void AWWAIController::OnEnemyPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
 {
 	//Debug::Print(FString::Printf(TEXT("Perception Updated : %s"), *Actor->GetName()), FColor::Green);
-	if (Stimulus.WasSuccessfullySensed() && Actor)
-	{
-		if (UBlackboardComponent* BlackboardComponent = GetBlackboardComponent())
-		{
-			// TargetActor설정
-			if (!BlackboardComponent->GetValueAsObject(FName("TargetActor")))
-			{
-				BlackboardComponent->SetValueAsObject(FName(TEXT("TargetActor")), Actor);
-			}
-		}
-	}
+	 if (Stimulus.WasSuccessfullySensed() && Actor)
+	 {
+	 	APlayerCharacter* TargetPlayerCharacter = Cast<APlayerCharacter>(Actor);
+	 	if (!TargetPlayerCharacter)
+	 	{
+	 		return;
+	 	}
+	 	if (!TargetPlayerCharacter->IsPawnControlled())
+	 	{
+	 		return;
+	 	}
+	 	if (UBlackboardComponent* BlackboardComponent = GetBlackboardComponent())
+	 	{
+	 		// TargetActor설정
+	 		if (BlackboardComponent->GetValueAsObject(FName("TargetActor"))!=TargetPlayerCharacter)
+	 		{
+	 			BlackboardComponent->SetValueAsObject(FName(TEXT("TargetActor")), TargetPlayerCharacter);
+	 		}
+	 	}
+	 }
 }
 
 ETeamAttitude::Type AWWAIController::GetTeamAttitudeTowards(const AActor& Other) const
@@ -74,9 +86,11 @@ ETeamAttitude::Type AWWAIController::GetTeamAttitudeTowards(const AActor& Other)
 	// 팀 아이디가 낮은 팀만 공격(필요시 변경)
 	if (OtherTeamAgent && OtherTeamAgent->GetGenericTeamId() < GetGenericTeamId())
 	{
+		Debug::Print(FString::Printf(TEXT("%s : Hostile"), *Other.GetName()), FColor::Green, 141);
 		return ETeamAttitude::Hostile;
 	}
-		
+
+	Debug::Print(FString::Printf(TEXT("%s : Friendly"), *Other.GetName()), FColor::Green, 142);
 	return ETeamAttitude::Friendly;
 }
 
@@ -106,5 +120,26 @@ void AWWAIController::BeginPlay()
 		CrowdFollowingComponent->SetAvoidanceGroup(1);
 		CrowdFollowingComponent->SetGroupsToAvoid(1);
 		CrowdFollowingComponent->SetCrowdCollisionQueryRange(CollisionQueryRange);
+	}
+	// AWWPlayerController* PlayerController = Cast<AWWPlayerController>(
+	// 	UGameplayStatics::GetPlayerController(GetWorld(), 0));
+	// if (PlayerController)
+	// {
+	// 	PlayerController->OnPossessDelegate.AddDynamic(this, &AWWAIController::ChangeTarget);
+	// }
+}
+
+void AWWAIController::OnPossess(APawn* InPawn)
+{
+	Super::OnPossess(InPawn);
+}
+
+void AWWAIController::ChangeTarget(APawn* NewTarget)
+{
+	if (UBlackboardComponent* BlackboardComponent = GetBlackboardComponent())
+	{
+		// TargetActor설정
+
+		BlackboardComponent->SetValueAsObject(FName(TEXT("TargetActor")), NewTarget);
 	}
 }

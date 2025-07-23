@@ -102,6 +102,8 @@ namespace WWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Event_HitEnd, "Enemy.Event.HitEnd")
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Event_Parried, "Enemy.Event.Parried")
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Event_Start, "Enemy.Event.Start")
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Event_Death, "Enemy.Event.Death")
+	
 
 	//Enemy Status
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Status_Staggered, "Enemy.Status.Staggered")

@@ -57,7 +57,7 @@ void AEnemyCharacter::PossessedBy(AController* NewController)
 	}
 	else
 	{
-		Debug::Print(FString::Printf(TEXT("%s : WWAbilitySystemComponent is Null"),*GetNameSafe(this)), FColor::Red);
+		Debug::Print(FString::Printf(TEXT("%s : WWAbilitySystemComponent is Null"), *GetNameSafe(this)), FColor::Red);
 	}
 }
 
