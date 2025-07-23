@@ -6,6 +6,7 @@
 
 #include "Camera/CameraComponent.h"
 #include "Common/PlayerStates/WWPlayerState.h"
+#include "Common/Widget/WWUserWidget.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/KismetMathLibrary.h"
@@ -38,7 +39,7 @@ APlayerCharacter::APlayerCharacter(const FObjectInitializer& ObjectInitializer)
 	GetCharacterMovement()->GravityScale = 2.0f;
 
 	//플레이어 UI 세팅
-	PlayerUI = CreateDefaultSubobject<UPlayerUIComponent>(TEXT("PlayerUI"));;
+	PawnUI = CreateDefaultSubobject<UPawnUIComponent>(TEXT("PlayerUI"));;
 
 	//플레이어 AttributeSet
 	PlayerCharacterAttributeSet = CreateDefaultSubobject<UPlayerCharacterAttributeSet>(TEXT("ResonatorAttributeSet"));
@@ -67,6 +68,7 @@ UPlayerCharacterAttributeSet* APlayerCharacter::GetPlayerCharacterAttributeSet()
 void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	
 }
 
 void APlayerCharacter::Tick(float DeltaSeconds)
@@ -141,7 +143,7 @@ void APlayerCharacter::PossessedBy(AController* NewController)
 
 UPawnUIComponent* APlayerCharacter::GetPawnUIComponent() const
 {
-	return PlayerUI;
+	return PawnUI;
 }
 
 void APlayerCharacter::InitializeAttributeSet(

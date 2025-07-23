@@ -9,13 +9,6 @@
 void UWWUserWidget::NativeOnInitialized()
 {
 	Super::NativeOnInitialized();
-	if (IPawnUIInterface* PawnUIInterface = Cast<IPawnUIInterface>(GetOwningPlayerPawn()))
-	{
-		if (UPlayerUIComponent* PlayerUIComponent = PawnUIInterface->GetPlayerUIComponent())
-		{
-			BP_OnOwningPlayerUIComponentInitialized(PlayerUIComponent);
-		}
-	}
 }
 
 void UWWUserWidget::InitEnemyCreateWidget(AActor* EnemyActor)
@@ -25,6 +18,17 @@ void UWWUserWidget::InitEnemyCreateWidget(AActor* EnemyActor)
 		if (UEnemyUIComponent* EnemyUIComponent = PawnUIInterface->GetEnemyUIComponent())
 		{
 			BP_OnOwningEnemyUIComponentInitialized(EnemyUIComponent);
+		}
+	}
+}
+
+void UWWUserWidget::InitPlayerCreateWidget(AActor* PlayerCharacter)
+{
+	if (IPawnUIInterface* PawnUIInterface = Cast<IPawnUIInterface>(PlayerCharacter))
+	{
+		if (UPawnUIComponent* PawnUIComponent = PawnUIInterface->GetPawnUIComponent())
+		{
+			BP_OnOwningPlayerUIComponentInitialized(PawnUIComponent);
 		}
 	}
 }

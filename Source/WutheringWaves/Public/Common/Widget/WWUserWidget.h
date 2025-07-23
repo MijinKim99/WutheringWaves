@@ -6,6 +6,8 @@
 #include "Blueprint/UserWidget.h"
 #include "WWUserWidget.generated.h"
 
+class UPawnUIComponent;
+class APlayerCharacter;
 class UEnemyUIComponent;
 class UPlayerUIComponent;
 /**
@@ -19,12 +21,16 @@ protected:
 	virtual void NativeOnInitialized() override;
 
 	UFUNCTION(BlueprintImplementableEvent)
-	void BP_OnOwningPlayerUIComponentInitialized(UPlayerUIComponent* PlayerUIComponent);
-
+	void BP_OnOwningPlayerUIComponentInitialized(UPawnUIComponent* PawnUIComponent);
+	
 	UFUNCTION(BlueprintImplementableEvent)
 	void BP_OnOwningEnemyUIComponentInitialized(UEnemyUIComponent* EnemyUIComponent);
 
 public:
 	UFUNCTION(BlueprintCallable)
 	void InitEnemyCreateWidget(AActor* EnemyActor);
+
+	UFUNCTION(BlueprintCallable)
+	void InitPlayerCreateWidget(AActor* PlayerCharacter);
+	
 };
