@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GenericTeamAgentInterface.h"
 #include "GameFramework/Character.h"
 #include "Common/Interfaces/PawnUIInterface.h"
 #include "Common/Interfaces/PawnCombatInterface.h"
