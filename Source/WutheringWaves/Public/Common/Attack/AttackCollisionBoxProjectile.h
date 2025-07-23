@@ -80,7 +80,6 @@ public:
 														FName AttachSocketName,
 														const TArray<FGameplayEffectSpecHandle>&
 														InGameplayEffectSpecHandles,
-														FVector StartRelativeLocation,
 														FVector TargetLocation, float ProjectileSpeed,
 														FGameplayTag InProjectileGameplayCueTag,
 														FGameplayTag InExplosionGameplayCueTag,
@@ -108,7 +107,6 @@ public:
 																		  USkeletalMeshComponent* InstigatorMesh,
 																		  FName AttachSocketName,
 																		  const FGameplayEffectSpecHandle& InGameplayEffectSpecHandles,
-																		  FVector StartRelativeLocation,
 																		  FVector TargetLocation, float ProjectileSpeed,
 																		  FGameplayTag InProjectileGameplayCueTag,
 																		  FGameplayTag InExplosionGameplayCueTag,
@@ -141,7 +139,6 @@ public:
 																		  FName AttachSocketName,
 																		  const TArray<FGameplayEffectSpecHandle>&
 																		  InGameplayEffectSpecHandles,
-																		  FVector StartRelativeLocation,
 																		  FVector TargetLocation, float ProjectileSpeed,
 																		  FGameplayTag InProjectileGameplayCueTag,
 																		  FGameplayTag InExplosionGameplayCueTag,

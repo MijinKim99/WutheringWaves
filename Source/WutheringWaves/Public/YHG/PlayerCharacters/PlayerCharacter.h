@@ -8,6 +8,7 @@
 #include "Common/AbilitySystem/WWAbilitySystemComponent.h"
 #include "PlayerCharacter.generated.h"
 
+class UWWUserWidget;
 class UPlayerCharacterStartup;
 class UAttributeSet;
 struct FGameplayTag;
@@ -21,6 +22,7 @@ class UPlayerCombatComponent;
 /**
  * 
  */
+
 UCLASS()
 class WUTHERINGWAVES_API APlayerCharacter : public AWWCharacter , public IAbilitySystemInterface
 {
@@ -42,13 +44,16 @@ private:
 	UCameraComponent* FollowCamera;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
-	UPlayerUIComponent* PlayerUI;
+	UPawnUIComponent* PawnUI;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem", meta = (AllowPrivateAccess = "true"))
 	UWWAbilitySystemComponent* WWAbilitySystemComponent;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem", meta = (AllowPrivateAccess = "true"))
 	UPlayerCharacterAttributeSet* PlayerCharacterAttributeSet;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly,Category = "UI", meta = (AllowPrivateAccess = "true"))
+	UWWUserWidget* PlayerWidget;
 
 protected:
 	virtual void BeginPlay() override;

@@ -11,6 +11,7 @@
 #include "AbilitySystemInterface.h"
 #include "EnemyCharacter.generated.h"
 
+struct FGameplayEventData;
 class UWWAttributeSet;
 class UWWAbilitySystemComponent;
 class UEnemyAttributeSet;
@@ -35,13 +36,13 @@ public:
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem")
 	UWWAbilitySystemComponent* WWAbilitySystemComponent;
-	
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem")
 	UEnemyAttributeSet* EnemyAttributeSet;
-	
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem")
 	UWWAttributeSet* WWAttributeSet;
-	
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UEnemyCombatComponent* EnemyCombatComponent;
 
@@ -70,7 +71,8 @@ protected:
 	//AN이나, ANS같은 곳에서, 원하는 시점에 캔슬하기 위한 함수들 
 	UFUNCTION(BlueprintCallable)
 	void CancelEnemyActiveAbilities(UAbilitySystemComponent* ASC, FGameplayTag CancelTag);
-	
+
 	UFUNCTION(BlueprintCallable)
 	void CancelEnemyAllActiveAbilities(UAbilitySystemComponent* ASC);
+
 };

@@ -37,6 +37,7 @@ void AWWPlayerController::OnPossess(APawn* InPawn)
 	Super::OnPossess(InPawn);
 	
 	ControlledPlayerCharacter = Cast<APlayerCharacter>(InPawn);
+	// OnPossessDelegate.Broadcast(InPawn);
 }
 
 void AWWPlayerController::SetupInputComponent()

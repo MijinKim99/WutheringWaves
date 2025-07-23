@@ -25,12 +25,20 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UAISenseConfig_Sight* AISenseConfig_Sight;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UBehaviorTree* BTAsset;
+
 	UFUNCTION()
 	virtual void OnEnemyPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus);
 
 	virtual ETeamAttitude::Type GetTeamAttitudeTowards(const AActor& Other) const override;
 
 	virtual void BeginPlay() override;
+
+	virtual void OnPossess(APawn* InPawn) override;
+
+	UFUNCTION()
+	void ChangeTarget(APawn* NewTarget);
 
 private:
 	UPROPERTY(EditDefaultsOnly, Category="AI")

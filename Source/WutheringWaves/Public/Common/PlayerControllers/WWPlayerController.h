@@ -16,25 +16,30 @@ class UInputConfig;
 /**
  * 
  */
+
+// DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPossessDelegate, APawn*, NewPawn);
+
 UCLASS()
 class WUTHERINGWAVES_API AWWPlayerController : public APlayerController, public IGenericTeamAgentInterface
 {
 	GENERATED_BODY()
+
 public:
 	AWWPlayerController();
 	virtual FGenericTeamId GetGenericTeamId() const override;
 
 	APlayerCharacter* GetControlledPlayerCharacter() const;
+
 private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	UInputConfig* DataAsset_InputConfig;
-	
+
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	APlayerCharacter* ControlledPlayerCharacter;
-	
+
 	virtual void OnPossess(APawn* InPawn) override;
 	virtual void SetupInputComponent() override;
-	
+
 	void Input_Move(const FInputActionValue& InputActionValue);
 	void Input_Look(const FInputActionValue& InputActionValue);
 
@@ -42,18 +47,25 @@ private:
 	void Input_AbilityInputReleased(FGameplayTag InputTag);
 
 private:
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "NativeInputControl")
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"),
+		Category = "NativeInputControl")
 	FVector2D IsInputMove;
-	
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "AbilityInputControl")
+
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"),
+		Category = "AbilityInputControl")
 	bool bIsInputDash;
 
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "AbilityInputControl")
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"),
+		Category = "AbilityInputControl")
 	bool bIsInputJump;
 
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "AbilityInputControl")
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"),
+		Category = "AbilityInputControl")
 	bool bIsInputLightAttack;
 
 private:
 	FGenericTeamId HeroTeamID;
+
+// public:
+// 	FOnPossessDelegate OnPossessDelegate;
 };

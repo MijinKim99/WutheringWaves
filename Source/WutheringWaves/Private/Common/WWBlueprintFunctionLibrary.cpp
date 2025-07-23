@@ -50,9 +50,19 @@ FActiveGameplayEffectHandle UWWBlueprintFunctionLibrary::ApplyGameplayEffectSpec
 	const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle)
 {
 	UAbilitySystemComponent* ASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
-	check(ASC&&InGameplayEffectSpecHandle.IsValid());
-
-	return ASC->ApplyGameplayEffectSpecToTarget(*InGameplayEffectSpecHandle.Data, ASC);
+	if (ASC)
+	{
+		if (InGameplayEffectSpecHandle.IsValid())
+		{
+			return ASC->ApplyGameplayEffectSpecToTarget(*InGameplayEffectSpecHandle.Data, ASC);
+		}
+		else
+		{
+			Debug::Print(TEXT("ApplyGameplayEffectSpecHandleToTarget : InGameplayEffectSpecHandle is Invalid"));
+			return FActiveGameplayEffectHandle();
+		}
+	}
+	return FActiveGameplayEffectHandle();
 }
 
 void UWWBlueprintFunctionLibrary::BP_HasTag(AActor* Actor, FGameplayTag Tag, EWWConfirmType& OutType)
@@ -113,7 +123,6 @@ bool UWWBlueprintFunctionLibrary::ApplyGameplayEffectSpecHandleToTargetActor(AAc
 
 	return ActiveGameplayEffectHandle.WasSuccessfullyApplied();
 }
-
 
 
 /*

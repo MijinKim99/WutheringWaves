@@ -154,60 +154,60 @@ void UGEExecClac_EnemyDamageTaken::Execute_Implementation(
 		{
 			SourcePhysicalDamage = TagMagnitude.Value;
 			SourcePhysicalDamage *= (1.f - TargetPhysicalResistance);
-			Debug::Print(TEXT("PhysicalDamage"), SourcePhysicalDamage);
+			// Debug::Print(TEXT("PhysicalDamage"), SourcePhysicalDamage);
 		}
 		if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Shared_SetByCaller_Damage_Ice))
 		{
 			SourceIceDamage = TagMagnitude.Value;
 			SourceIceDamage *= (1.f - TargetIceResistance);
-			Debug::Print(TEXT("IceDamage"), SourceIceDamage);
+			// Debug::Print(TEXT("IceDamage"), SourceIceDamage);
 		}
 		if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Shared_SetByCaller_Damage_Fire))
 		{
 			SourceFireDamage = TagMagnitude.Value;
-			Debug::Print(TEXT("AppliedFireDamage"), SourceFireDamage);
+			// Debug::Print(TEXT("AppliedFireDamage"), SourceFireDamage);
 			SourceFireDamage *= (1.f - TargetFireResistance);
-			Debug::Print(TEXT("FireDamage"), SourceFireDamage);
+			// Debug::Print(TEXT("FireDamage"), SourceFireDamage);
 		}
 		if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Shared_SetByCaller_Damage_Lightning))
 		{
 			SourceLightningDamage = TagMagnitude.Value;
 			SourceLightningDamage *= (1.f - TargetLightningResistance);
-			Debug::Print(TEXT("LightningDamage"), SourceLightningDamage);
+			// Debug::Print(TEXT("LightningDamage"), SourceLightningDamage);
 		}
 		if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Shared_SetByCaller_Damage_Wind))
 		{
 			SourceWindDamage = TagMagnitude.Value;
 			SourceWindDamage *= (1.f - TargetWindResistance);
-			Debug::Print(TEXT("WindDamage"), SourceWindDamage);
+			// Debug::Print(TEXT("WindDamage"), SourceWindDamage);
 		}
 		if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Shared_SetByCaller_Damage_Light))
 		{
 			SourceLightDamage = TagMagnitude.Value;
 			SourceLightDamage *= (1.f - TargetLightResistance);
-			Debug::Print(TEXT("LightDamage"), SourceLightDamage);
+			// Debug::Print(TEXT("LightDamage"), SourceLightDamage);
 		}
 		if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Shared_SetByCaller_Damage_Dark))
 		{
 			SourceDarkDamage = TagMagnitude.Value;
 			SourceDarkDamage *= (1.f - TargetDarkResistance);
-			Debug::Print(TEXT("DarkDamage"), SourceDarkDamage);
+			// Debug::Print(TEXT("DarkDamage"), SourceDarkDamage);
 		}
 		if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Shared_SetByCaller_Damage_Stagger))
 		{
 			SourceStaggerDamage = TagMagnitude.Value;
-			Debug::Print(TEXT("StaggerDamage"), SourceStaggerDamage);
+			// Debug::Print(TEXT("StaggerDamage"), SourceStaggerDamage);
 		}
 		if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Shared_SetByCaller_Damage_Parry))
 		{
 			SourceParryDamage = TagMagnitude.Value;
-			Debug::Print(TEXT("StaggerDamage"), SourceStaggerDamage);
+			// Debug::Print(TEXT("StaggerDamage"), SourceStaggerDamage);
 		}
 	}
 	float TargetDefence = 0.f;
 	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetWWAttributeSetCapture().ApplyDefenseDef,
 	                                                           EvaluateParameters, TargetDefence);
-	Debug::Print(TEXT("TargetDefence"), TargetDefence);
+	// Debug::Print(TEXT("TargetDefence"), TargetDefence);
 
 	// 현재는 한번에 하나의 대미지만 들어옴
 	float AppliedSourceDamage = SourcePhysicalDamage + SourceIceDamage + SourceFireDamage + SourceLightningDamage +
@@ -216,7 +216,7 @@ void UGEExecClac_EnemyDamageTaken::Execute_Implementation(
 	float DefenceEffect = 1.0f - (TargetDefence / (TargetDefence + 800.0f));
 	// 캐릭터 공격력, 다양한 공격력 증가 요소, 크리티컬 수치는 적용된 상태로 값이 들어와야 함
 	const float FinalDamage = AppliedSourceDamage * DefenceEffect;
-	Debug::Print(TEXT("FinalDamage"), FinalDamage);
+	// Debug::Print(TEXT("FinalDamage"), FinalDamage);
 
 
 	// 출력 : 여러 Attribute 중 필요한 값들을 변경
