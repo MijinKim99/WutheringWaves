@@ -74,6 +74,13 @@ protected:
 		float CurrentBurstEnergy, float MaxBurstEnergy,
 		float CurrentForteCircuitEnergy, float MaxForteCircuitEnergy,
 		float CurrentConcertoEnergy, float MaxConcertoEnergy);
+
+	UFUNCTION(BlueprintCallable)
+	void ApplyWeaponStatsToCharacterAttributeSet(
+	float ApplyAttack,
+	float ApplyEnergyRegen,
+	float ApplyCriticalRate
+	);
 	
 //StateControl
 protected:

@@ -193,6 +193,14 @@ void APlayerCharacter::InitializeAttributeSet(
 	PlayerCharacterAttributeSet->SetMaxConcertoEnergy(MaxConcertoEnergy);
 }
 
+void APlayerCharacter::ApplyWeaponStatsToCharacterAttributeSet(float ApplyAttack, float ApplyEnergyRegen,
+	float ApplyCriticalRate)
+{
+	PlayerCharacterAttributeSet->SetApplyAttack(ApplyAttack);
+	PlayerCharacterAttributeSet->SetApplyEnergyRegen(ApplyEnergyRegen);
+	PlayerCharacterAttributeSet->SetApplyCriticalRate(ApplyCriticalRate);
+}
+
 bool APlayerCharacter::GetIsGrounded() const
 {
 	return bIsGrounded;
