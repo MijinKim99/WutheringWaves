@@ -9,7 +9,6 @@
 
 class APlayerCharacter;
 class AWWPlayerController;
-class UPlayerCombatComponent;
 
 /**
  * 
