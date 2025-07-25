@@ -92,6 +92,13 @@ enum class ECharacterStats : uint8
 	Stamina
 };
 
+UENUM(BlueprintType)
+enum class EWeaponSortStandard : uint8
+{
+	Rarity,
+	Level
+};
+
 class WWEnum
 {
 public:
