@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GenericTeamAgentInterface.h"
+#include "Common/Interfaces/WWHUDSharedUIInterface.h"
 #include "GameFramework/PlayerController.h"
 #include "WWPlayerController.generated.h"
 
@@ -20,7 +21,8 @@ class UInputConfig;
 // DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPossessDelegate, APawn*, NewPawn);
 
 UCLASS()
-class WUTHERINGWAVES_API AWWPlayerController : public APlayerController, public IGenericTeamAgentInterface
+class WUTHERINGWAVES_API AWWPlayerController : public APlayerController, public IGenericTeamAgentInterface,
+                                               public IWWHUDSharedUIInterface
 {
 	GENERATED_BODY()
 
@@ -66,6 +68,14 @@ private:
 private:
 	FGenericTeamId HeroTeamID;
 
-// public:
-// 	FOnPossessDelegate OnPossessDelegate;
+	// public:
+	// 	FOnPossessDelegate OnPossessDelegate;
+
+	// IWWHUDSharedUIInterface
+public:
+	virtual UWWHUDSharedUIComponent* GetHUDSharedUIComponent() const override;
+
+protected:
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "HUDSharedUI")
+	UWWHUDSharedUIComponent* HUDSharedUIComponent;
 };
