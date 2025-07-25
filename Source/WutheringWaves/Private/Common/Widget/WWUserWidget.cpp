@@ -3,6 +3,7 @@
 
 #include "Common/Widget/WWUserWidget.h"
 #include "Common/Interfaces/PawnUIInterface.h"
+#include "Common/Interfaces/WWHUDSharedUIInterface.h"
 #include "KMJ/UIComponents/PlayerUIComponent.h"
 #include "KMJ/UIComponents/EnemyUIComponent.h"
 
@@ -29,6 +30,17 @@ void UWWUserWidget::InitPlayerCreateWidget(AActor* PlayerCharacter)
 		if (UPawnUIComponent* PawnUIComponent = PawnUIInterface->GetPawnUIComponent())
 		{
 			BP_OnOwningPlayerUIComponentInitialized(PawnUIComponent);
+		}
+	}
+}
+
+void UWWUserWidget::InitHUDSharedWidget(AActor* PlayerController)
+{
+	if (IWWHUDSharedUIInterface* HUDSharedUIInterface = Cast<IWWHUDSharedUIInterface>(PlayerController))
+	{
+		if (UWWHUDSharedUIComponent* HUDSharedUIComponent = HUDSharedUIInterface->GetHUDSharedUIComponent())
+		{
+			BP_OnOwningHUDSharedUIComponentInitialized(HUDSharedUIComponent);
 		}
 	}
 }

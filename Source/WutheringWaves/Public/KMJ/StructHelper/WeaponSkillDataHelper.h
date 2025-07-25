@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "WeaponSkillDataHelper.generated.h"
 
+struct FInventory_Weapon;
+struct FWeaponData;
 struct FWeaponSkillData;
 /**
  * 
@@ -16,4 +18,7 @@ class WUTHERINGWAVES_API UWeaponSkillDataHelper : public UObject
 public:
 	UFUNCTION(BlueprintCallable)
 	static FString WeaponSkillDataHelp(UPARAM(ref) FWeaponSkillData& SkillData);
+
+	UFUNCTION(BlueprintCallable)
+	static TArray<FInventory_Weapon> WeaponSortByStandard(UPARAM(ref) UDataTable* WeaponData, UPARAM(ref) TArray<FInventory_Weapon> WeaponItem, EWeaponSortStandard SortStandard);
 };

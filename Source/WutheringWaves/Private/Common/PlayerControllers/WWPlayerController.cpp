@@ -7,6 +7,7 @@
 #include "Common/WWDebugHelper.h"
 #include "Common/WWGameplayTags.h"
 #include "Common/AbilitySystem/WWAbilitySystemComponent.h"
+#include "Common/Components/WWHUDSharedUIComponent.h"
 #include "Common/PlayerStates/WWPlayerState.h"
 #include "YHG/Components/Input/WWEnhancedInputComponent.h"
 #include "GameFramework/Character.h"
@@ -20,6 +21,8 @@ AWWPlayerController::AWWPlayerController()
 	bIsInputLightAttack = false;
 	
 	HeroTeamID = FGenericTeamId(0);
+
+	HUDSharedUIComponent = CreateDefaultSubobject<UWWHUDSharedUIComponent>(TEXT("HUDSharedUIComponent"));
 }
 
 FGenericTeamId AWWPlayerController::GetGenericTeamId() const
@@ -145,4 +148,9 @@ void AWWPlayerController::Input_AbilityInputReleased(FGameplayTag InputTag)
 	}
 	
 	WWAbilitySystemComponent->OnAbilityInputReleased(InputTag);
+}
+
+UWWHUDSharedUIComponent* AWWPlayerController::GetHUDSharedUIComponent() const
+{
+	return HUDSharedUIComponent;
 }
