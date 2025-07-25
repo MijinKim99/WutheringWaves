@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "WWUserWidget.generated.h"
 
+class UWWHUDSharedUIComponent;
 class UPawnUIComponent;
 class APlayerCharacter;
 class UEnemyUIComponent;
@@ -26,11 +27,17 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent)
 	void BP_OnOwningEnemyUIComponentInitialized(UEnemyUIComponent* EnemyUIComponent);
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void BP_OnOwningHUDSharedUIComponentInitialized(UWWHUDSharedUIComponent* HUDSharedUIComponent);
 public:
 	UFUNCTION(BlueprintCallable)
 	void InitEnemyCreateWidget(AActor* EnemyActor);
 
 	UFUNCTION(BlueprintCallable)
 	void InitPlayerCreateWidget(AActor* PlayerCharacter);
+
+	UFUNCTION(BlueprintCallable)
+	void InitHUDSharedWidget(AActor* PlayerController);
+	
 	
 };
