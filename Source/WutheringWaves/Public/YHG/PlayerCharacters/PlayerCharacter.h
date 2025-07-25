@@ -17,7 +17,7 @@ class UPlayerCharacterAttributeSet;
 class AEnemyCharacter;
 class UCameraComponent;
 class USpringArmComponent;
-class UPlayerCombatComponent;
+
 
 /**
  * 
@@ -54,6 +54,9 @@ private:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly,Category = "UI", meta = (AllowPrivateAccess = "true"))
 	UWWUserWidget* PlayerWidget;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly,Category = "PawnCombat", meta = (AllowPrivateAccess = "true"))
+	UPawnCombatComponent* PawnCombatComponent;
 
 protected:
 	virtual void BeginPlay() override;

@@ -5,6 +5,7 @@
 #include "Common/WWDebugHelper.h"
 
 #include "Camera/CameraComponent.h"
+#include "Common/Components/Combat/PawnCombatComponent.h"
 #include "Common/PlayerStates/WWPlayerState.h"
 #include "Common/Widget/WWUserWidget.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -43,6 +44,8 @@ APlayerCharacter::APlayerCharacter(const FObjectInitializer& ObjectInitializer)
 
 	//플레이어 AttributeSet
 	PlayerCharacterAttributeSet = CreateDefaultSubobject<UPlayerCharacterAttributeSet>(TEXT("ResonatorAttributeSet"));
+
+	PawnCombatComponent = CreateDefaultSubobject<UPawnCombatComponent>(TEXT("PawnCombatComponent"));
 
 	//메시 -90도 돌려놓아 정면으로 조정
 	GetMesh()->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
