@@ -11,6 +11,7 @@
 #include "Common/Components/WWHUDSharedUIComponent.h"
 #include "Common/Interfaces/PawnUIInterface.h"
 #include "Common/Interfaces/WWHUDSharedUIInterface.h"
+#include "JMS/Character/EliteEnemyCharacter.h"
 #include "KMJ/UIComponents/EnemyUIComponent.h"
 #include "KMJ/UIComponents/PawnUIComponent.h"
 
@@ -43,7 +44,7 @@ void UEliteAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectM
 	// UWWHUDSharedUIComponent* HUDSharedUIComponent = CachedHUDSharedUIInterface->GetHUDSharedUIComponent();
 
 	checkf(EnemyUIComponent, TEXT("Can not Load PawnUIComponent from %s"),
-	*Data.Target.GetAvatarActor()->GetActorLabel());
+	       *Data.Target.GetAvatarActor()->GetActorLabel());
 	// checkf(HUDSharedUIComponent, TEXT("Can not Load WWHUDSharedUIComponent from %s"),
 	// 	   *Data.Target.GetAvatarActor()->GetActorLabel());
 	if (Data.EvaluatedData.Attribute == GetCurrentStaggerAttribute())
@@ -95,6 +96,11 @@ void UEliteAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectM
 			//공진 UI 업데이트
 			EnemyUIComponent->OnCurrentStaggerChanged.Broadcast(GetCurrentStagger() / GetMaxStagger());
 			// HUDSharedUIComponent->OnUpdateEnemyHUDHPBarStaggerPercent.Broadcast(GetCurrentStagger() / GetMaxStagger());
+			if (AEliteEnemyCharacter* AvatarEnemyCharacter = Cast<AEliteEnemyCharacter>(Data.Target.GetAvatarActor()))
+			{
+				AvatarEnemyCharacter->DisableParry();
+			}
+
 			if (NewCurrentStagger == 0.0f)
 			{
 				UWWBlueprintFunctionLibrary::AddTagToActor(Data.Target.GetAvatarActor(),

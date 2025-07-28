@@ -9,6 +9,7 @@
 /**
  * 
  */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnSetEnableDelegate, bool, bIsEnabled);
 UCLASS()
 class WUTHERINGWAVES_API UEnemyUIComponent : public UPawnUIComponent
 {
@@ -17,4 +18,12 @@ class WUTHERINGWAVES_API UEnemyUIComponent : public UPawnUIComponent
 public:
 	UPROPERTY(BlueprintAssignable)
 	FOnPercentChangeDelegate OnCurrentStaggerChanged;
+	UPROPERTY(BlueprintAssignable)
+	FOnSetEnableDelegate OnSetParryGuideEnable;
+	UPROPERTY(BlueprintAssignable)
+	FOnSetEnableDelegate OnSetParryEnable;
+	UPROPERTY(BlueprintAssignable)
+	FOnPercentChangeDelegate OnReadyForParryUpdate;
+	UPROPERTY(BlueprintAssignable)
+	FOnPercentChangeDelegate OnParryUpdate;
 };
