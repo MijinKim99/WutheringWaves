@@ -16,6 +16,7 @@ GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
+class IWWHUDSharedUIInterface;
 class IPawnUIInterface;
 
 UCLASS()
@@ -38,6 +39,7 @@ public:
 	ATTRIBUTE_ACCESSORS(UEliteAttributeSet, ParryDamageTaken)
 private:
 	TWeakInterfacePtr<IPawnUIInterface> CachedUIInterface;
+	// TWeakInterfacePtr<IWWHUDSharedUIInterface> CachedHUDSharedUIInterface;
 protected:
 	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) override;
 };

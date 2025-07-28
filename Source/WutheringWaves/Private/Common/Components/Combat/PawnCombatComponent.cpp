@@ -5,6 +5,7 @@
 
 #include "Common/Attack/AttackCollisionBox.h"
 #include "Common/Attack/AttackCollisionBoxProjectile.h"
+#include "Common/Attack/AttackCollisionCapsule.h"
 #include "Common/Attack/AttackCollisionSphereProjectile.h"
 #include "Common/ObjectPool/WWObjectPoolComponent.h"
 
@@ -39,6 +40,24 @@ void UPawnCombatComponent::BeginPlay()
 			NewPool->RegisterComponent();
 			AttackCollisionSphereProjectilePool = NewPool;
 			break;
+		case EAttackCollisionType::BoxProjectile:
+			NewPool = NewObject<UWWObjectPoolComponent>(
+				GetOwningPawn(), UWWObjectPoolComponent::StaticClass());
+			NewPool->PooledObjectClass = AAttackCollisionBoxProjectile::StaticClass();
+			NewPool->PoolSize = PoolInfo.PoolSize;
+			NewPool->PooledObjectLifeTime = PoolInfo.PooledObjectLifeTime;
+			NewPool->RegisterComponent();
+			AttackCollisionBoxProjectilePool = NewPool;
+			break;
+		case EAttackCollisionType::Capsule:
+			NewPool = NewObject<UWWObjectPoolComponent>(
+				GetOwningPawn(), UWWObjectPoolComponent::StaticClass());
+			NewPool->PooledObjectClass = AAttackCollisionCapsule::StaticClass();
+			NewPool->PoolSize = PoolInfo.PoolSize;
+			NewPool->PooledObjectLifeTime = PoolInfo.PooledObjectLifeTime;
+			NewPool->RegisterComponent();
+			AttackCollisionCapsulePool = NewPool;
+			break;
 		default:
 			break;
 		}
@@ -58,6 +77,11 @@ AAttackCollisionSphereProjectile* UPawnCombatComponent::EnableAttackCollisionSph
 AAttackCollisionBoxProjectile* UPawnCombatComponent::EnableAttackCollisionBoxProjectileFromPool()
 {
 	return Cast<AAttackCollisionBoxProjectile>(AttackCollisionBoxProjectilePool->SpawnPooledObject(GetOwningPawn()));
+}
+
+AAttackCollisionCapsule* UPawnCombatComponent::EnableAttackCollisionCapsuleFromPool()
+{
+	return Cast<AAttackCollisionCapsule>(AttackCollisionCapsulePool->SpawnPooledObject(GetOwningPawn()));
 }
 
 void UPawnCombatComponent::DeactivateAllPooledObjects()

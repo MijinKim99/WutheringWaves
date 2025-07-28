@@ -13,5 +13,8 @@ UCLASS()
 class WUTHERINGWAVES_API UEnemyUIComponent : public UPawnUIComponent
 {
 	GENERATED_BODY()
-	
+
+public:
+	UPROPERTY(BlueprintAssignable)
+	FOnPercentChangeDelegate OnCurrentStaggerChanged;
 };

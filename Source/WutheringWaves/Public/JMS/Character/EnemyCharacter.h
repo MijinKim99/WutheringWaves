@@ -9,6 +9,7 @@
 #include "RootMotionModifier.h"
 #include "Common/Characters/WWCharacter.h"
 #include "AbilitySystemInterface.h"
+#include "Common/Interfaces/WWHUDSharedUIInterface.h"
 #include "EnemyCharacter.generated.h"
 
 struct FGameplayEventData;
@@ -25,14 +26,20 @@ class UBoxComponent;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnInitializedDelegate);
 
 UCLASS()
-class WUTHERINGWAVES_API AEnemyCharacter : public AWWCharacter, public IAbilitySystemInterface
+class WUTHERINGWAVES_API AEnemyCharacter : public AWWCharacter, public IAbilitySystemInterface,public IWWHUDSharedUIInterface
 {
 	GENERATED_BODY()
 
 public:
 	AEnemyCharacter();
+public:
 	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
-
+	virtual UPawnUIComponent* GetPawnUIComponent() const override;
+	virtual UEnemyUIComponent* GetEnemyUIComponent() const override;
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	FText GetEnemyName()const;
+public:
+	void HideWidgetComponent();
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem")
 	UWWAbilitySystemComponent* WWAbilitySystemComponent;
@@ -52,12 +59,14 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="UI")
 	UWidgetComponent* WidgetComponent;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Enemy Info")
+	FText EnemyName;
 	virtual void PossessedBy(AController* NewController) override;
-	virtual UPawnUIComponent* GetPawnUIComponent() const override;
-	virtual UEnemyUIComponent* GetEnemyUIComponent() const override;
-	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	virtual void BeginPlay() override;
-
+	//IWWHUDSharedUIInterface
+	virtual UWWHUDSharedUIComponent* GetHUDSharedUIComponent() const override;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI")
+	UWWHUDSharedUIComponent* WWHUDSharedUIComponent;
 	UFUNCTION(BlueprintCallable, Category = "Motion Warping")
 	void SetAttackTransformFromMotionWarpingTarget(FName WarpTargetName);
 

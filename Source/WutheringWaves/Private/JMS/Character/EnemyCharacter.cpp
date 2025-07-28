@@ -11,6 +11,7 @@
 #include "Common/WWDebugHelper.h"
 #include "Common/WWGameplayTags.h"
 #include "Common/AbilitySystem/WWAttributeSet.h"
+#include "Common/Components/WWHUDSharedUIComponent.h"
 #include "Common/DataAssets/DataAsset_Startup.h"
 #include "Common/Widget/WWUserWidget.h"
 #include "Components/BoxComponent.h"
@@ -30,6 +31,7 @@ AEnemyCharacter::AEnemyCharacter()
 	EnemyAttributeSet = CreateDefaultSubobject<UEnemyAttributeSet>("EnemyAttributeSet");
 	WWAttributeSet = CreateDefaultSubobject<UWWAttributeSet>("WWAttributeSet");
 	WWAbilitySystemComponent = CreateDefaultSubobject<UWWAbilitySystemComponent>(TEXT("WWAbilitySystemComponent"));
+	WWHUDSharedUIComponent = CreateDefaultSubobject<UWWHUDSharedUIComponent>(TEXT("WWHUDSharedUIComponent"));
 
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationRoll = false;
@@ -45,6 +47,8 @@ AEnemyCharacter::AEnemyCharacter()
 	EnemyUIComponent = CreateDefaultSubobject<UEnemyUIComponent>(TEXT("EnemyUIComponent"));
 	WidgetComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("WidgetComponent"));
 	WidgetComponent->SetupAttachment(GetMesh());
+
+	EnemyName = FText::FromName(FName(TEXT("적 이름을 입력하세요")));
 }
 
 void AEnemyCharacter::PossessedBy(AController* NewController)
@@ -64,6 +68,19 @@ void AEnemyCharacter::PossessedBy(AController* NewController)
 UPawnCombatComponent* AEnemyCharacter::GetPawnCombatComponent() const
 {
 	return EnemyCombatComponent;
+}
+
+FText AEnemyCharacter::GetEnemyName() const
+{
+	return EnemyName;
+}
+
+void AEnemyCharacter::HideWidgetComponent()
+{
+	if (WidgetComponent)
+	{
+		WidgetComponent->SetHiddenInGame(true);
+	}
 }
 
 UPawnUIComponent* AEnemyCharacter::GetPawnUIComponent() const
@@ -89,6 +106,11 @@ void AEnemyCharacter::BeginPlay()
 	{
 		HealthWidget->InitEnemyCreateWidget(this);
 	}
+}
+
+UWWHUDSharedUIComponent* AEnemyCharacter::GetHUDSharedUIComponent() const
+{
+	return WWHUDSharedUIComponent;
 }
 
 void AEnemyCharacter::SetAttackTransformFromMotionWarpingTarget(FName WarpTargetName)

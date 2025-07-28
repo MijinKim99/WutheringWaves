@@ -61,6 +61,18 @@ protected:
 	FGameplayTag HitReactEventTag;
 
 public:
+	UFUNCTION(BlueprintCallable, Category = "Attack Box Projectile")
+	void InitializeProjectileWithPresetAndShoot(TSubclassOf<AAttackCollisionBoxProjectile> ProjectileClass,
+	                                            USkeletalMeshComponent* InstigatorMesh,
+	                                            FName AttachSocketName, AActor* HomingTargetActor,
+	                                            const TArray<FGameplayEffectSpecHandle>&
+	                                            InGameplayEffectSpecHandles,
+	                                            FVector TargetLocation, float ProjectileSpeed,
+	                                            bool bShowCollisionInGame,
+	                                            float LineThickness,
+	                                            bool InbExplodeOnHit,
+	                                            float DurationForNotExplodingProjectile);
+
 	// 콜리전 크기, 위치, GameplayCue 지정해준 후에 호출해야함
 
 	void InitializeProjectileAndShoot_Internal(FVector BoxExtent,
@@ -76,22 +88,22 @@ public:
 
 	// Bone Socket에 붙여서 콜리전 활성화
 	void InitializeAttachedProjectileAndShoot_Internal(FVector BoxExtent,
-														USkeletalMeshComponent* InstigatorMesh,
-														FName AttachSocketName,
-														const TArray<FGameplayEffectSpecHandle>&
-														InGameplayEffectSpecHandles,
-														FVector TargetLocation, float ProjectileSpeed,
-														FGameplayTag InProjectileGameplayCueTag,
-														FGameplayTag InExplosionGameplayCueTag,
-														FGameplayTag InHitReactEventTag,
-														bool bShowCollisionInGame,
-														float LineThickness,
-														float InProjectileGravityScale,
-														bool InbExplodeOnHit,
-														float DurationForNotExplodingProjectile);
+	                                                   USkeletalMeshComponent* InstigatorMesh,
+	                                                   FName AttachSocketName,
+	                                                   const TArray<FGameplayEffectSpecHandle>&
+	                                                   InGameplayEffectSpecHandles,
+	                                                   FVector TargetLocation, float ProjectileSpeed,
+	                                                   FGameplayTag InProjectileGameplayCueTag,
+	                                                   FGameplayTag InExplosionGameplayCueTag,
+	                                                   FGameplayTag InHitReactEventTag,
+	                                                   bool bShowCollisionInGame,
+	                                                   float LineThickness,
+	                                                   float InProjectileGravityScale,
+	                                                   bool InbExplodeOnHit,
+	                                                   float DurationForNotExplodingProjectile);
 
 	// BP 호출용
-	UFUNCTION(BlueprintCallable, Category = "SphereProjectile")
+	UFUNCTION(BlueprintCallable, Category = "Attack Box Projectile")
 	void InitializeProjectileAndShoot(FVector BoxExtent,
 	                                  const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle,
 	                                  FVector StartRelativeLocation,
@@ -102,24 +114,24 @@ public:
 	                                  InbExplodeOnHit, float DurationForNotExplodingProjectile
 	);
 	// BP 호출용
-	UFUNCTION(BlueprintCallable, Category = "Attack Box")
+	UFUNCTION(BlueprintCallable, Category = "Attack Box Projectile")
 	void InitializeAttachedProjectileAndShoot(FVector BoxExtent,
-																		  USkeletalMeshComponent* InstigatorMesh,
-																		  FName AttachSocketName,
-																		  const FGameplayEffectSpecHandle& InGameplayEffectSpecHandles,
-																		  FVector TargetLocation, float ProjectileSpeed,
-																		  FGameplayTag InProjectileGameplayCueTag,
-																		  FGameplayTag InExplosionGameplayCueTag,
-																		  FGameplayTag InHitReactEventTag,
-																		  bool bShowCollisionInGame,
-																		  float LineThickness,
-																		  float InProjectileGravityScale,
-																		  bool InbExplodeOnHit,
-																		  float DurationForNotExplodingProjectile);
+	                                          USkeletalMeshComponent* InstigatorMesh,
+	                                          FName AttachSocketName,
+	                                          const FGameplayEffectSpecHandle& InGameplayEffectSpecHandles,
+	                                          FVector TargetLocation, float ProjectileSpeed,
+	                                          FGameplayTag InProjectileGameplayCueTag,
+	                                          FGameplayTag InExplosionGameplayCueTag,
+	                                          FGameplayTag InHitReactEventTag,
+	                                          bool bShowCollisionInGame,
+	                                          float LineThickness,
+	                                          float InProjectileGravityScale,
+	                                          bool InbExplodeOnHit,
+	                                          float DurationForNotExplodingProjectile);
 
-	
+
 	// BP 호출용
-	UFUNCTION(BlueprintCallable, Category = "SphereProjectile")
+	UFUNCTION(BlueprintCallable, Category = "Attack Box Projectile")
 	void InitializeProjectileAndShootMultipleEffects(FVector BoxExtent,
 	                                                 const TArray<FGameplayEffectSpecHandle>&
 	                                                 InGameplayEffectSpecHandles,
@@ -133,21 +145,22 @@ public:
 	);
 
 	// BP 호출용
-	UFUNCTION(BlueprintCallable, Category = "Attack Box")
+	UFUNCTION(BlueprintCallable, Category = "Attack Box Projectile")
 	void InitializeAttachedProjectileAndShootMultipleEffects(FVector BoxExtent,
-																		  USkeletalMeshComponent* InstigatorMesh,
-																		  FName AttachSocketName,
-																		  const TArray<FGameplayEffectSpecHandle>&
-																		  InGameplayEffectSpecHandles,
-																		  FVector TargetLocation, float ProjectileSpeed,
-																		  FGameplayTag InProjectileGameplayCueTag,
-																		  FGameplayTag InExplosionGameplayCueTag,
-																		  FGameplayTag InHitReactEventTag,
-																		  bool bShowCollisionInGame,
-																		  float LineThickness,
-																		  float InProjectileGravityScale,
-																		  bool InbExplodeOnHit,
-																		  float DurationForNotExplodingProjectile);
+	                                                         USkeletalMeshComponent* InstigatorMesh,
+	                                                         FName AttachSocketName,
+	                                                         const TArray<FGameplayEffectSpecHandle>&
+	                                                         InGameplayEffectSpecHandles,
+	                                                         FVector TargetLocation, float ProjectileSpeed,
+	                                                         FGameplayTag InProjectileGameplayCueTag,
+	                                                         FGameplayTag InExplosionGameplayCueTag,
+	                                                         FGameplayTag InHitReactEventTag,
+	                                                         bool bShowCollisionInGame,
+	                                                         float LineThickness,
+	                                                         float InProjectileGravityScale,
+	                                                         bool InbExplodeOnHit,
+	                                                         float DurationForNotExplodingProjectile);
+
 public:
 	bool bExplodeOnHit = false;
 };

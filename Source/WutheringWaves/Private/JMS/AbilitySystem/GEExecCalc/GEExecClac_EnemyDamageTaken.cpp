@@ -196,7 +196,7 @@ void UGEExecClac_EnemyDamageTaken::Execute_Implementation(
 		if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Shared_SetByCaller_Damage_Stagger))
 		{
 			SourceStaggerDamage = TagMagnitude.Value;
-			// Debug::Print(TEXT("StaggerDamage"), SourceStaggerDamage);
+			Debug::Print(TEXT("StaggerDamage"), SourceStaggerDamage);
 		}
 		if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Shared_SetByCaller_Damage_Parry))
 		{
@@ -229,25 +229,25 @@ void UGEExecClac_EnemyDamageTaken::Execute_Implementation(
 				FinalDamage
 			)
 		);
-		if (SourceStaggerDamage > 0.f)
-		{
-			OutExecutionOutput.AddOutputModifier(
-				FGameplayModifierEvaluatedData(
-					GetEliteAttributeSetCapture().StaggerDamageTakenProperty,
-					EGameplayModOp::Override,
-					SourceStaggerDamage
-				)
-			);
-		}
-		if (SourceParryDamage > 0.f)
-		{
-			OutExecutionOutput.AddOutputModifier(
-				FGameplayModifierEvaluatedData(
-					GetEliteAttributeSetCapture().ParryDamageTakenProperty,
-					EGameplayModOp::Override,
-					SourceParryDamage
-				)
-			);
-		}
+	}
+	if (SourceStaggerDamage > 0.f)
+	{
+		OutExecutionOutput.AddOutputModifier(
+			FGameplayModifierEvaluatedData(
+				GetEliteAttributeSetCapture().StaggerDamageTakenProperty,
+				EGameplayModOp::Override,
+				SourceStaggerDamage
+			)
+		);
+	}
+	if (SourceParryDamage > 0.f)
+	{
+		OutExecutionOutput.AddOutputModifier(
+			FGameplayModifierEvaluatedData(
+				GetEliteAttributeSetCapture().ParryDamageTakenProperty,
+				EGameplayModOp::Override,
+				SourceParryDamage
+			)
+		);
 	}
 }
