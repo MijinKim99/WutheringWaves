@@ -8,7 +8,10 @@
 #include "Common/WWBlueprintFunctionLibrary.h"
 #include "Common/WWDebugHelper.h"
 #include "Common/WWGameplayTags.h"
+#include "Common/Components/WWHUDSharedUIComponent.h"
 #include "Common/Interfaces/PawnUIInterface.h"
+#include "Common/Interfaces/WWHUDSharedUIInterface.h"
+#include "KMJ/UIComponents/EnemyUIComponent.h"
 #include "KMJ/UIComponents/PawnUIComponent.h"
 
 
@@ -26,22 +29,31 @@ void UEliteAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectM
 	{
 		CachedUIInterface = TWeakInterfacePtr<IPawnUIInterface>(Data.Target.GetAvatarActor());
 	}
+	// if (!CachedHUDSharedUIInterface.IsValid())
+	// {
+	// 	CachedHUDSharedUIInterface = TWeakInterfacePtr<IWWHUDSharedUIInterface>(Data.Target.GetAvatarActor());
+	// }
 
 	checkf(CachedUIInterface.IsValid(), TEXT("%s does not Implementation IPawnUIInterface."),
 	       *Data.Target.GetAvatarActor()->GetActorLabel());
+	// checkf(CachedHUDSharedUIInterface.IsValid(), TEXT("%s does not Implementation IWWHUDSharedUIInterface."),
+	//        *Data.Target.GetAvatarActor()->GetActorLabel());
 
-	UPawnUIComponent* PawnUIComponent = CachedUIInterface->GetPawnUIComponent();
+	UEnemyUIComponent* EnemyUIComponent = CachedUIInterface->GetEnemyUIComponent();
+	// UWWHUDSharedUIComponent* HUDSharedUIComponent = CachedHUDSharedUIInterface->GetHUDSharedUIComponent();
 
-
-	checkf(PawnUIComponent, TEXT("Can not Load PawnUIComponent from %s"),
-	       *Data.Target.GetAvatarActor()->GetActorLabel());
+	checkf(EnemyUIComponent, TEXT("Can not Load PawnUIComponent from %s"),
+	*Data.Target.GetAvatarActor()->GetActorLabel());
+	// checkf(HUDSharedUIComponent, TEXT("Can not Load WWHUDSharedUIComponent from %s"),
+	// 	   *Data.Target.GetAvatarActor()->GetActorLabel());
 	if (Data.EvaluatedData.Attribute == GetCurrentStaggerAttribute())
 	{
 		const float NewCurrentStagger = FMath::Clamp(GetCurrentStagger(), 0.0f, GetMaxStagger());
 		SetCurrentStagger(NewCurrentStagger);
 
 		//공진 UI 업데이트
-		// PawnUIComponent->OnCurrentStaggerChanged.Broadcast(GetCurrentStagger()/GetMaxStagger());
+		EnemyUIComponent->OnCurrentStaggerChanged.Broadcast(GetCurrentStagger() / GetMaxStagger());
+		// HUDSharedUIComponent->OnUpdateEnemyHUDHPBarStaggerPercent.Broadcast(GetCurrentStagger() / GetMaxStagger());
 	}
 	if (Data.EvaluatedData.Attribute == GetStaggerDamageTakenAttribute())
 	{
@@ -55,7 +67,8 @@ void UEliteAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectM
 				NewCurrentStagger);
 		Debug::Print(DebugString, FColor::Green);
 		//공진 UI 업데이트
-		// PawnUIComponent->OnCurrentStaggerChanged.Broadcast(GetCurrentStagger()/GetMaxStagger());
+		EnemyUIComponent->OnCurrentStaggerChanged.Broadcast(GetCurrentStagger() / GetMaxStagger());
+		// HUDSharedUIComponent->OnUpdateEnemyHUDHPBarStaggerPercent.Broadcast(GetCurrentStagger() / GetMaxStagger());
 		if (NewCurrentStagger == 0.0f)
 		{
 			UWWBlueprintFunctionLibrary::AddTagToActor(Data.Target.GetAvatarActor(),
@@ -65,7 +78,7 @@ void UEliteAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectM
 	if (Data.EvaluatedData.Attribute == GetParryDamageTakenAttribute())
 	{
 		if (UWWBlueprintFunctionLibrary::NativeActorHasTag(Data.Target.GetOwnerActor(),
-		                                                    WWGameplayTags::Enemy_Status_ParryEnabled))
+		                                                   WWGameplayTags::Enemy_Status_ParryEnabled))
 		{
 			UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(Data.Target.GetAvatarActor(),
 			                                                         WWGameplayTags::Enemy_Event_Parried,
@@ -80,7 +93,8 @@ void UEliteAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectM
 					NewCurrentStagger);
 			Debug::Print(DebugString, FColor::Green);
 			//공진 UI 업데이트
-			// PawnUIComponent->OnCurrentStaggerChanged.Broadcast(GetCurrentStagger()/GetMaxStagger());
+			EnemyUIComponent->OnCurrentStaggerChanged.Broadcast(GetCurrentStagger() / GetMaxStagger());
+			// HUDSharedUIComponent->OnUpdateEnemyHUDHPBarStaggerPercent.Broadcast(GetCurrentStagger() / GetMaxStagger());
 			if (NewCurrentStagger == 0.0f)
 			{
 				UWWBlueprintFunctionLibrary::AddTagToActor(Data.Target.GetAvatarActor(),

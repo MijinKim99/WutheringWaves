@@ -37,7 +37,7 @@ public:
 	void InitPlayerCreateWidget(AActor* PlayerCharacter);
 
 	UFUNCTION(BlueprintCallable)
-	void InitHUDSharedWidget(AActor* PlayerController);
+	void InitHUDSharedWidget(AActor* UIOwner);
 	
 	
 };

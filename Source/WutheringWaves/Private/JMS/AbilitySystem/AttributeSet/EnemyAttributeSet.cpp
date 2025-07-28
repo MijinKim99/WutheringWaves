@@ -4,7 +4,9 @@
 #include "JMS/AbilitySystem/AttributeSet/EnemyAttributeSet.h"
 
 #include "GameplayEffectExtension.h"
+#include "Common/Components/WWHUDSharedUIComponent.h"
 #include "Common/Interfaces/PawnUIInterface.h"
+#include "Common/Interfaces/WWHUDSharedUIInterface.h"
 #include "KMJ/UIComponents/PawnUIComponent.h"
 
 
@@ -26,14 +28,21 @@ void UEnemyAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectM
 	{
 		CachedUIInterface = TWeakInterfacePtr<IPawnUIInterface>(Data.Target.GetAvatarActor());
 	}
-
-	checkf(CachedUIInterface.IsValid(), TEXT("%s does not Implementation IPawnUIInterface."), *Data.Target.GetAvatarActor()->GetActorLabel());
-	
+	// if (!CachedHUDSharedUIInterface.IsValid())
+	// {
+	// 	CachedHUDSharedUIInterface = TWeakInterfacePtr<IWWHUDSharedUIInterface>(Data.Target.GetAvatarActor());
+	// }
+	checkf(CachedUIInterface.IsValid(), TEXT("%s does not Implementation IPawnUIInterface."),
+	       *Data.Target.GetAvatarActor()->GetActorLabel());
+	// checkf(CachedHUDSharedUIInterface.IsValid(), TEXT("%s does not Implementation IWWHUDSharedUIInterface."),
+	//        *Data.Target.GetAvatarActor()->GetActorLabel());
 	UPawnUIComponent* PawnUIComponent = CachedUIInterface->GetPawnUIComponent();
+	// UWWHUDSharedUIComponent* HUDSharedUIComponent = CachedHUDSharedUIInterface->GetHUDSharedUIComponent();
 
-	
-	checkf(PawnUIComponent, TEXT("Can not Load PawnUIComponent from %s"), *Data.Target.GetAvatarActor()->GetActorLabel());
-	
+	checkf(PawnUIComponent, TEXT("Can not Load PawnUIComponent from %s"),
+	       *Data.Target.GetAvatarActor()->GetActorLabel());
+	// checkf(HUDSharedUIComponent, TEXT("Can not Load WWHUDSharedUIComponent from %s"),
+	//        *Data.Target.GetAvatarActor()->GetActorLabel());
 	//
 	// if (Data.EvaluatedData.Attribute == GetCurrentHpAttribute())
 	// {

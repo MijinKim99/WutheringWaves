@@ -6,6 +6,11 @@
 #include "GameFramework/Actor.h"
 #include "WWEnemyGroup.generated.h"
 
+
+class IWWHUDSharedUIInterface;
+class UWWHUDSharedUIComponent;
+class UEnemyUIComponent;
+class UWWUserWidget;
 class UBoxComponent;
 class UTextRenderComponent;
 class AEnemyCharacter;
@@ -41,11 +46,17 @@ protected:
 	TArray<FEnemySpawnInfo> EnemySpawnInfoArray;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TArray<AActor*> SpawnedEnemies;
-
+	// 음수로 지정 시 표시 안함, EnemySpawnInfoArray의 인덱스 지정 시 해당 적 HP를 HUD에 표시
+	// UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "HUD")
+	// int32 OwnerIndexOfEnemyHPBarOnHUD = -1;
+	// UWWHUDSharedUIComponent* CachedHUDSharedUIComponent;
+	//
+	// UFUNCTION()
+	// void DelegateTestFunction(float TestFloat);
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	void SendHUDHPBar();
+	// void InitializeHUDHPBar();
 	UFUNCTION(BlueprintCallable)
 	void EnemyDead(AActor* DeadEnemy);
 

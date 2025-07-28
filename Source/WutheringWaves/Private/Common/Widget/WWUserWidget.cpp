@@ -34,9 +34,9 @@ void UWWUserWidget::InitPlayerCreateWidget(AActor* PlayerCharacter)
 	}
 }
 
-void UWWUserWidget::InitHUDSharedWidget(AActor* PlayerController)
+void UWWUserWidget::InitHUDSharedWidget(AActor* UIOwner)
 {
-	if (IWWHUDSharedUIInterface* HUDSharedUIInterface = Cast<IWWHUDSharedUIInterface>(PlayerController))
+	if (IWWHUDSharedUIInterface* HUDSharedUIInterface = Cast<IWWHUDSharedUIInterface>(UIOwner))
 	{
 		if (UWWHUDSharedUIComponent* HUDSharedUIComponent = HUDSharedUIInterface->GetHUDSharedUIComponent())
 		{

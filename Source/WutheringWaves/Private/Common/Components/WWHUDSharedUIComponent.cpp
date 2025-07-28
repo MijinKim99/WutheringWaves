@@ -22,4 +22,24 @@ void UWWHUDSharedUIComponent::BroadcastHUDTimerUpdate(float TimerValue)
 {
 	OnHUDTimerUpdate.Broadcast(TimerValue);
 }
+//
+// void UWWHUDSharedUIComponent::BroadcastSetEnabledEnemyHUDHPBar(bool bEnable, AActor* UIOwner)
+// {
+// 	OnSetEnabledEnemyHUDHPBar.Broadcast(bEnable, UIOwner);
+// }
+//
+// void UWWHUDSharedUIComponent::BroadcastSetEnemyHUDHPBarName(FText CurrentEnemyNameAsFText)
+// {
+// 	OnSetEnemyHUDHPBarName.Broadcast(CurrentEnemyNameAsFText);
+// }
+//
+// void UWWHUDSharedUIComponent::BroadcastUpdateEnemyHUDHPBarHPPercent(float EnemyHPPercent)
+// {
+// 	OnUpdateEnemyHUDHPBarHPPercent.Broadcast(EnemyHPPercent);
+// }
+//
+// void UWWHUDSharedUIComponent::BroadcastUpdateEnemyHUDHPBarStaggerPercent(float EnemyStaggerPercent)
+// {
+// 	OnUpdateEnemyHUDHPBarStaggerPercent.Broadcast(EnemyStaggerPercent);
+// }
 
