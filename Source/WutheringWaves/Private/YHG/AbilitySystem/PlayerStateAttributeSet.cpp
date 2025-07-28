@@ -37,9 +37,9 @@ void UPlayerStateAttributeSet::PostGameplayEffectExecute(const struct FGameplayE
 
 	if (Data.EvaluatedData.Attribute == GetCurrentStaminaAttribute())
 	{
-		if (GetCurrentStamina() > 100.f)
+		if (GetCurrentStamina() > GetMaxStamina())
 		{
-			SetCurrentStamina(100.f);
+			SetCurrentStamina(GetMaxStamina());
 		}
 		
 	}

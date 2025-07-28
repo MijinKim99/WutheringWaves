@@ -57,8 +57,14 @@ namespace WWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_LightAttacking, "Player.Status.LightAttacking")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_UseSkill, "Player.Status.UseSkill")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_SkillCoolTime, "Player.Status.SkillCoolTime")
+	UE_DEFINE_GAMEPLAY_TAG(Player_Status_SkillCoolTime_LightRover, "Player.Status.SkillCoolTime.LightRover")
+	UE_DEFINE_GAMEPLAY_TAG(Player_Status_SkillCoolTime_Chixia, "Player.Status.SkillCoolTime.Chixia")
+	UE_DEFINE_GAMEPLAY_TAG(Player_Status_SkillCoolTime_Verina, "Player.Status.SkillCoolTime.Verina")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_UseBurst, "Player.Status.UseBurst")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_BurstCoolTime, "Player.Status.BurstCoolTime")
+	UE_DEFINE_GAMEPLAY_TAG(Player_Status_BurstCoolTime_LightRover, "Player.Status.BurstCoolTime.LightRover")
+	UE_DEFINE_GAMEPLAY_TAG(Player_Status_BurstCoolTime_Chixia, "Player.Status.BurstCoolTime.Chixia")
+	UE_DEFINE_GAMEPLAY_TAG(Player_Status_BurstCoolTime_Verina, "Player.Status.BurstCoolTime.Verina")
 
 	//Shared SetByCaller
 	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_Damage_Physical, "Shared.SetByCaller.Damage.Physical")

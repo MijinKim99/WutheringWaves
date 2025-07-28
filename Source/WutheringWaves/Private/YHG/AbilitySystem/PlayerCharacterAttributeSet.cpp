@@ -96,6 +96,23 @@ void UPlayerCharacterAttributeSet::PostGameplayEffectExecute(const struct FGamep
 		PawnUIComponent->OnCurrentHpChanged.Broadcast(GetCurrentHp()/GetMaxHp());
 	}
 
+	if (Data.EvaluatedData.Attribute == GetCurrentBurstEnergyAttribute())
+	{
+		if (GetCurrentBurstEnergy() > GetMaxBurstEnergy())
+		{
+			SetCurrentBurstEnergy(GetMaxBurstEnergy());
+		}
+		
+	}
+
+	if (Data.EvaluatedData.Attribute == GetCurrentForteCircuitEnergyAttribute())
+	{
+		if (GetCurrentForteCircuitEnergy() > GetMaxForteCircuitEnergy())
+		{
+			SetCurrentForteCircuitEnergy(GetMaxForteCircuitEnergy());
+		}
+	}
+
 	if (Data.EvaluatedData.Attribute == GetDamageTakenAttribute())
 	{
 		const float BeforeHp = GetCurrentHp();
