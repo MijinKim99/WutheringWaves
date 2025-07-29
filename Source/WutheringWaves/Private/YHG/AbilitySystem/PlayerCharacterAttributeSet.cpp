@@ -98,11 +98,12 @@ void UPlayerCharacterAttributeSet::PostGameplayEffectExecute(const struct FGamep
 
 	if (Data.EvaluatedData.Attribute == GetCurrentBurstEnergyAttribute())
 	{
+		Debug::Print(TEXT("BurstEnergyAttribute is now %f"), GetCurrentBurstEnergy());
 		if (GetCurrentBurstEnergy() > GetMaxBurstEnergy())
 		{
 			SetCurrentBurstEnergy(GetMaxBurstEnergy());
 		}
-		
+		PawnUIComponent->OnCurrentBurstEnergyChanged.Broadcast(GetCurrentBurstEnergy()/GetMaxBurstEnergy());
 	}
 
 	if (Data.EvaluatedData.Attribute == GetCurrentForteCircuitEnergyAttribute())

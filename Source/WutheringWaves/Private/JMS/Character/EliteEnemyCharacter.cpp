@@ -7,6 +7,7 @@
 #include "Common/WWGameplayTags.h"
 #include "JMS/AbilitySystem/AttributeSet/EliteAttributeSet.h"
 #include "JMS/Character/LordEnemyCharacter.h"
+#include "KMJ/UIComponents/EnemyUIComponent.h"
 
 AEliteEnemyCharacter::AEliteEnemyCharacter()
 {
@@ -21,9 +22,10 @@ void AEliteEnemyCharacter::StartParryEvent()
 	ParryGuideDurationCounter = 0.f;
 	ParryEnableDurationCounter = 0.f;
 	Debug::Print(TEXT("Parry Event Started : ALordEnemyCharacter::StartParryEvent()"), FColor::Red);
+	EnemyUIComponent->OnSetParryGuideEnable.Broadcast(true);
 }
 
-void AEliteEnemyCharacter::EnableParry()
+void AEliteEnemyCharacter::EnableParry_Implementation()
 {
 	GetWorld()->GetTimerManager().ClearAllTimersForObject(this);
 	UWWBlueprintFunctionLibrary::AddTagToActor(this,WWGameplayTags::Enemy_Status_ParryEnabled);
@@ -32,25 +34,30 @@ void AEliteEnemyCharacter::EnableParry()
 	GetWorld()->GetTimerManager().SetTimer(UpdateEnableDurationTimerHandle, this,
 										   &ALordEnemyCharacter::UpdateEnableDuration, UpdateInterval, true);
 	Debug::Print(TEXT("Parry Enabled : ALordEnemyCharacter::EnableParry()"), FColor::Red);
+	EnemyUIComponent->OnSetParryGuideEnable.Broadcast(false);
+	EnemyUIComponent->OnSetParryEnable.Broadcast(true);
 }
 
-void AEliteEnemyCharacter::DisableParry()
+void AEliteEnemyCharacter::DisableParry_Implementation()
 {
 	UWWBlueprintFunctionLibrary::RemoveTagFromActor(this, WWGameplayTags::Enemy_Status_ParryEnabled);
 	GetWorld()->GetTimerManager().ClearAllTimersForObject(this);
 	Debug::Print(TEXT("Parry Disabled : ALordEnemyCharacter::DisableParry()"), FColor::Red);
+	EnemyUIComponent->OnSetParryEnable.Broadcast(false);
 }
 
-void AEliteEnemyCharacter::UpdateGuideDuration()
+void AEliteEnemyCharacter::UpdateGuideDuration_Implementation()
 {
 	ParryGuideDurationCounter += UpdateInterval;
-	Debug::Print(FString::Printf(TEXT("Parry Guide Duration : %f"), ParryGuideDurationCounter), FColor::Red, 10);
+	Debug::Print(FString::Printf(TEXT("Parry Guide Percent : %f"), ParryGuideDurationCounter / ParryGuideDuration), FColor::Red, 10);
+	EnemyUIComponent->OnReadyForParryUpdate.Broadcast(ParryGuideDurationCounter / ParryGuideDuration);
 }
 
-void AEliteEnemyCharacter::UpdateEnableDuration()
+void AEliteEnemyCharacter::UpdateEnableDuration_Implementation()
 {
 	ParryEnableDurationCounter += UpdateInterval;
-	Debug::Print(FString::Printf(TEXT("Parry Enable Duration : %f"), ParryEnableDurationCounter), FColor::Red, 10);
+	Debug::Print(FString::Printf(TEXT("Parry Enable Percent : %f"), ParryEnableDurationCounter / ParryEnableDuration), FColor::Red, 10);
+	EnemyUIComponent->OnParryUpdate.Broadcast(ParryEnableDurationCounter / ParryEnableDuration);
 }
 
 TSubclassOf<UWWUserWidget> AEliteEnemyCharacter::GetEnemyUIForHUD()

@@ -27,18 +27,22 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Parry")
 	float ParryEnableDuration = 0.5f;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Parry")
-	float UpdateInterval = 0.1f;
+	float UpdateInterval = 0.05f;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Parry")
 	float ParryGuideDurationCounter = 0.0f;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Parry")
 	float ParryEnableDurationCounter = 0.0f;;
+	UFUNCTION(BlueprintNativeEvent, Category = "Parry")
+	void EnableParry();
+	UFUNCTION(BlueprintNativeEvent, Category = "Parry")
+	void DisableParry();
+	UFUNCTION(BlueprintNativeEvent, Category = "Parry")
+	void UpdateGuideDuration();
+	UFUNCTION(BlueprintNativeEvent, Category = "Parry")
+	void UpdateEnableDuration();
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem")
 	UEliteAttributeSet* EliteAttributeSet;
-	void EnableParry();
-	void DisableParry();
-	void UpdateGuideDuration();
-	void UpdateEnableDuration();
 	FTimerHandle EnableParryTimerHandle;
 	FTimerHandle DisableParryTimerHandle;
 	FTimerHandle UpdateGuideDurationTimerHandle;
