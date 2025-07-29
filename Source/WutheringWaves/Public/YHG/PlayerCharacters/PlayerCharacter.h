@@ -36,6 +36,11 @@ public:
 
 	UPlayerCharacterAttributeSet* GetPlayerCharacterAttributeSet() const;
 
+	UFUNCTION(BlueprintCallable)
+	void SetCurrentHp(float CurrentHp);
+	UFUNCTION(BlueprintCallable)
+	float GetCurrentHp();
+
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
 	USpringArmComponent* CameraBoom;

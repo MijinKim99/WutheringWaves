@@ -57,7 +57,7 @@ UAbilitySystemComponent* APlayerCharacter::GetAbilitySystemComponent() const
 {
 	if (!GetPlayerState())
 	{
-		Debug::Print(TEXT("PlayerCharacter : Can't Execute GetPlayerState()"));
+		Debug::Print(TEXT("PlayerCharacter : Can't Execute GetPlayerState()"),FColor::Red,451234);
 		return nullptr;
 	}
 	return Cast<AWWPlayerState>(GetPlayerState())->GetAbilitySystemComponent();
@@ -66,6 +66,16 @@ UAbilitySystemComponent* APlayerCharacter::GetAbilitySystemComponent() const
 UPlayerCharacterAttributeSet* APlayerCharacter::GetPlayerCharacterAttributeSet() const
 {
 	return PlayerCharacterAttributeSet;
+}
+
+void APlayerCharacter::SetCurrentHp(float CurrentHp)
+{
+	PlayerCharacterAttributeSet->SetCurrentHp(CurrentHp);
+}
+
+float APlayerCharacter::GetCurrentHp()
+{
+	return PlayerCharacterAttributeSet->GetCurrentHp();
 }
 
 void APlayerCharacter::BeginPlay()

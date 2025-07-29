@@ -124,6 +124,15 @@ bool UWWBlueprintFunctionLibrary::ApplyGameplayEffectSpecHandleToTargetActor(AAc
 	return ActiveGameplayEffectHandle.WasSuccessfullyApplied();
 }
 
+void UWWBlueprintFunctionLibrary::SeamlessTravel(UObject* WorldContextObject, const FString& MapReferencePath)
+{
+	if (UWorld* World = GEngine->GetWorldFromContextObject(WorldContextObject, EGetWorldErrorMode::LogAndReturnNull))
+	{
+		FString FullMapURL = FString::Printf(TEXT("%s?listen"), *MapReferencePath);
+		World->ServerTravel(FullMapURL);
+	}
+}
+
 
 /*
 bool UWWBlueprintFunctionLibrary::IsValidBlock(AActor* Attacker, AActor* Defender)
