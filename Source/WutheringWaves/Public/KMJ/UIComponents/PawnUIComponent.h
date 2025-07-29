@@ -21,4 +21,7 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FOnValueChangeForPlayerDelegate OnCurrentHpValueChanged;
+
+	UPROPERTY(BlueprintAssignable)
+	FOnPercentChangeDelegate OnCurrentBurstEnergyChanged;
 };
