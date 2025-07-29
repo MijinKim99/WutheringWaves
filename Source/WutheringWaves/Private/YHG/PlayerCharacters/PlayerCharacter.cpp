@@ -214,6 +214,11 @@ void APlayerCharacter::ApplyWeaponStatsToCharacterAttributeSet(float ApplyAttack
 	PlayerCharacterAttributeSet->SetApplyCriticalRate(ApplyCriticalRate);
 }
 
+void APlayerCharacter::HealtoFullHP()
+{
+	PlayerCharacterAttributeSet->SetCurrentHp(PlayerCharacterAttributeSet->GetMaxHp());
+}
+
 bool APlayerCharacter::GetIsGrounded() const
 {
 	return bIsGrounded;

@@ -89,6 +89,9 @@ protected:
 	float ApplyEnergyRegen,
 	float ApplyCriticalRate
 	);
+
+	UFUNCTION(BlueprintCallable)
+	void HealtoFullHP();
 	
 //StateControl
 protected:

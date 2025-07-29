@@ -96,7 +96,8 @@ UENUM(BlueprintType)
 enum class EWeaponSortStandard : uint8
 {
 	Rarity,
-	Level
+	Level,
+	Reverse
 };
 
 class WWEnum
