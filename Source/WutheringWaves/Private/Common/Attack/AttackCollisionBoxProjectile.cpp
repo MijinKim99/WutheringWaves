@@ -391,6 +391,9 @@ void AAttackCollisionBoxProjectile::InitializeAttachedProjectileAndShootMultiple
 	FGameplayTag InExplosionGameplayCueTag, FGameplayTag InHitReactEventTag, bool bShowCollisionInGame,
 	float LineThickness, float InProjectileGravityScale, bool InbExplodeOnHit, float DurationForNotExplodingProjectile)
 {
+	if (!InstigatorMesh)
+		return;
+	
 	InitializeAttachedProjectileAndShoot_Internal(BoxExtent, InstigatorMesh, AttachSocketName,
 	                                              InGameplayEffectSpecHandles, TargetLocation,
 	                                              ProjectileSpeed, InProjectileGameplayCueTag,
