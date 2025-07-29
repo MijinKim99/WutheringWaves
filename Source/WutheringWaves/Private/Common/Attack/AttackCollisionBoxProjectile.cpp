@@ -212,7 +212,17 @@ void AAttackCollisionBoxProjectile::InitializeProjectileAndShoot_Internal(FVecto
 	ProjectileMovementComponent->InitialSpeed = ProjectileSpeed;
 	ProjectileMovementComponent->MaxSpeed = ProjectileSpeed;
 	ProjectileMovementComponent->Friction = 0.0f;
-	FVector Direction = GetInstigator() ? GetInstigator()->GetActorForwardVector() : GetActorForwardVector();
+	//FVector Direction = GetInstigator() ? GetInstigator()->GetActorForwardVector() : GetActorForwardVector();
+
+	FVector Direction;
+	if (TargetLocation.IsZero())
+	{
+		Direction = GetInstigator() ? GetInstigator()->GetActorForwardVector() : GetActorForwardVector();
+	}
+	else
+	{
+		Direction = (TargetLocation - GetActorLocation()).GetSafeNormal();
+	}
 
 	ProjectileMovementComponent->AddForce(ProjectileSpeed * Direction);
 	if (bShowCollisionInGame)
@@ -270,8 +280,7 @@ void AAttackCollisionBoxProjectile::InitializeAttachedProjectileAndShoot_Interna
 
 	// Explosion 세팅
 	bExplodeOnHit = InbExplodeOnHit;
-
-	//만약 TargetActor가 있다면 유도탄, 그렇지 않다면 일반
+	
 	// ProjectileMovementComponent 활성화
 	ProjectileMovementComponent->Activate();
 	ProjectileMovementComponent->SetUpdatedComponent(GetRootComponent());

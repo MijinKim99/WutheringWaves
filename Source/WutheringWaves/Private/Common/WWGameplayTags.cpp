@@ -39,6 +39,8 @@ namespace WWGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Player_Event_WeaponEquip, "Player.Event.WeaponEquip")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Event_WeaponUnEquip, "Player.Event.WeaponUnEquip")
 	UE_DEFINE_GAMEPLAY_TAG(Player_Event_HitEnemy, "Player.Event.HitEnemy")
+	UE_DEFINE_GAMEPLAY_TAG(Player_Event_DashHit, "Player.Event.DashHit")
+	
 
 	//Player Ability
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Dash, "Player.Ability.Dash")

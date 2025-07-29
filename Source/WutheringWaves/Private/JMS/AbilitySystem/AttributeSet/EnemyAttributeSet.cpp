@@ -4,6 +4,8 @@
 #include "JMS/AbilitySystem/AttributeSet/EnemyAttributeSet.h"
 
 #include "GameplayEffectExtension.h"
+#include "Common/WWBlueprintFunctionLibrary.h"
+#include "Common/WWGameplayTags.h"
 #include "Common/Components/WWHUDSharedUIComponent.h"
 #include "Common/Interfaces/PawnUIInterface.h"
 #include "Common/Interfaces/WWHUDSharedUIInterface.h"
@@ -24,6 +26,10 @@ UEnemyAttributeSet::UEnemyAttributeSet()
 void UEnemyAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data)
 {
 	Super::PostGameplayEffectExecute(Data);
+	if (UWWBlueprintFunctionLibrary::NativeActorHasTag(Data.Target.GetOwnerActor(),WWGameplayTags::Shared_Status_Dead))
+	{
+		return;
+	}
 	if (!CachedUIInterface.IsValid())
 	{
 		CachedUIInterface = TWeakInterfacePtr<IPawnUIInterface>(Data.Target.GetAvatarActor());

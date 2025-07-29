@@ -13,5 +13,7 @@ UCLASS()
 class WUTHERINGWAVES_API AWWGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
+public:
+	AWWGameModeBase();
 	
 };

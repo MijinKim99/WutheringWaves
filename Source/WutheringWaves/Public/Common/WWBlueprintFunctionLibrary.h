@@ -80,4 +80,7 @@ public:
 	static bool ApplyGameplayEffectSpecHandleToTargetActor(AActor* Instigator, AActor* TargetActor,
 	                                                       const FGameplayEffectSpecHandle& SpecHandle);
 
+	UFUNCTION(BlueprintCallable, Category = "FunctionLibrary", meta = (WorldContext = "WorldContextObject"))
+	static void SeamlessTravel(UObject* WorldContextObject, const FString& MapReferencePath);
+
 };

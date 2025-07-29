@@ -26,6 +26,10 @@ UEliteAttributeSet::UEliteAttributeSet()
 void UEliteAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data)
 {
 	Super::PostGameplayEffectExecute(Data);
+	if (UWWBlueprintFunctionLibrary::NativeActorHasTag(Data.Target.GetOwnerActor(),WWGameplayTags::Shared_Status_Dead))
+	{
+		return;
+	}
 	if (!CachedUIInterface.IsValid())
 	{
 		CachedUIInterface = TWeakInterfacePtr<IPawnUIInterface>(Data.Target.GetAvatarActor());
