@@ -293,7 +293,10 @@ void AAttackCollisionBoxProjectile::InitializeAttachedProjectileAndShoot_Interna
 	FVector Direction;
 	if (TargetLocation.IsZero())
 	{
-		Direction = GetInstigator()->GetActorForwardVector();
+		if (GetInstigator())
+		{
+			Direction = GetInstigator()->GetActorForwardVector();
+		}
 	}
 	else
 	{
