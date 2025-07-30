@@ -216,7 +216,10 @@ void APlayerCharacter::ApplyWeaponStatsToCharacterAttributeSet(float ApplyAttack
 
 void APlayerCharacter::HealtoFullHP()
 {
+	//Debug::Print(TEXT("HealToFullHP"));
 	PlayerCharacterAttributeSet->SetCurrentHp(PlayerCharacterAttributeSet->GetMaxHp());
+	GetPawnUIComponent()->OnCurrentHpValueChanged.Broadcast(PlayerCharacterAttributeSet->GetCurrentHp(), PlayerCharacterAttributeSet->GetMaxHp());
+	GetPawnUIComponent()->OnCurrentHpChanged.Broadcast(PlayerCharacterAttributeSet->GetCurrentHp() / PlayerCharacterAttributeSet->GetMaxHp());
 }
 
 bool APlayerCharacter::GetIsGrounded() const

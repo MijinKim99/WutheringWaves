@@ -102,7 +102,7 @@ void UPlayerCharacterAttributeSet::PostGameplayEffectExecute(const struct FGamep
 
 	if (Data.EvaluatedData.Attribute == GetCurrentBurstEnergyAttribute())
 	{
-		Debug::Print(TEXT("BurstEnergyAttribute is now %f"), GetCurrentBurstEnergy());
+		//Debug::Print(TEXT("BurstEnergyAttribute is now %f"), GetCurrentBurstEnergy());
 		if (GetCurrentBurstEnergy() > GetMaxBurstEnergy())
 		{
 			SetCurrentBurstEnergy(GetMaxBurstEnergy());
@@ -134,10 +134,11 @@ void UPlayerCharacterAttributeSet::PostGameplayEffectExecute(const struct FGamep
 		const float NewCurrentHp = FMath::Clamp(BeforeHp - Damage, 0.0f, GetMaxHp());
 		SetCurrentHp(NewCurrentHp);
 
-		const FString DebugString =
+		/*const FString DebugString =
 			FString::Printf(TEXT("Before Hp: %f, Damage: %f, NewCurrentHp : %f"), BeforeHp, Damage, NewCurrentHp);
 
 		Debug::Print(DebugString, FColor::Green);
+		*/
 
 		PawnUIComponent->OnCurrentHpValueChanged.Broadcast(GetCurrentHp(), GetMaxHp());
 		PawnUIComponent->OnCurrentHpChanged.Broadcast(GetCurrentHp() / GetMaxHp());
