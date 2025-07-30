@@ -45,7 +45,7 @@ void AWWCharacter::PossessedBy(AController* NewController)
 
 	if (StartupData.IsNull())
 	{
-		Debug::Print(TEXT("WWCharacter : Can't find StartupData"));
+		//Debug::Print(TEXT("WWCharacter : Can't find StartupData"));
 		return;
 	}
 }

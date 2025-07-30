@@ -57,7 +57,7 @@ UAbilitySystemComponent* APlayerCharacter::GetAbilitySystemComponent() const
 {
 	if (!GetPlayerState())
 	{
-		Debug::Print(TEXT("PlayerCharacter : Can't Execute GetPlayerState()"),FColor::Red,451234);
+		//Debug::Print(TEXT("PlayerCharacter : Can't Execute GetPlayerState()"),FColor::Red,451234);
 		return nullptr;
 	}
 	return Cast<AWWPlayerState>(GetPlayerState())->GetAbilitySystemComponent();
@@ -216,7 +216,10 @@ void APlayerCharacter::ApplyWeaponStatsToCharacterAttributeSet(float ApplyAttack
 
 void APlayerCharacter::HealtoFullHP()
 {
+	//Debug::Print(TEXT("HealToFullHP"));
 	PlayerCharacterAttributeSet->SetCurrentHp(PlayerCharacterAttributeSet->GetMaxHp());
+	GetPawnUIComponent()->OnCurrentHpValueChanged.Broadcast(PlayerCharacterAttributeSet->GetCurrentHp(), PlayerCharacterAttributeSet->GetMaxHp());
+	GetPawnUIComponent()->OnCurrentHpChanged.Broadcast(PlayerCharacterAttributeSet->GetCurrentHp() / PlayerCharacterAttributeSet->GetMaxHp());
 }
 
 bool APlayerCharacter::GetIsGrounded() const

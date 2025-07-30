@@ -64,12 +64,12 @@ void UPlayerDamageTaken::Execute_Implementation(
 		if (TagMagnitude.Key.MatchesTagExact(WWGameplayTags::Shared_SetByCaller_Damage_Physical))
 		{
 			SourcePhysicalDamage = TagMagnitude.Value;
-			Debug::Print(TEXT("PhysicalDamage"), SourcePhysicalDamage);
+			//Debug::Print(TEXT("PhysicalDamage"), SourcePhysicalDamage);
 		}
 	}
 	float TargetDefense = 0.f;
 	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetEnemyDamageCapture().ApplyDefenseDef, EvaluateParameters, TargetDefense);
-	Debug::Print(TEXT("TargetDefense"), TargetDefense);
+	//Debug::Print(TEXT("TargetDefense"), TargetDefense);
 
 	// 현재는 한번에 하나의 대미지만 들어옴
 	float AppliedSourceDamage = SourcePhysicalDamage;
@@ -77,7 +77,7 @@ void UPlayerDamageTaken::Execute_Implementation(
 	float DefenseEffect = 1.0f-(TargetDefense/(TargetDefense + 800.0f));
 	// 캐릭터 공격력, 다양한 공격력 증가 요소, 크리티컬 수치는 적용된 상태로 값이 들어와야 함
 	const float FinalDamage = AppliedSourceDamage * DefenseEffect;
-	Debug::Print(TEXT("FinalDamage"), FinalDamage);
+	//Debug::Print(TEXT("FinalDamage"), FinalDamage);
 
 
 	// 현재는 주어진 대미지 수치만 DamageTaken 어트리뷰트에 Override

@@ -70,7 +70,7 @@ void UEliteAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectM
 			FString::Printf(
 				TEXT("Before Stagger: %f, Stagger Damage: %f, NewCurrentStagger : %f"), BeforeStagger, StaggerDamage,
 				NewCurrentStagger);
-		Debug::Print(DebugString, FColor::Green);
+		//Debug::Print(DebugString, FColor::Green);
 		//공진 UI 업데이트
 		EnemyUIComponent->OnCurrentStaggerChanged.Broadcast(GetCurrentStagger() / GetMaxStagger());
 		// HUDSharedUIComponent->OnUpdateEnemyHUDHPBarStaggerPercent.Broadcast(GetCurrentStagger() / GetMaxStagger());
@@ -96,7 +96,7 @@ void UEliteAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectM
 				FString::Printf(
 					TEXT("Before Stagger: %f, Parry Damage: %f, NewCurrentStagger : %f"), BeforeStagger, ParryDamage,
 					NewCurrentStagger);
-			Debug::Print(DebugString, FColor::Green);
+			//Debug::Print(DebugString, FColor::Green);
 			//공진 UI 업데이트
 			EnemyUIComponent->OnCurrentStaggerChanged.Broadcast(GetCurrentStagger() / GetMaxStagger());
 			// HUDSharedUIComponent->OnUpdateEnemyHUDHPBarStaggerPercent.Broadcast(GetCurrentStagger() / GetMaxStagger());

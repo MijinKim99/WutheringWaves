@@ -49,7 +49,7 @@ void AWWPlayerController::SetupInputComponent()
 
 	if (!DataAsset_InputConfig)
 	{
-		Debug::Print(TEXT("WWPlayerController : Can't find DataAsset_InputConfig"));
+		//Debug::Print(TEXT("WWPlayerController : Can't find DataAsset_InputConfig"));
 		return;
 	}
 
@@ -58,7 +58,7 @@ void AWWPlayerController::SetupInputComponent()
 
 	if (!Subsystem)
 	{
-		Debug::Print(TEXT("WWPlayerController : Can't find Subsystem"));
+		//Debug::Print(TEXT("WWPlayerController : Can't find Subsystem"));
 		return;
 	}
 
@@ -67,7 +67,7 @@ void AWWPlayerController::SetupInputComponent()
 	UWWEnhancedInputComponent* WWEnhancedInputComponent = Cast<UWWEnhancedInputComponent>(InputComponent);
 	if (!WWEnhancedInputComponent)
 	{
-		Debug::Print(TEXT("WWPlayerController : Cast Failed WWEnhancedInputComponent"));
+		//Debug::Print(TEXT("WWPlayerController : Cast Failed WWEnhancedInputComponent"));
 		return;
 	}
 
@@ -131,7 +131,7 @@ void AWWPlayerController::Input_AbilityInputPressed(FGameplayTag InputTag)
 	UWWAbilitySystemComponent* WWAbilitySystemComponent = Cast<UWWAbilitySystemComponent>(GetPlayerState<AWWPlayerState>()->GetAbilitySystemComponent());
 	if (!WWAbilitySystemComponent)
 	{
-		Debug::Print(TEXT("WWPlayerController : Failed Cast WWAbilitySystemComponent"));
+		//Debug::Print(TEXT("WWPlayerController : Failed Cast WWAbilitySystemComponent"));
 		return;
 	}
 	
@@ -143,7 +143,7 @@ void AWWPlayerController::Input_AbilityInputReleased(FGameplayTag InputTag)
 	UWWAbilitySystemComponent* WWAbilitySystemComponent = Cast<UWWAbilitySystemComponent>(GetPlayerState<AWWPlayerState>()->GetAbilitySystemComponent());
 	if (!WWAbilitySystemComponent)
 	{
-		Debug::Print(TEXT("WWPlayerController : Failed Cast WWAbilitySystemComponent"));
+		//Debug::Print(TEXT("WWPlayerController : Failed Cast WWAbilitySystemComponent"));
 		return;
 	}
 	

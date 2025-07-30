@@ -53,7 +53,7 @@ void AAttackCollisionSphereProjectile::OnHitTargetActor(AActor* HitActor)
 	// GameplayEffectSpecHandle 적용
 	if (!GameplayEffectSpecHandle.IsValid())
 	{
-		Debug::Print(FString::Printf(TEXT("%s : GameplayEffectSpecHandle is not valid"), *GetNameSafe(this)));
+		//Debug::Print(FString::Printf(TEXT("%s : GameplayEffectSpecHandle is not valid"), *GetNameSafe(this)));
 		return;
 	}
 

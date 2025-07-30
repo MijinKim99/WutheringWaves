@@ -38,7 +38,7 @@ ETriggerEvent TriggerEvent, UserObject* ContextObject, CallbackFunc Func)
 {
 	if (!InInputConfig)
 	{
-		Debug::Print(TEXT("WWEnhancedInputComponent : Can't find InInputConfig"));
+		//Debug::Print(TEXT("WWEnhancedInputComponent : Can't find InInputConfig"));
 		return;
 	}
 	if (UInputAction* FoundAction = InInputConfig->FindNativeInputActionByTag(InInputTag))

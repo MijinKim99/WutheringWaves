@@ -61,7 +61,7 @@ void AEnemyCharacter::PossessedBy(AController* NewController)
 	}
 	else
 	{
-		Debug::Print(FString::Printf(TEXT("%s : WWAbilitySystemComponent is Null"), *GetNameSafe(this)), FColor::Red);
+		//Debug::Print(FString::Printf(TEXT("%s : WWAbilitySystemComponent is Null"), *GetNameSafe(this)), FColor::Red);
 	}
 }
 
@@ -145,7 +145,7 @@ void AEnemyCharacter::InitEnemyStartUpData()
 				if (UDataAsset_Startup* LoadedData = StartupData.Get())
 				{
 					LoadedData->GiveToAbilitySystemComponent(WWAbilitySystemComponent);
-					Debug::Print(TEXT("Enemy Async StartupData Loaded"), FColor::Green);
+					//Debug::Print(TEXT("Enemy Async StartupData Loaded"), FColor::Green);
 					OnInitialized.Broadcast();
 				}
 			}
@@ -157,7 +157,7 @@ void AEnemyCharacter::CancelEnemyActiveAbilities(UAbilitySystemComponent* ASC, F
 {
 	if (!ASC || !CancelTag.IsValid())
 	{
-		Debug::Print(TEXT("EnemyCharacter : CancelEnemyActiveAbilities, Can't find ASC or CancelTag"));
+		//Debug::Print(TEXT("EnemyCharacter : CancelEnemyActiveAbilities, Can't find ASC or CancelTag"));
 		return;
 	}
 
@@ -182,7 +182,7 @@ void AEnemyCharacter::CancelEnemyAllActiveAbilities(UAbilitySystemComponent* ASC
 {
 	if (!ASC)
 	{
-		Debug::Print(TEXT("EnemyCharacter : CancelEnemyAllActiveAbilities, Can't find ASC"));
+		//Debug::Print(TEXT("EnemyCharacter : CancelEnemyAllActiveAbilities, Can't find ASC"));
 		return;
 	}
 
