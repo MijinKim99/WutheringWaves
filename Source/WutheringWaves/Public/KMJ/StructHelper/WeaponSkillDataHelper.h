@@ -20,5 +20,6 @@ public:
 	static FString WeaponSkillDataHelp(UPARAM(ref) FWeaponSkillData& SkillData);
 
 	UFUNCTION(BlueprintCallable)
-	static TArray<FInventory_Weapon> WeaponSortByStandard(UPARAM(ref) UDataTable* WeaponData, UPARAM(ref) TArray<FInventory_Weapon> WeaponItem, EWeaponSortStandard SortStandard);
+	static TArray<FInventory_Weapon> WeaponSortByStandard(UPARAM(ref) UDataTable* WeaponData,
+		UPARAM(ref) TArray<FInventory_Weapon> WeaponItem, EWeaponSortStandard SortStandard);
 };
