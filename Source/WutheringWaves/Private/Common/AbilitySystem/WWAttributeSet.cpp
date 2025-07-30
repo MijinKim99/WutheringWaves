@@ -62,8 +62,8 @@ void UWWAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModC
 		const float NewCurrentHp = FMath::Clamp(BeforeHp - Damage, 0.0f, GetMaxHp());
 		SetCurrentHp(NewCurrentHp);
 
-		const FString DebugString =
-			FString::Printf(TEXT("Before Hp: %f, Damage: %f, NewCurrentHp : %f"), BeforeHp, Damage, NewCurrentHp);
+		//const FString DebugString =
+			//FString::Printf(TEXT("Before Hp: %f, Damage: %f, NewCurrentHp : %f"), BeforeHp, Damage, NewCurrentHp);
 
 		//Debug::Print(DebugString, FColor::Green);
 		
