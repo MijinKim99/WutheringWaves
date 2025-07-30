@@ -110,7 +110,8 @@ public:
 		
 		// 추가 치환: 스택 수, 지속 시간 등
 		Result = Result.Replace(TEXT("{SkillStack}"), *FString::FromInt(SkillStack));
-		Result = Result.Replace(TEXT("{SkillTime}"), *FString::SanitizeFloat(SkillTime,1));
+		Result = Result.Replace(TEXT("{SkillTime}"), *FString::SanitizeFloat(SkillTime,
+			1));
 
 		return Result;
 	}
