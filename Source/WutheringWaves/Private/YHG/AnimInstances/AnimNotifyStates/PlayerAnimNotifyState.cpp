@@ -17,19 +17,19 @@ void UPlayerAnimNotifyState::NotifyBegin(USkeletalMeshComponent* MeshComp, UAnim
 
 	if (!PlayerCharacter)
 	{
-		Debug::Print(TEXT("PlayerAnimNotifyState : Failed Cast PlayerCharacter"));
+		//Debug::Print(TEXT("PlayerAnimNotifyState : Failed Cast PlayerCharacter"));
 		return;
 	}
 	if (!Controller)
 	{
-		Debug::Print(TEXT("PlayerAnimNotifyState : Failed Cast Controller"));
+		//Debug::Print(TEXT("PlayerAnimNotifyState : Failed Cast Controller"));
 		return;
 	}
 	PlayerState = Controller->GetPlayerState<AWWPlayerState>();
 
 	if (!PlayerState)
 	{
-		Debug::Print(TEXT("PlayerAnimNotifyState : Can't get PlayerState by Controller"));
+		//Debug::Print(TEXT("PlayerAnimNotifyState : Can't get PlayerState by Controller"));
 		return;
 	}
 	
@@ -37,7 +37,7 @@ void UPlayerAnimNotifyState::NotifyBegin(USkeletalMeshComponent* MeshComp, UAnim
 
 	if (!WWPlayerController)
 	{
-		Debug::Print(TEXT("PlayerAnimNotifyState : Failed Cast WWPlayerController"));
+		//Debug::Print(TEXT("PlayerAnimNotifyState : Failed Cast WWPlayerController"));
 		return;
 	}
 }

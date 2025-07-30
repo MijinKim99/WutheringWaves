@@ -18,7 +18,7 @@ AWWAIController::AWWAIController(const FObjectInitializer& ObjectInitializer)
 	//SetDefaultSubobjectClass로 CrowdFollowingComponent 사용
 	if (UCrowdFollowingComponent* CrowdFollowingComponent = Cast<UCrowdFollowingComponent>(GetPathFollowingComponent()))
 	{
-		Debug::Print(TEXT("CrowdFollowingComponent Valid"), FColor::Green);
+		//Debug::Print(TEXT("CrowdFollowingComponent Valid"), FColor::Green);
 	}
 
 	//AISenseConfig_Sight 생성자
@@ -86,11 +86,11 @@ ETeamAttitude::Type AWWAIController::GetTeamAttitudeTowards(const AActor& Other)
 	// 팀 아이디가 낮은 팀만 공격(필요시 변경)
 	if (OtherTeamAgent && OtherTeamAgent->GetGenericTeamId() < GetGenericTeamId())
 	{
-		Debug::Print(FString::Printf(TEXT("%s : Hostile"), *Other.GetName()), FColor::Green, 141);
+		//Debug::Print(FString::Printf(TEXT("%s : Hostile"), *Other.GetName()), FColor::Green, 141);
 		return ETeamAttitude::Hostile;
 	}
 
-	Debug::Print(FString::Printf(TEXT("%s : Friendly"), *Other.GetName()), FColor::Green, 142);
+	//Debug::Print(FString::Printf(TEXT("%s : Friendly"), *Other.GetName()), FColor::Green, 142);
 	return ETeamAttitude::Friendly;
 }
 

@@ -100,7 +100,7 @@ void AWWEnemyGroup::EnemyDead(AActor* DeadEnemy)
 	if (SpawnedEnemies.Num() == 0)
 	{
 		OnAllEnemyDead.Broadcast();
-		Debug::Print(FString::Printf(TEXT("All Enemy Dead : %s"), *GetName()));
+		//Debug::Print(FString::Printf(TEXT("All Enemy Dead : %s"), *GetName()));
 	}
 }
 

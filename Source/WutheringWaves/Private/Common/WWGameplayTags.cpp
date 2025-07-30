@@ -116,6 +116,7 @@ namespace WWGameplayTags
 	//Enemy Status
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Status_Staggered, "Enemy.Status.Staggered")
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Status_ParryEnabled, "Enemy.Status.ParryEnabled")
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Status_HitCooldown, "Enemy.Status.HitCooldown")
 
 	//JMS Test Player Event
 	UE_DEFINE_GAMEPLAY_TAG(Player_Event_HitEnemy_Start, "Player.Event.HitEnemy.Start")

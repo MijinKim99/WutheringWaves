@@ -15,7 +15,7 @@ void UWWAnimNotifyState::NotifyBegin(USkeletalMeshComponent* MeshComp, UAnimSequ
 
 	if (!SkeletalMeshComponent)
 	{
-		Debug::Print(TEXT("WWAnimNotifyState : Can't find SkeletalMeshComponent"));
+		//Debug::Print(TEXT("WWAnimNotifyState : Can't find SkeletalMeshComponent"));
 		return;
 	}
 	
@@ -23,7 +23,7 @@ void UWWAnimNotifyState::NotifyBegin(USkeletalMeshComponent* MeshComp, UAnimSequ
 
 	if (!WWCharacter)
 	{
-		Debug::Print(TEXT("WWAnimNotifyState : Failed Cast WWCharacter"));
+		//Debug::Print(TEXT("WWAnimNotifyState : Failed Cast WWCharacter"));
 		return;
 	}
 	
@@ -31,7 +31,7 @@ void UWWAnimNotifyState::NotifyBegin(USkeletalMeshComponent* MeshComp, UAnimSequ
 
 	if (!Controller)
 	{
-		Debug::Print(TEXT("WWAnimNotifyState : Can't find Controller"));
+		//Debug::Print(TEXT("WWAnimNotifyState : Can't find Controller"));
 		return;
 	}
 	

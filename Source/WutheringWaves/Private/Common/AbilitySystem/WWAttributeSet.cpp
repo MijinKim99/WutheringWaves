@@ -65,7 +65,7 @@ void UWWAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModC
 		const FString DebugString =
 			FString::Printf(TEXT("Before Hp: %f, Damage: %f, NewCurrentHp : %f"), BeforeHp, Damage, NewCurrentHp);
 
-		Debug::Print(DebugString, FColor::Green);
+		//Debug::Print(DebugString, FColor::Green);
 		
 		PawnUIComponent->OnCurrentHpValueChanged.Broadcast(GetCurrentHp(), GetMaxHp());
 		PawnUIComponent->OnCurrentHpChanged.Broadcast(GetCurrentHp()/GetMaxHp());

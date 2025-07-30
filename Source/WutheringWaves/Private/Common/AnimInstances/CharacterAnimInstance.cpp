@@ -16,14 +16,14 @@ void UCharacterAnimInstance::NativeInitializeAnimation()
 	OwningCharacter = Cast<AWWCharacter>(TryGetPawnOwner());
 	if (!OwningCharacter)
 	{
-		Debug::Print(TEXT("CharacterAnimInstance : Cast Failed OwningCharacter"));
+		//Debug::Print(TEXT("CharacterAnimInstance : Cast Failed OwningCharacter"));
 		return;
 	}
 	
 	OwningMovementComponent = OwningCharacter->GetCharacterMovement();
 	if (!OwningMovementComponent)
 	{
-		Debug::Print(TEXT("CharacterAnimInstance : Can't find CharacterMovement"));
+		//Debug::Print(TEXT("CharacterAnimInstance : Can't find CharacterMovement"));
 		return;
 	}
 }

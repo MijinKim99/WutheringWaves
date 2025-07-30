@@ -57,7 +57,7 @@ UAbilitySystemComponent* APlayerCharacter::GetAbilitySystemComponent() const
 {
 	if (!GetPlayerState())
 	{
-		Debug::Print(TEXT("PlayerCharacter : Can't Execute GetPlayerState()"),FColor::Red,451234);
+		//Debug::Print(TEXT("PlayerCharacter : Can't Execute GetPlayerState()"),FColor::Red,451234);
 		return nullptr;
 	}
 	return Cast<AWWPlayerState>(GetPlayerState())->GetAbilitySystemComponent();

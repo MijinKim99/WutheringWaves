@@ -12,7 +12,7 @@ void UDataAsset_Startup::GiveToAbilitySystemComponent(UWWAbilitySystemComponent*
 	//ASC정보가 유효한지 체크  
 	if (!ASC)
 	{
-		Debug::Print(TEXT("DataAsset_Startup : can't find ASC"));
+		//Debug::Print(TEXT("DataAsset_Startup : can't find ASC"));
 	}
 
 	//두 종류 모두 부여
