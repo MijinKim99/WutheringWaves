@@ -14,7 +14,7 @@
 ### Development
 <div>
 <img src="https://img.shields.io/badge/C%23-512BD4?style=flat-square&logo=csharp&logoColor=white"/>
-<img src="https://img.shields.io/badge/Unity-000000?style=flat-square&logo=unreal&logoColor=white"/>
+<img src="https://img.shields.io/badge/Unreal-000000?style=flat-square&logo=unreal&logoColor=white"/>
 </div>
 
 ### Tools & Communication
