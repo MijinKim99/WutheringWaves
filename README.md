@@ -27,7 +27,7 @@
 </div>
 
 ## 자료
-[PPT](https://drive.google.com/file/d/1GPF8fGQyIBToxCnXiU3wsNCwi8CEAxz6/view?usp=share_link)
+[PPT](https://drive.google.com/file/d/1MnS2v6If6Yqjyq6sGg8vCqgcCpYp_dq8/view?usp=share_link)
 
 ## 주요 기능 ✨
 
