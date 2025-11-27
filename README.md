@@ -1,6 +1,6 @@
 # WutheringWaves 🎮
 
-[![시연 영상 미리보기](https://img.youtube.com/vi/Eo5ejP-aMpk/0.jpg)](https://www.youtube.com/watch?v=Eo5ejP-aMpk)
+[![시연 영상 미리보기](https://img.youtube.com/vi/BNmhlIee6TE/0.jpg)](https://youtu.be/BNmhlIee6TE)
 
 ---
 
