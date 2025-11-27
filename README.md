@@ -63,16 +63,10 @@
 
 - `Source/`  
   - 인벤토리 데이터 구조 및 정렬 로직(C++) 구현.
-- `Content/UI/`  
+- `Content/_BP/KMJ/UI/`  
   - Player HUD, PlayerSettingWidget, Weapon Inventory, 정렬 버튼 위젯 등 UMG 애셋.
-- `Content/Characters/`  
-  - 캐릭터 스켈레탈 메시 및 SceneCapture2D를 활용한 캐릭터 미리보기 설정.
 
 ## 실행 관련 안내 ⚠
 
 - 저장소에 포함된 언리얼 프로젝트는 일부 에셋이 제외되어 있어 바로 실행이 어려울 수 있습니다.
 - 실제 동작 화면은 시연 영상과 발표 자료(PPT)를 참고하는 것을 권장합니다.
-
-## 경고
-+ 해당 언리얼 파일은 Asset이 빠진 버전으로 정상 구동이 되지 않습니다
-+ 깃허브는 언리얼 파일의 Source Code 확인용으로만 사용하시고, 구동은 실행 영상과 PPT를 참고해주시길 바랍니다
